@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "617043390256",
+    "firebase_url": "https://fitnessapi-c0201-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fitnessapi-c0201",
+    "storage_bucket": "fitnessapi-c0201.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617043390256:android:8f4c024abb7864bb06e2f5",
+        "android_client_info": {
+          "package_name": "com.khangle.myfitnessapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617043390256-fpo3gktann88hpb5m7tm97opsj7j8pi9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.khangle.myfitnessapp",
+            "certificate_hash": "caa2ac6e9d8944c4bc87b6a543a50fea0095980c"
+          }
+        },
+        {
+          "client_id": "617043390256-bklot6pq2kvsc47p3sjgkmuac8v82ifg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWT2ziraE4nrMGrCR4l4dvpqBph4NcJBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617043390256-bklot6pq2kvsc47p3sjgkmuac8v82ifg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
