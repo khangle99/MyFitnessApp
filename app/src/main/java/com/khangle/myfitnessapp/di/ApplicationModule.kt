@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.khangle.myfitnessapp.data.db.MyFitnessDB
 import com.khangle.myfitnessapp.data.db.MyFitnessDao
+import com.khangle.myfitnessapp.data.db.StringListTypeConverter
 import com.khangle.myfitnessapp.data.network.MyFitnessAppService
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,7 @@ import javax.inject.Singleton
 object ApplicationModule {
     const val BASE_URL = "https://myfitnessapi.herokuapp.com/"
     const val BASE_URL2 = "http://192.168.1.5:5000/"
+
     @Provides
     @Singleton
     fun provideClient(@ApplicationContext context: Context): OkHttpClient {
@@ -52,7 +54,8 @@ object ApplicationModule {
         return Room.databaseBuilder(
             context,
             MyFitnessDB::class.java, "myfitnessdb"
-        ).build()
+        ).addTypeConverter(StringListTypeConverter())
+            .build()
     }
 
     @Provides

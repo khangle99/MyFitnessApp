@@ -2,6 +2,7 @@ package com.khangle.myfitnessapp.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
@@ -24,6 +25,7 @@ import com.khangle.myfitnessapp.model.user.UserStep
         Excercise::class
     ), version = 1
 )
+@TypeConverters(StringListTypeConverter::class)
 abstract class MyFitnessDB : RoomDatabase() {
     abstract fun myFitnessDao(): MyFitnessDao
 }
