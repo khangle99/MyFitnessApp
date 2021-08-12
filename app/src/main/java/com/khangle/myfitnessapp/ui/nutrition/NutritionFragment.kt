@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.main.ui.home
+package com.khangle.myfitnessapp.ui.nutrition
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.khangle.myfitnessapp.databinding.FragmentHomeBinding
+import com.khangle.myfitnessapp.databinding.FragmentNutritionBinding
 
-class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private var _binding: FragmentHomeBinding? = null
+class NutritionFragment : Fragment() {
+
+    private lateinit var nutritionViewModel: NutritionViewModel
+    private var _binding: FragmentNutritionBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,14 +25,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        nutritionViewModel =
+            ViewModelProvider(this).get(NutritionViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentNutritionBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        nutritionViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

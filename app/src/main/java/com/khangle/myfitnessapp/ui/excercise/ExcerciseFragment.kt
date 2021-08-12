@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.main.ui.gallery
+package com.khangle.myfitnessapp.ui.excercise
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,32 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.khangle.myfitnessapp.databinding.FragmentGalleryBinding
+import com.khangle.myfitnessapp.databinding.FragmentExcerciseBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class GalleryFragment : Fragment() {
+@AndroidEntryPoint
+class ExcerciseFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
-    private var _binding: FragmentGalleryBinding? = null
+    private val excerciseViewModel: ExcerciseViewModel by viewModels()
+    private var _binding: FragmentExcerciseBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+    ): View {
 
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        _binding = FragmentExcerciseBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textGallery
-        galleryViewModel.text.observe(viewLifecycleOwner, Observer {
+        excerciseViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
         return root

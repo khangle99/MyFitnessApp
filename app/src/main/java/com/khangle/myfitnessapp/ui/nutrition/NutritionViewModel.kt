@@ -1,10 +1,10 @@
-package com.khangle.myfitnessapp.ui.main.ui.home
+package com.khangle.myfitnessapp.ui.nutrition
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class NutritionViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
