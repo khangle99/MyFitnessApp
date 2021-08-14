@@ -1,15 +1,18 @@
 package com.khangle.myfitnessapp.ui.excercise
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.databinding.FragmentExcerciseBinding
+import com.khangle.myfitnessapp.extension.commitAnimate
+import com.khangle.myfitnessapp.ui.excercise.category.ExcerciseCategoryFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,14 +28,14 @@ class ExcerciseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentExcerciseBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textGallery
-        excerciseViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
+        childFragmentManager.commitAnimate {
+            setReorderingAllowed(true)
+            add<ExcerciseCategoryFragment>(R.id.excerciseContainer)
+        }
+
         return root
     }
 

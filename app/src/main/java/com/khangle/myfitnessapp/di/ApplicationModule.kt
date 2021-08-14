@@ -42,7 +42,7 @@ object ApplicationModule {
     fun provideWebservice(okHttpClient: OkHttpClient): MyFitnessAppService {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(BASE_URL2)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MyFitnessAppService::class.java)
