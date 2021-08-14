@@ -7,14 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.ui.excercise.ExcerciseViewModel
+import com.khangle.myfitnessapp.ui.excercise.exclist.ExcListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ExcerciseCategoryFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
@@ -37,10 +42,17 @@ class ExcerciseCategoryFragment : Fragment() {
         })
         viewModel.invalidateExcCategory()
         adapter = ExcCategoryListAdapter {
+            val frag = ExcListFragment()
+            frag.arguments = bundleOf("category" to it)
+            parentFragmentManager.commitAnimate {
+                     addToBackStack(null)
+                    replace(R.id.excerciseContainer, frag)
 
+            }
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
     }
 
 }

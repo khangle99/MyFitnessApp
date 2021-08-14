@@ -10,7 +10,9 @@ inline fun FragmentManager.commitAnimate(
 ) {
     val transaction = beginTransaction()
     transaction.setCustomAnimations(R.anim.slide_in,R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+
     transaction.body()
+    transaction.addToBackStack(null)
     if (allowStateLoss) {
         transaction.commitAllowingStateLoss()
     } else {

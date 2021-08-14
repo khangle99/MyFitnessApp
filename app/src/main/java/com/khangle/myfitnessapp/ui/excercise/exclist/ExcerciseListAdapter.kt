@@ -1,4 +1,4 @@
-package com.khangle.myfitnessadmin.excercise.exclist
+package com.khangle.myfitnessapp.ui.excercise.exclist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.khangle.myfitnessadmin.R
-import com.khangle.myfitnessadmin.model.Excercise
+import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.model.Excercise
 
 
 class ExcerciseListAdapter(val onItemclick: (item: Excercise) -> Unit):

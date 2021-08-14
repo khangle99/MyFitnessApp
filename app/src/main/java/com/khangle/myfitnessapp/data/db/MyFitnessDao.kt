@@ -44,7 +44,11 @@ interface MyFitnessDao {
     @Transaction
     suspend fun invalidateExcercise(catId: String,vararg excercise: Excercise) {
         deleteAllExcerciseByCatId(catId)
-        insertExcercise(*excercise)
+        val list = excercise.asList()
+        list.forEach {
+            it.catId = catId
+        }
+        insertExcercise(*list.toTypedArray())
     }
 
     // nutrition

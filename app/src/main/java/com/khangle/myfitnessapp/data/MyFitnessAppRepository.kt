@@ -13,6 +13,7 @@ class  MyFitnessAppRepository @Inject constructor(private val service: MyFitness
      fun getExcerciseCategory(): Flow<List<ExcerciseCategory>> {
         return dao.getExcCategory()
     }
+
     suspend fun invalidateExcCategory() {
         print("")
         val excerciseCategory = service.fetchExcerciseCategory()
