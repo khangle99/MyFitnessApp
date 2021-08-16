@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.statistic.report.StatReportFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/whchart"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"/>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/bmichart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+        <TextView
+            android:gravity="center"
+            android:text="Report:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:background="@color/teal_200"
+            android:textSize="18sp"
+            android:layout_margin="10dp"
+            android:text="Sample report"
+            android:id="@+id/reportText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>
