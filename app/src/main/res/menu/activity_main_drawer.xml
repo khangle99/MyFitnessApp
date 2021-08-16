@@ -16,5 +16,13 @@
             android:id="@+id/nav_statistic"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_statistic" />
+        <item
+            android:id="@+id/nav_steptrack"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_steptrack" />
+        <item
+            android:id="@+id/nav_userexc"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_userexc" />
     </group>
 </menu>

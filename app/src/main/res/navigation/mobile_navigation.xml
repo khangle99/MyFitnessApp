@@ -22,4 +22,16 @@
         android:name="com.khangle.myfitnessapp.ui.statistic.StatisticFragment"
         android:label="@string/menu_statistic"
         tools:layout="@layout/fragment_statistic" />
+
+    <fragment
+        android:id="@+id/nav_steptrack"
+        android:name="com.khangle.myfitnessapp.ui.stepstrack.StepTrackFragment"
+        android:label="@string/menu_steptrack"
+        tools:layout="@layout/fragment_step_track" />
+
+    <fragment
+        android:id="@+id/nav_userexc"
+        android:name="com.khangle.myfitnessapp.ui.userexc.UserExcFragment"
+        android:label="@string/menu_userexc"
+        tools:layout="@layout/fragment_user_exc" />
 </navigation>

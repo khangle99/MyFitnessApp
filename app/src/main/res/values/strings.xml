@@ -11,6 +11,8 @@
     <string name="menu_nutrition">Nutrition</string>
     <string name="menu_excercise">Excercise</string>
     <string name="menu_statistic">Statistic</string>
+    <string name="menu_steptrack">StepTrack</string>
+    <string name="menu_userexc">My Excercise</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
