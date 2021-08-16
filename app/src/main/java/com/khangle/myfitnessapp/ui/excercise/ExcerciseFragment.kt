@@ -18,9 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ExcerciseFragment : Fragment() {
 
-    private val excerciseViewModel: ExcerciseViewModel by viewModels()
     private var _binding: FragmentExcerciseBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -30,12 +28,10 @@ class ExcerciseFragment : Fragment() {
     ): View {
         _binding = FragmentExcerciseBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        childFragmentManager.commitAnimate {
+        childFragmentManager.commit {
             setReorderingAllowed(true)
             add<ExcerciseCategoryFragment>(R.id.excerciseContainer)
         }
-
         return root
     }
 

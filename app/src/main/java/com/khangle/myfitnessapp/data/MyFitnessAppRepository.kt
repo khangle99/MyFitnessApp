@@ -15,9 +15,7 @@ class  MyFitnessAppRepository @Inject constructor(private val service: MyFitness
     }
 
     suspend fun invalidateExcCategory() {
-        print("")
         val excerciseCategory = service.fetchExcerciseCategory()
-        print(excerciseCategory)
         dao.invalidateExcCategory(*excerciseCategory.toTypedArray())
     }
 

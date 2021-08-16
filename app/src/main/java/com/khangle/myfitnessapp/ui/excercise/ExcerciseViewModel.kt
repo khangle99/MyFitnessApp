@@ -32,8 +32,4 @@ class ExcerciseViewModel @Inject constructor(private val repository: MyFitnessAp
             }
         }
     }
-
-
-
-
 }

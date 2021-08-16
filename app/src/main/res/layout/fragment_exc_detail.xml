@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.excercise.excdetail.ExcDetailFragment">
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -63,9 +64,17 @@
             android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tutoriaRecycle"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/viewStepBtn"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:text="View Steps"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/addFavourite"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:text="Add to Favourite"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

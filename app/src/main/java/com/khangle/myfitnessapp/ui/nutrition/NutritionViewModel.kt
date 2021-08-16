@@ -1,13 +1,37 @@
 package com.khangle.myfitnessapp.ui.nutrition
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.khangle.myfitnessapp.data.MyFitnessAppRepository
+import com.khangle.myfitnessapp.model.Excercise
+import com.khangle.myfitnessapp.model.ExcerciseCategory
+import com.khangle.myfitnessapp.model.Menu
+import com.khangle.myfitnessapp.model.NutritionCategory
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NutritionViewModel : ViewModel() {
+@HiltViewModel
+class NutritionViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
+    private val _nutCategory = repository.getNutritionCategory().asLiveData(Dispatchers.IO)
+    val nutCategory: LiveData<List<NutritionCategory>> = _nutCategory
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    fun invalidateNutCategory() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.invalidateNutCategory()
+        }
     }
-    val text: LiveData<String> = _text
+
+    private val _menuList = MutableLiveData<List<Menu>>()
+    val menuList: LiveData<List<Menu>> = _menuList
+
+    fun invalidateMenu(nutCategory: NutritionCategory) {
+        viewModelScope.launch {
+            repository.invalidateMenuList(nutCategory.id)
+            repository.getMenuList(nutCategory.id).collect {
+                _menuList.postValue(it)
+            }
+        }
+    }
 }

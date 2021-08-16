@@ -15,15 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessApp">
-        <activity
-            android:name=".ui.main.ContainerActivity"
-            android:label="@string/title_activity_container"
+        <activity android:name=".ui.LaunchScreenActivity"
+            android:noHistory="true"
             android:theme="@style/Theme.MyFitnessApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.main.ContainerActivity"
+            android:theme="@style/Theme.MyFitnessApp.NoActionBar">
+
         </activity>
     </application>
 

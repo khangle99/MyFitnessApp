@@ -79,7 +79,11 @@ interface MyFitnessDao {
     @Transaction
     suspend fun invalidateMenu(catId: String, vararg menu: Menu) {
         deleteAllMenuByCatId(catId)
-        insertMenu(*menu)
+        val list = menu.asList()
+        list.forEach {
+            it.catId = catId
+        }
+        insertMenu(*list.toTypedArray())
     }
 
     // session
