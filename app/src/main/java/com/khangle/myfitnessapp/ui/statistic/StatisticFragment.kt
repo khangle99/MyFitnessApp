@@ -38,6 +38,7 @@ class StatisticFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         pageAdapter = StatisticFragmentPageAdapter(this, statisticViewModel)
         binding.statisPager.adapter = pageAdapter
+        binding.statisPager.isUserInputEnabled = false
         TabLayoutMediator(binding.statTablayout, binding.statisPager) { tab, position ->
             if (position == 0) {
                 tab.text = "History"

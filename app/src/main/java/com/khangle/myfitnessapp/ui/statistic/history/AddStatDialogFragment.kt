@@ -14,6 +14,8 @@ import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.model.user.UserStat
 import com.khangle.myfitnessapp.ui.statistic.StatisticViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 class AddStatDialogFragment constructor(private val viewmodel: StatisticViewModel): DialogFragment() {
@@ -46,7 +48,6 @@ class AddStatDialogFragment constructor(private val viewmodel: StatisticViewMode
         addChip.setOnClickListener {
             val stat = getStatFromInput()
             viewmodel.addStat(stat) {
-                Toast.makeText(context,"Add success", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

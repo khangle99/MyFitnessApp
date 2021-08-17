@@ -13,27 +13,31 @@ import com.khangle.myfitnessapp.common.BMICalculator
 import com.khangle.myfitnessapp.model.Menu
 import com.khangle.myfitnessapp.model.user.UserStat
 
-class StatHistoryListAdapter: ListAdapter<UserStat, StatHistoryListAdapter.UserStatViewHolder>(
-    statDiffUtil) {
+class StatHistoryListAdapter : ListAdapter<UserStat, StatHistoryListAdapter.UserStatViewHolder>(
+    statDiffUtil
+) {
 
 
     class UserStatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val weightTV: TextView
         val heightTV: TextView
         val bmiTV: TextView
+        val dateTV: TextView
         lateinit var item: UserStat
 
         init {
             weightTV = itemView.findViewById(R.id.statWeight)
             heightTV = itemView.findViewById(R.id.statHeight)
             bmiTV = itemView.findViewById(R.id.bmiTV)
+            dateTV = itemView.findViewById(R.id.dateTV)
         }
 
         fun bind(stat: UserStat) {
             item = stat
-           weightTV.text = item.weight.toString()
-            heightTV.text = item.height.toString()
-            bmiTV.text = BMICalculator.bmiFrom(item.weight, item.height).toString()
+            weightTV.text = "${item.weight} kg"
+            heightTV.text = "${item.height} cm"
+            dateTV.text = item.dateString
+            bmiTV.text = "BMI: " + BMICalculator.bmiFrom(item.weight, item.height).toString()
         }
     }
 
