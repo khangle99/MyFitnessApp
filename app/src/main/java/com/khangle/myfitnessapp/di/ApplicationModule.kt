@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.khangle.myfitnessapp.data.db.MyFitnessDB
 import com.khangle.myfitnessapp.data.db.MyFitnessDao
 import com.khangle.myfitnessapp.data.db.StringListTypeConverter
+import com.khangle.myfitnessapp.data.network.MyFitnessAppAuthService
 import com.khangle.myfitnessapp.data.network.MyFitnessAppService
 import dagger.Module
 import dagger.Provides
@@ -46,6 +47,17 @@ object ApplicationModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MyFitnessAppService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthWebservice(okHttpClient: OkHttpClient): MyFitnessAppAuthService {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(MyFitnessAppAuthService::class.java)
     }
 
     @Provides

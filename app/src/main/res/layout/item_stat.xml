@@ -9,27 +9,35 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
             android:orientation="vertical"
             android:layout_height="match_parent">
             <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:text="Sample"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:id="@+id/statHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/statWeight"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="Sample"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <TextView
             android:layout_margin="10dp"
+            android:gravity="end"
             android:layout_gravity="center"
-            android:id="@+id/categoryNameTextview"
+            android:id="@+id/bmiTV"
             android:layout_weight="1"
             tools:text="Sample"
             android:textSize="24sp"
