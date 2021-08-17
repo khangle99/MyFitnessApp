@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class StatisticFragment : Fragment() {
 
     private lateinit var pageAdapter: StatisticFragmentPageAdapter
-    private val statisticViewModel: StatisticViewModel by viewModels()
+    val statisticViewModel: StatisticViewModel by viewModels()
     private var _binding: FragmentStatisticBinding? = null
 
     private val binding get() = _binding!!

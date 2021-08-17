@@ -1,11 +1,12 @@
 package com.khangle.myfitnessapp.data.network
 
+import androidx.room.Delete
 import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
 import com.khangle.myfitnessapp.model.NutritionCategory
-import retrofit2.http.GET
-import retrofit2.http.Query
+import com.khangle.myfitnessapp.model.user.UserStat
+import retrofit2.http.*
 
 interface MyFitnessAppService {
     /////////feed
@@ -24,9 +25,21 @@ interface MyFitnessAppService {
 
     //////////////stat
 
+    @GET("userStatHistory")
+    suspend fun fetchUserStat(@Field("uid") uid: String): List<UserStat>
 
+    @FormUrlEncoded
+    @POST("newUserStatHistory")
+    suspend fun postStat(@Field("uid") uid: String,
+                         @Field("dateString") dateString: String,
+                         @Field("weight") weight: Int,
+                         @Field("height") height: Int):
+            ResponseMessage
 
-
+    @DELETE("deleteUserStatHistory")
+    suspend fun deleteStat(@Query("uid") uid: String,
+                           @Query("statId") statId: String):
+            ResponseMessage
     /////////////session
 
 
@@ -43,3 +56,5 @@ interface MyFitnessAppService {
 
 
 }
+
+class ResponseMessage(val id: String?,val error: String?)

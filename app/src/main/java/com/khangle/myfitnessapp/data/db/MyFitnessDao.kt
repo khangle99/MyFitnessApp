@@ -1,9 +1,6 @@
 package com.khangle.myfitnessapp.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
@@ -127,10 +124,15 @@ interface MyFitnessDao {
     suspend fun deleteAllUserStat()
 
     @Transaction
-    suspend fun invalidateState(vararg userStat: UserStat) {
+    suspend fun invalidateStat(vararg userStat: UserStat) {
         deleteAllUserStat()
         insertUserStat(*userStat)
     }
+
+    @Query("DELETE FROM UserStat WHERE id = :statId")
+    suspend fun deleteUserStat(statId: String)
+
+
     //step
     @Query("SELECT * FROM UserStep")
     fun getUserStep(): Flow<List<UserStep>>
@@ -142,7 +144,7 @@ interface MyFitnessDao {
     suspend fun deleteAllUserStep()
 
     @Transaction
-    suspend fun invalidateState(vararg userStep: UserStep) {
+    suspend fun invalidateStep(vararg userStep: UserStep) {
         deleteAllUserStep()
         insertUserStep(*userStep)
     }
