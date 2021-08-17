@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+    tools:context=".ui.statistic.history.AddStatDialogFragment">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_bkg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="Date: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <DatePicker
+            android:id="@+id/statDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+    </LinearLayout>
+  <LinearLayout
+      android:layout_margin="10dp"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="50dp">
+      <TextView
+          android:gravity="center"
+          android:text="Weight: "
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"/>
+      <Spinner
+          android:gravity="center"
+          android:layout_weight="1"
+          android:id="@+id/weightSpinner"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"/>
+      <TextView
+          android:gravity="center"
+          android:text="kg"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"/>
+  </LinearLayout>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="center"
+            android:text="Height: "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <Spinner
+            android:id="@+id/heightSpinner"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <TextView
+        android:gravity="center"
+        android:text="cm"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.chip.Chip
+            android:id="@+id/cancelAddStatBtn"
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textAlignment="center"
+            android:layout_height="60dp"/>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/addStatBtn"
+            app:chipBackgroundColor="@color/colorPrimary"
+            android:layout_width="0dp"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Add"
+            android:textAlignment="center"
+            android:layout_height="60dp"/>
+    </LinearLayout>
+
+</LinearLayout>

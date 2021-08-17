@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.ui.statistic.StatisticFragment
+import com.khangle.myfitnessapp.ui.statistic.StatisticViewModel
 
 
-class StatReportFragment : Fragment() {
-    private val viewmodel = (requireParentFragment() as StatisticFragment).statisticViewModel
+class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

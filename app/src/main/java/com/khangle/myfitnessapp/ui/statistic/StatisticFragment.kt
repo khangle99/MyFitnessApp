@@ -13,7 +13,6 @@ import com.github.mikephil.charting.data.CombinedData
 import com.google.android.material.tabs.TabLayoutMediator
 import com.khangle.myfitnessapp.databinding.FragmentStatisticBinding
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class StatisticFragment : Fragment() {
 
@@ -28,7 +27,7 @@ class StatisticFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        statisticViewModel.getStatHistory()
         _binding = FragmentStatisticBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -37,7 +36,7 @@ class StatisticFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pageAdapter = StatisticFragmentPageAdapter(this)
+        pageAdapter = StatisticFragmentPageAdapter(this, statisticViewModel)
         binding.statisPager.adapter = pageAdapter
         TabLayoutMediator(binding.statTablayout, binding.statisPager) { tab, position ->
             if (position == 0) {

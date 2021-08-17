@@ -6,15 +6,15 @@ import com.khangle.myfitnessapp.ui.statistic.history.StatHistoryFragment
 import com.khangle.myfitnessapp.ui.statistic.report.StatReportFragment
 
 
-class StatisticFragmentPageAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class StatisticFragmentPageAdapter(fragment: Fragment, private val viewmodel: StatisticViewModel) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         if (position == 0) {
-            return StatHistoryFragment()
+            return StatHistoryFragment(viewmodel)
         } else {
-            return StatReportFragment()
+            return StatReportFragment(viewmodel)
         }
     }
 }

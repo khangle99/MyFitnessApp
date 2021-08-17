@@ -26,7 +26,7 @@ interface MyFitnessAppService {
     //////////////stat
 
     @GET("userStatHistory")
-    suspend fun fetchUserStat(@Field("uid") uid: String): List<UserStat>
+    suspend fun fetchUserStat(@Query("uid") uid: String): List<UserStat>
 
     @FormUrlEncoded
     @POST("newUserStatHistory")

@@ -3,6 +3,7 @@ package com.khangle.myfitnessapp.data
 import com.google.firebase.auth.FirebaseAuth
 import com.khangle.myfitnessapp.data.db.MyFitnessDao
 import com.khangle.myfitnessapp.data.network.MyFitnessAppService
+import com.khangle.myfitnessapp.data.network.ResponseMessage
 import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
@@ -60,9 +61,10 @@ class  MyFitnessAppRepository @Inject constructor(private val service: MyFitness
         dao.deleteUserStat(statId)
     }
 
-    suspend fun insertStat(uid: String, stat: UserStat) {
-        service.postStat(uid, stat.dateString, stat.weight, stat.height)
+    suspend fun insertStat(uid: String, stat: UserStat): ResponseMessage {
+        val res = service.postStat(uid, stat.dateString, stat.weight, stat.height)
         dao.insertUserStat(stat)
+        return res
     }
 
 }

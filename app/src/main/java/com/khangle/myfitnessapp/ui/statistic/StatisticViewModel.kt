@@ -3,6 +3,7 @@ package com.khangle.myfitnessapp.ui.statistic
 import androidx.lifecycle.*
 import com.google.firebase.auth.FirebaseAuth
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
+import com.khangle.myfitnessapp.data.network.ResponseMessage
 import com.khangle.myfitnessapp.model.user.UserStat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,9 +23,10 @@ class StatisticViewModel @Inject constructor(private val repository: MyFitnessAp
         }
     }
 
-    fun addStat(stat: UserStat) {
+    fun addStat(stat: UserStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertStat(uid, stat)
+            val res = repository.insertStat(uid, stat)
+            handle(res)
         }
     }
 
