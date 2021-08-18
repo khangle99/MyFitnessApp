@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_weight="3"
+            android:id="@+id/currentStepTrackIndicator"
             app:cpb_progress="20"
             app:cpb_round_border="true"
             app:cpb_progress_max="100"
@@ -23,6 +24,20 @@
             app:cpb_progressbar_width="14dp"
             android:layout_height="400dp"
             android:layout_margin="40dp"/>
+        <TextView
+            android:id="@+id/currentStepTV"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:text="sample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textSize="28sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Step Track By Day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/stepHistoryList"
             android:layout_weight="7"

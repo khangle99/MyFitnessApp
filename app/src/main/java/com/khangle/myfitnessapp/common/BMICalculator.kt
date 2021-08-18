@@ -5,8 +5,7 @@ object BMICalculator {
     fun bmiFrom(weight: Int, height: Int): Double{
         val heightInMeter = height/100.0
         val bmi = (weight * 1.0)/(heightInMeter*heightInMeter)
-
-        return  String.format("%.1f", bmi).toDouble()
+        return  Math.round(bmi * 10.0) / 10.0
     }
 
     fun getTypeFrom(bmi: Double):  BMIType {

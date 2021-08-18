@@ -1,20 +1,20 @@
-package com.khangle.myfitnessapp.ui.statistic
+package com.khangle.myfitnessapp.ui.stepstrack
 
 import androidx.lifecycle.*
 import com.google.firebase.auth.FirebaseAuth
 import com.khangle.myfitnessapp.common.toFormatDate
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
 import com.khangle.myfitnessapp.data.network.ResponseMessage
-import com.khangle.myfitnessapp.model.user.UserStat
+import com.khangle.myfitnessapp.model.user.UserStep
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class StatisticViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
+class StepTrackViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
 
-    val statHistoryList: LiveData<List<UserStat>> = repository.getStatistic().asLiveData().map {
+    val stepHistoryList: LiveData<List<UserStep>> = repository.getStepTrack().asLiveData().map {
         val sortedByDate = it.sortedWith(Comparator { o1, o2 ->
             val d1 = o1.dateString.toFormatDate()
             val d2 = o2.dateString.toFormatDate()
@@ -31,22 +31,16 @@ class StatisticViewModel @Inject constructor(private val repository: MyFitnessAp
 
     private val uid = FirebaseAuth.getInstance().uid!!
 
-    fun getStatHistory() {
+    fun getStepHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.invalidateStatisticList(uid)
+            repository.invalidateStepList(uid)
         }
     }
 
-    fun addStat(stat: UserStat, handle: (ResponseMessage) -> Unit) {
+    fun addStep(step: UserStep, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.insertStat(uid, stat)
+            val res = repository.insertStep(uid, step)
             handle(res)
-        }
-    }
-
-    fun removeStat(stat: UserStat) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteStat(uid, stat.id)
         }
     }
 

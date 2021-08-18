@@ -31,6 +31,7 @@ class LaunchScreenActivity: AppCompatActivity() {
     // Create and launch sign-in intent
     val signInIntent = AuthUI.getInstance()
         .createSignInIntentBuilder()
+        .setIsSmartLockEnabled(false)
         .setAvailableProviders(providers)
         .build()
 

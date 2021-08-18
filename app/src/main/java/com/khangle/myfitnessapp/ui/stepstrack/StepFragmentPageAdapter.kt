@@ -6,15 +6,15 @@ import com.khangle.myfitnessapp.ui.stepstrack.report.StepReportFragment
 import com.khangle.myfitnessapp.ui.stepstrack.stephistory.StepHistoryFragment
 
 
-class StepFragmentPageAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class StepFragmentPageAdapter(fragment: Fragment, private val stepTrackViewModel: StepTrackViewModel) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         if (position == 0) {
-            return StepHistoryFragment()
+            return StepHistoryFragment(stepTrackViewModel)
         } else {
-            return StepReportFragment()
+            return StepReportFragment(stepTrackViewModel)
         }
     }
 }

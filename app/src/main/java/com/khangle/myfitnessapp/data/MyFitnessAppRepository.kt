@@ -9,6 +9,7 @@ import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
 import com.khangle.myfitnessapp.model.NutritionCategory
 import com.khangle.myfitnessapp.model.user.UserStat
+import com.khangle.myfitnessapp.model.user.UserStep
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -66,5 +67,19 @@ class  MyFitnessAppRepository @Inject constructor(private val service: MyFitness
         dao.insertUserStat(stat)
         return res
     }
+    //===========================step track
+    fun getStepTrack(): Flow<List<UserStep>> {
+        return dao.getUserStep()
+    }
 
+    suspend fun invalidateStepList(uid: String) {
+        val stepList = service.fetchUserStep(uid)
+        dao.invalidateStep(*stepList.toTypedArray())
+    }
+
+    suspend fun insertStep(uid: String, step: UserStep): ResponseMessage {
+        val res = service.postStep(uid, step.dateString, step.steps)
+        dao.insertUserStep(step)
+        return res
+    }
 }

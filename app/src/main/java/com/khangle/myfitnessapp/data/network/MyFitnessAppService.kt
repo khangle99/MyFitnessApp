@@ -6,6 +6,7 @@ import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
 import com.khangle.myfitnessapp.model.NutritionCategory
 import com.khangle.myfitnessapp.model.user.UserStat
+import com.khangle.myfitnessapp.model.user.UserStep
 import retrofit2.http.*
 
 interface MyFitnessAppService {
@@ -30,31 +31,46 @@ interface MyFitnessAppService {
 
     @FormUrlEncoded
     @POST("newUserStatHistory")
-    suspend fun postStat(@Field("uid") uid: String,
-                         @Field("dateString") dateString: String,
-                         @Field("weight") weight: Int,
-                         @Field("height") height: Int):
+    suspend fun postStat(
+        @Field("uid") uid: String,
+        @Field("dateString") dateString: String,
+        @Field("weight") weight: Int,
+        @Field("height") height: Int
+    ):
             ResponseMessage
 
     @DELETE("deleteUserStatHistory")
-    suspend fun deleteStat(@Query("uid") uid: String,
-                           @Query("statId") statId: String):
+    suspend fun deleteStat(
+        @Query("uid") uid: String,
+        @Query("statId") statId: String
+    ):
             ResponseMessage
+
+    /////////////step
+    @GET("userStep")
+    suspend fun fetchUserStep(@Query("uid") uid: String): List<UserStep>
+
+    @FormUrlEncoded
+    @POST("newUserStep")
+    suspend fun postStep(
+        @Field("uid") uid: String,
+        @Field("dateString") dateString: String,
+        @Field("steps") weight: Int
+    ):
+    ResponseMessage
+
+//    @DELETE("deleteUserStatHistory")
+//    suspend fun deleteStep(@Query("uid") uid: String,
+//                           @Query("statId") statId: String):
+//            ResponseMessage
+
+
     /////////////session
-
-
-
 
 
     /////////////userexcercise
 
 
-
-
-
-    /////////////step
-
-
 }
 
-class ResponseMessage(val id: String?,val error: String?)
+class ResponseMessage(val id: String?, val error: String?)

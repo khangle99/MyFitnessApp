@@ -5,6 +5,5 @@ android:layout_height="match_parent">
 <androidx.fragment.app.FragmentContainerView
     android:id="@+id/userexcContainer"
     android:layout_width="match_parent"
-    android:background="@color/colorAccent"
     android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
