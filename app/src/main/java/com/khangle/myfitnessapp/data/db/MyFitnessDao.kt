@@ -93,11 +93,15 @@ interface MyFitnessDao {
     @Query("DELETE FROM Session")
     suspend fun deleteAllSession()
 
+    @Query("DELETE FROM Session WHERE id = :sessionId")
+    suspend fun deleteSession(sessionId: String)
+
     @Transaction
     suspend fun invalidateSession(vararg session: Session) {
         deleteAllSession()
         insertSession(*session)
     }
+
     // userexc
     @Query("SELECT * FROM UserExcercise WHERE sessionId = :sessionId")
     fun getUserExcerciseBySessionId(sessionId: String): Flow<List<UserExcercise>>
@@ -105,12 +109,21 @@ interface MyFitnessDao {
     @Insert
     suspend fun insertUserExcercise(vararg userExcercise: UserExcercise)
 
+    @Update
+    suspend fun updateUserExcercise(vararg userExcercise: UserExcercise)
+
     @Query("DELETE FROM UserExcercise WHERE sessionId = :sessionId")
-    suspend fun deleteUserExcerciseBySessionId(sessionId: String)
+    suspend fun deleteAllUserExcerciseBySessionId(sessionId: String)
+
+    @Query("DELETE FROM UserExcercise WHERE sessionId = :sessionId AND id = :excId")
+    suspend fun deleteUserExcerciseBySessionId(sessionId: String, excId: String)
 
     @Transaction
     suspend fun invalidateUserExcercise(sessionId: String, vararg userExcercise: UserExcercise) {
-        deleteUserExcerciseBySessionId(sessionId)
+        deleteAllUserExcerciseBySessionId(sessionId)
+        userExcercise.forEach {
+            it.sessionId = sessionId
+        }
         insertUserExcercise(*userExcercise)
     }
     // stat

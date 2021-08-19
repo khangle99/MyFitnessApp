@@ -4,4 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class UserStep(@PrimaryKey val id: String, val dateString: String, val steps: Int)
+class UserStep(@PrimaryKey var id: String, val dateString: String, val steps: Int)

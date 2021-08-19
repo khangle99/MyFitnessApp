@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.khangle.myfitnessapp">
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessApp">
-        <activity android:name=".ui.LaunchScreenActivity"
+        <activity android:name=".ui.userexc.workout.WorkoutActivity"></activity>
+        <activity
+            android:name=".ui.LaunchScreenActivity"
             android:noHistory="true"
             android:theme="@style/Theme.MyFitnessApp.NoActionBar">
             <intent-filter>
@@ -26,9 +29,7 @@
         </activity>
         <activity
             android:name=".ui.main.ContainerActivity"
-            android:theme="@style/Theme.MyFitnessApp.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.MyFitnessApp.NoActionBar"></activity>
     </application>
 
 </manifest>

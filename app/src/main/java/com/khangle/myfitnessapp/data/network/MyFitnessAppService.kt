@@ -5,6 +5,8 @@ import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.ExcerciseCategory
 import com.khangle.myfitnessapp.model.Menu
 import com.khangle.myfitnessapp.model.NutritionCategory
+import com.khangle.myfitnessapp.model.user.Session
+import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.model.user.UserStat
 import com.khangle.myfitnessapp.model.user.UserStep
 import retrofit2.http.*
@@ -14,6 +16,10 @@ interface MyFitnessAppService {
 
     @GET("excercisesCategory")
     suspend fun fetchExcerciseCategory(): List<ExcerciseCategory>
+
+    @GET("excercisesDetail")
+    suspend fun fetchExcerciseDetail(@Query("categoryId") catId: String, @Query("id") id: String): Excercise
+
 
     @GET("excercises")
     suspend fun fetchExcerciseList(@Query("categoryId") catId: String): List<Excercise>
@@ -57,7 +63,7 @@ interface MyFitnessAppService {
         @Field("dateString") dateString: String,
         @Field("steps") weight: Int
     ):
-    ResponseMessage
+            ResponseMessage
 
 //    @DELETE("deleteUserStatHistory")
 //    suspend fun deleteStep(@Query("uid") uid: String,
@@ -67,9 +73,63 @@ interface MyFitnessAppService {
 
     /////////////session
 
+    @GET("userSessions")
+    suspend fun fetchUserSession(@Query("uid") uid: String): List<Session>
 
+    @FormUrlEncoded
+    @POST("newSession")
+    suspend fun postUserSession(
+        @Field("uid") uid: String,
+        @Field("name") name: String
+    ):
+            ResponseMessage
+
+    @DELETE("deleteSession")
+    suspend fun deleteUserSession(
+        @Query("uid") uid: String,
+        @Query("sessionId") sessId: String
+    ):
+            ResponseMessage
     /////////////userexcercise
 
+    @GET("userExcercise")
+    suspend fun fetchUserExcercise(
+        @Query("uid") uid: String,
+        @Query("sessionId") sessionId: String
+    ): List<UserExcercise>
+
+    @FormUrlEncoded
+    @POST("newUserExc")
+    suspend fun postUserExcercise(
+        @Field("uid") uid: String,
+        @Field("sessionID") sessionID: String,
+        @Field("noTurn") noTurn: String,
+        @Field("noSec") noSec: String,
+        @Field("noGap") noGap: String,
+        @Field("categoryId") categoryId: String,
+        @Field("excId") excId: String
+    ):
+            ResponseMessage
+
+    @FormUrlEncoded
+    @PUT("updateUserExc")
+    suspend fun updateUserExcercise(
+        @Field("uid") uid: String,
+        @Field("sessionID") sessionID: String,
+        @Field("id") id: String,
+        @Field("noTurn") noTurn: String,
+        @Field("noSec") noSec: String,
+        @Field("noGap") noGap: String
+    ):
+            ResponseMessage
+
+    @DELETE("deleteUserExc")
+    suspend fun deleteUserExcercise(
+        @Query("uid") uid: String,
+        @Query("sessionId") sessId: String,
+        @Query("id") id: String,
+    ):
+            ResponseMessage
 
 }
 
