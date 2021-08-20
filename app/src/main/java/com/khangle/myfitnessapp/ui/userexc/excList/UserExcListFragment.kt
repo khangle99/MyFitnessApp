@@ -1,10 +1,12 @@
 package com.khangle.myfitnessapp.ui.userexc.excList
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,14 +17,15 @@ import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.model.user.Session
 import com.khangle.myfitnessapp.ui.userexc.UserExcViewModel
 import com.khangle.myfitnessapp.ui.userexc.excerciseDetail.UserExcDetailFragment
+import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 
 
 class UserExcListFragment constructor(private val viewModel: UserExcViewModel): Fragment() {
     private lateinit var nameTV: TextView
-    private lateinit var timeTV: TextView
     private lateinit var excListRecyclerView: RecyclerView
     private lateinit var userListAdapter: UserExcListAdapter
     private lateinit var startWorkoutBtn: Chip
+    lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +33,9 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
     ): View? {
         val view = inflater.inflate(R.layout.fragment_user_exc_list, container, false)
         nameTV = view.findViewById(R.id.sessionNameTv)
-        timeTV = view.findViewById(R.id.sessionTimeTV)
         excListRecyclerView = view.findViewById(R.id.userexcList)
         startWorkoutBtn = view.findViewById(R.id.startWorkoutBtn)
+        progressBar = view.findViewById(R.id.excListProgress)
         return view
     }
 
@@ -40,8 +43,13 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         super.onViewCreated(view, savedInstanceState)
         val session: Session = requireArguments().getParcelable("session")!!
 
+        // chi enable sau khi load tuple
         startWorkoutBtn.setOnClickListener {
             // pass data to new activity to count down
+            val list = viewModel.excerciseTuple.value
+            val intent = Intent(requireContext(), WorkoutActivity::class.java)
+            intent.putExtras(bundleOf("tupleList" to list))
+            startActivity(intent)
         }
 
 
@@ -59,6 +67,7 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
 
         viewModel.excerciseTuple.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
+            progressBar.visibility = View.INVISIBLE
         }
         viewModel.invalidateUserExcercise(session.id)
          nameTV.text = session.name

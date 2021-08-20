@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -24,6 +25,7 @@ class ExcerciseCategoryFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: ExcCategoryListAdapter
+    lateinit var progressBar: ProgressBar
    private val viewModel: ExcerciseViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -32,6 +34,7 @@ class ExcerciseCategoryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_excercise_category, container, false)
         recyclerView = view.findViewById(R.id.excCategoryRecycleview)
+        progressBar = view.findViewById(R.id.excCatProgress)
         return view
     }
 
@@ -39,6 +42,7 @@ class ExcerciseCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.excerciseCategory.observe(viewLifecycleOwner, {
             adapter.submitList(it)
+            progressBar.visibility = View.INVISIBLE
         })
         viewModel.invalidateExcCategory()
         adapter = ExcCategoryListAdapter {

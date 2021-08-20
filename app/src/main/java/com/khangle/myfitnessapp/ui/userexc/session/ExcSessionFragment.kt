@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,6 +23,7 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
 
     private lateinit var sessionRecyclerView: RecyclerView
     private lateinit var adapter: SessionListAdapter
+    lateinit var progressBar: ProgressBar
     private lateinit var addSessionBtn: ExtendedFloatingActionButton
 
     override fun onCreateView(
@@ -31,6 +33,7 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
         val view = inflater.inflate(R.layout.fragment_exc_session, container, false)
         sessionRecyclerView = view.findViewById(R.id.sessionRecycleview)
         addSessionBtn = view.findViewById(R.id.addSession)
+        progressBar = view.findViewById(R.id.sessionProgress)
         return view
     }
 
@@ -56,6 +59,7 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
 
         userExcerciseViewModel.excerciseSession.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            progressBar.visibility = View.INVISIBLE
         }
     }
 

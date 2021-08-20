@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
     private lateinit var circularProgressIndicator: CircularProgressBar
     private lateinit var currentStepTV: TextView
     private lateinit var stepHistoryListAdapter: StepHistoryListAdapter
+    lateinit var progressBar: ProgressBar
 
     private lateinit var sensorManager: SensorManager
     private lateinit var sensor: Sensor
@@ -39,6 +41,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
         val view = inflater.inflate(R.layout.fragment_step_history, container, false)
         stepHistoryRecyclerView = view.findViewById(R.id.stepHistoryList)
         circularProgressIndicator = view.findViewById(R.id.currentStepTrackIndicator)
+        progressBar = view.findViewById(R.id.stepProgress)
         currentStepTV = view.findViewById(R.id.currentStepTV)
         if(ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
@@ -61,6 +64,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
 
         stepTrackViewModel.stepHistoryList.observe(viewLifecycleOwner) {
             stepHistoryListAdapter.submitList(it)
+            progressBar.visibility = View.INVISIBLE
         }
     }
 

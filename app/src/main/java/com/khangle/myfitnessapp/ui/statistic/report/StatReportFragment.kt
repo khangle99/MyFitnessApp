@@ -71,7 +71,11 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
 
         val valueFormater = object : ValueFormatter() {
             override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                return statList[value.toInt()].dateString
+                val index = value.toInt()
+                if ( index >= 0 && index < statList.size) {
+                    return statList[index].dateString
+                }
+                return ""
             }
         }
         val bardata = BarData(weightDataSet, heightDataSet)
@@ -105,7 +109,11 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
         }
         val valueFormater = object : ValueFormatter() {
             override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                return statList[value.toInt()].dateString
+                val index = value.toInt()
+                if ( index >= 0 && index < statList.size) {
+                    return statList[index].dateString
+                }
+                return ""
             }
         }
         bmiChart.xAxis.valueFormatter = valueFormater
@@ -121,7 +129,6 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
     }
 
     private fun setupReportTV(statList: List<UserStat>) {
-        // phai code lai sap xep theo ngay roi moi tinh
         val firstStat = statList.first()
         val lastStat = statList.last()
         val weightPercent = (lastStat.weight*1.0 / firstStat.weight) * 100 - 100

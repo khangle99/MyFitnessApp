@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class MenuListFragment : Fragment() {
 
     lateinit var excerciseList: RecyclerView
     lateinit var adapter: MenuListAdapter
+    lateinit var progressBar: ProgressBar
     private val viewmodel: NutritionViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -32,6 +34,7 @@ class MenuListFragment : Fragment() {
     ): View? {
         val view= inflater.inflate(R.layout.fragment_menu_list, container, false)
         excerciseList = view.findViewById(R.id.menuList)
+        progressBar = view.findViewById(R.id.menuProgress)
         adapter = MenuListAdapter {
             val frag = MenuDetailFragment()
             frag.arguments = bundleOf("menu" to it)
@@ -52,6 +55,7 @@ class MenuListFragment : Fragment() {
         }
         viewmodel.menuList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            progressBar.visibility = View.INVISIBLE
         }
     }
 

@@ -44,7 +44,7 @@ class StatisticViewModel @Inject constructor(private val repository: MyFitnessAp
         }
     }
 
-    fun removeStat(stat: UserStat) {
+    fun removeStat(stat: UserStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteStat(uid, stat.id)
         }

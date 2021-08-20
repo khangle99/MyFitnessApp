@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,6 +22,7 @@ class NutritionCategoryFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: NutCategoryListAdapter
+    lateinit var progressBar: ProgressBar
    private val viewModel: NutritionViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -29,6 +31,7 @@ class NutritionCategoryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_excercise_category, container, false)
         recyclerView = view.findViewById(R.id.excCategoryRecycleview)
+        progressBar = view.findViewById(R.id.excCatProgress)
         return view
     }
 
@@ -36,6 +39,7 @@ class NutritionCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.nutCategory.observe(viewLifecycleOwner, {
             adapter.submitList(it)
+            progressBar.visibility = View.INVISIBLE
         })
         viewModel.invalidateNutCategory()
         adapter = NutCategoryListAdapter {
