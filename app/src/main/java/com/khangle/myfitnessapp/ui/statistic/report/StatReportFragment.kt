@@ -63,7 +63,6 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
         val weightDataSet = BarDataSet(weightEntries, "Weight")
         weightDataSet.color = R.color.colorPrimary
         val heightDataSet = BarDataSet(heightEntries, "Height")
-        //heightDataSet.color = R.color.colorAccent
 
         val barSpace = 0.02f
         val barWidth = 0.35f

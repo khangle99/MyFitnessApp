@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.databinding.FragmentNutritionBinding
 import com.khangle.myfitnessapp.extension.commitAnimate
-import com.khangle.myfitnessapp.ui.excercise.category.ExcerciseCategoryFragment
 import com.khangle.myfitnessapp.ui.nutrition.category.NutritionCategoryFragment
 import dagger.hilt.android.AndroidEntryPoint
 

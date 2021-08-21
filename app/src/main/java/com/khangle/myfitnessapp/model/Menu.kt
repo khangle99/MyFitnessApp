@@ -15,7 +15,6 @@ class Menu(
     var snack: String,
     var other: String,
     val picUrls: List<String>,
-    val viewCount: Int,
     var catId: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -27,7 +26,6 @@ class Menu(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.createStringArrayList() ?: listOf(),
-        parcel.readInt(),
         parcel.readString() ?: ""
     ) {
     }
@@ -41,7 +39,6 @@ class Menu(
         parcel.writeString(snack)
         parcel.writeString(other)
         parcel.writeStringList(picUrls)
-        parcel.writeInt(viewCount)
         parcel.writeString(catId)
     }
 

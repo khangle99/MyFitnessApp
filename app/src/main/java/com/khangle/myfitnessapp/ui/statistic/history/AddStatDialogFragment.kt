@@ -1,10 +1,13 @@
 package com.khangle.myfitnessapp.ui.statistic.history
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Spinner
@@ -13,12 +16,13 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.model.user.UserStat
+import com.khangle.myfitnessapp.ui.base.BaseDialogFragment
 import com.khangle.myfitnessapp.ui.statistic.StatisticViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class AddStatDialogFragment constructor(private val viewmodel: StatisticViewModel): DialogFragment() {
+class AddStatDialogFragment constructor(private val viewmodel: StatisticViewModel): BaseDialogFragment() {
 
     private lateinit var cancelChip: Chip
     private lateinit var addChip: Chip
@@ -30,6 +34,8 @@ class AddStatDialogFragment constructor(private val viewmodel: StatisticViewMode
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         val view = inflater.inflate(R.layout.fragment_add_stat_dialog, container, false)
         cancelChip = view.findViewById(R.id.cancelAddStatBtn)
         addChip = view.findViewById(R.id.addStatBtn)

@@ -1,17 +1,24 @@
 package com.khangle.myfitnessapp.ui.userexc.excerciseDetail
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.UseState
+import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.extension.setReadOnly
 import com.khangle.myfitnessapp.model.user.UserExcTuple
 import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.ui.base.BaseComposableFragment
+import com.khangle.myfitnessapp.ui.excercise.excdetail.ExcDetailFragment
 import com.khangle.myfitnessapp.ui.userexc.UserExcViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +66,29 @@ class UserExcDetailFragment: BaseComposableFragment() {
         } else {
             val tuple: UserExcTuple = requireArguments().getParcelable("tuple")!!
             loadTuple(tuple)
+            if (requireArguments().getBoolean("isDeleted", false)) {
+                viewDetail.visibility = View.INVISIBLE
+                val spannableString = SpannableString("This Excercise has been deleted by admin! Please manually remove this reference")
+                spannableString.setSpan(
+                    ForegroundColorSpan(Color.RED),
+                    0, // start
+                    spannableString.length , // end
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                excNameTV.text = spannableString
+            }
+            viewDetail.setOnClickListener {
+                val frag = ExcDetailFragment()
+                frag.arguments = bundleOf("excercise" to tuple.excercise, "isViewOnly" to true)
+                parentFragmentManager.commitAnimate {
+                    addToBackStack(null)
+                    replace(R.id.userexcContainer, frag)
+
+                }
+            }
         }
+
+
     }
 
     private fun loadSessionSpiner() {

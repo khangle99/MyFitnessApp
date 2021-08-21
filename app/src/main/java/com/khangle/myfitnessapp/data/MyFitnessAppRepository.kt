@@ -92,6 +92,10 @@ class MyFitnessAppRepository @Inject constructor(
         dao.invalidateStep(*stepList.toTypedArray())
     }
 
+    suspend fun uploadStep(uid: String, step: UserStep): ResponseMessage {
+        return service.postStep(uid, step.dateString, step.steps)
+    }
+
     suspend fun insertStep(uid: String, step: UserStep): ResponseMessage {
         val res = service.postStep(uid, step.dateString, step.steps)
         step.id = res.id!!

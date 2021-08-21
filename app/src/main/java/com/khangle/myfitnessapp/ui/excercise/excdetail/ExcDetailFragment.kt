@@ -22,8 +22,6 @@ import com.stfalcon.imageviewer.StfalconImageViewer
 
 class ExcDetailFragment : Fragment() {
 
-//    private lateinit var tutorialRecycleview: RecyclerView
-//    private lateinit var adapter: ImageRecyclerviewAdapter
     private lateinit var titleTextView: TextView
     private lateinit var difficultyTextView: TextView
     private lateinit var equipmentTextView: TextView
@@ -36,10 +34,7 @@ class ExcDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_exc_detail, container, false)
-//        tutorialRecycleview = view.findViewById(R.id.tutoriaRecycle)
-//        adapter = ImageRecyclerviewAdapter()
-//        tutorialRecycleview.adapter = adapter
-//        tutorialRecycleview.layoutManager = GridLayoutManager(context,2)
+
         titleTextView = view.findViewById(R.id.titleTV)
         difficultyTextView = view.findViewById(R.id.difficultyTv)
         equipmentTextView = view.findViewById(R.id.equipmentTv)
@@ -65,6 +60,9 @@ class ExcDetailFragment : Fragment() {
                 }
             }.show()
         }
+        if (requireArguments().getBoolean("isViewOnly",false)) {
+            addExcerciseBtn.visibility = View.INVISIBLE
+        }
 
         addExcerciseBtn.setOnClickListener {
             val frag = UserExcDetailFragment()
@@ -75,7 +73,6 @@ class ExcDetailFragment : Fragment() {
 
             }
         }
-       // adapter.applyUrlList(excercise.picSteps)
     }
 
 }

@@ -27,6 +27,7 @@
         <TextView
             android:textSize="18sp"
             android:layout_margin="10dp"
+            android:gravity="center"
             android:text="Sample report"
             android:id="@+id/statReportTV"
             android:layout_width="match_parent"

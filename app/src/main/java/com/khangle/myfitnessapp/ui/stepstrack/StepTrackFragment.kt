@@ -38,7 +38,7 @@ class StepTrackFragment : Fragment() {
             if (position == 0) {
                 tab.text = "History"
             } else {
-                tab.text = "Report"
+                tab.text = "Chart"
             }
         }.attach()
     }

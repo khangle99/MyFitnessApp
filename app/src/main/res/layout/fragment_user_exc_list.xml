@@ -27,6 +27,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/startWorkoutBtn"
+            android:visibility="invisible"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="20sp"

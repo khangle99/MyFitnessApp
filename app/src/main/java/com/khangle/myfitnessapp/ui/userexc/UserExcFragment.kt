@@ -9,7 +9,6 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.khangle.myfitnessapp.R
-import com.khangle.myfitnessapp.ui.excercise.category.ExcerciseCategoryFragment
 import com.khangle.myfitnessapp.ui.userexc.session.ExcSessionFragment
 import dagger.hilt.android.AndroidEntryPoint
 

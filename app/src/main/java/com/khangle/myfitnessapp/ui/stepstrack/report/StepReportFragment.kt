@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.BMICalculator
+import com.khangle.myfitnessapp.common.SharePreferenceUtil
 import com.khangle.myfitnessapp.model.user.UserStat
 import com.khangle.myfitnessapp.model.user.UserStep
 import com.khangle.myfitnessapp.ui.stepstrack.StepTrackViewModel
@@ -87,10 +88,13 @@ class StepReportFragment constructor(private val stepTrackViewModel: StepTrackVi
         val firstStep = stepList.first()
         val lastStep = stepList.last()
         val stepPercent = (lastStep.steps*1.0/firstStep.steps)*100 - 100
+        val goal = SharePreferenceUtil.getInstance(requireContext()).getStepGoal()
+        var countSuccessGoal = 0
+        stepList.forEach {
+            if (it.steps >= goal) countSuccessGoal++
+        }
 
-        // them phan bao nhieu ngay dat chi tieu goal
-
-        val composeStr = TextUtils.concat(" Steps: ", composeSpanString(stepPercent.toInt()))
+        val composeStr = TextUtils.concat(" Steps: ", composeSpanString(stepPercent.toInt()) , "\n Goal Days: ${countSuccessGoal}")
         reportTV.text = composeStr
     }
 

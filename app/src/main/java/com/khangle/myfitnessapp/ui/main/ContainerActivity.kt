@@ -29,12 +29,8 @@ class ContainerActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityContainerBinding
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         binding = ActivityContainerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -44,8 +40,7 @@ class ContainerActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_container)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_excercise, R.id.nav_nutrition, R.id.nav_statistic, R.id.nav_steptrack, R.id.nav_userexc
@@ -56,7 +51,6 @@ class ContainerActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.container, menu)
         return true
     }

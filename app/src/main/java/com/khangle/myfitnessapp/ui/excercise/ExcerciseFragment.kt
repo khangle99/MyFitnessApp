@@ -1,17 +1,14 @@
 package com.khangle.myfitnessapp.ui.excercise
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.databinding.FragmentExcerciseBinding
-import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.ui.excercise.category.ExcerciseCategoryFragment
 import dagger.hilt.android.AndroidEntryPoint
 

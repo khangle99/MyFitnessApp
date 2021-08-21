@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.khangle.myfitnessapp">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.khangle.myfitnessapp" >
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
@@ -17,17 +18,18 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyFitnessApp">
+        android:theme="@style/Theme.MyFitnessApp" >
+
         <service
             android:name=".service.StepTrackUploadService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".ui.userexc.workout.WorkoutActivity" />
         <activity
             android:name=".ui.LaunchScreenActivity"
             android:noHistory="true"
-            android:theme="@style/Theme.MyFitnessApp.NoActionBar">
+            android:theme="@style/Theme.MyFitnessApp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,6 +39,11 @@
         <activity
             android:name=".ui.main.ContainerActivity"
             android:theme="@style/Theme.MyFitnessApp.NoActionBar" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
     </application>
 
 </manifest>

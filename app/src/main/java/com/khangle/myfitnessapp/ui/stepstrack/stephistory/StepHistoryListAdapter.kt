@@ -13,8 +13,11 @@ import com.khangle.myfitnessapp.model.user.UserStep
 class StepHistoryListAdapter : ListAdapter<UserStep, StepHistoryListAdapter.UserStepViewHolder>(
     stepDiffUtil
 ) {
-
-
+    private var _goal = 1
+    fun setGoal(goal: Int) {
+        _goal = goal
+        notifyDataSetChanged()
+    }
     class UserStepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stepTV: TextView
         val percentTV: TextView
@@ -27,10 +30,10 @@ class StepHistoryListAdapter : ListAdapter<UserStep, StepHistoryListAdapter.User
             dateTV = itemView.findViewById(R.id.dateStepTV)
         }
 
-        fun bind(step: UserStep) {
+        fun bind(step: UserStep, goal: Int) {
             item = step
             stepTV.text = "${item.steps} steps"
-            percentTV.text = "${item.steps*100.0/2500} %" // dang set goal cung
+            percentTV.text = "${(item.steps*100.0/ goal).toInt()} %" // dang set goal cung
             dateTV.text = item.dateString
         }
     }
@@ -42,7 +45,7 @@ class StepHistoryListAdapter : ListAdapter<UserStep, StepHistoryListAdapter.User
     }
 
     override fun onBindViewHolder(holder: UserStepViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), _goal)
     }
 }
 

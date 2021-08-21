@@ -1,15 +1,14 @@
 package com.khangle.myfitnessapp.common
 
-import java.net.InetAddress
+import android.content.Context
+import android.net.ConnectivityManager
+
 
 object ConnectivityUtil {
-    fun isInternetAvailable(): Boolean {
-        return try {
-            val ipAddr: InetAddress = InetAddress.getByName("google.com")
-            //You can replace it with your name
-            !ipAddr.equals("")
-        } catch (e: Exception) {
-            false
-        }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!
+            .isConnected
     }
 }

@@ -1,5 +1,9 @@
 package com.khangle.myfitnessapp.ui.userexc.excList
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +46,14 @@ class UserExcListAdapter constructor(private val onClick: (UserExcTuple) -> Unit
 
         fun configureWith(userExc: UserExcTuple) {
             this.userExc = userExc
-            nameTV.text = userExc.excercise?.name
+            val spannable = SpannableString("Excercise Deleted")
+            spannable.setSpan(
+                ForegroundColorSpan(Color.RED),
+                0, // start
+                spannable.length , // end
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            nameTV.text = userExc.excercise?.name ?: spannable
             difficultyTV.text = userExc.excercise?.difficulty
         }
     }

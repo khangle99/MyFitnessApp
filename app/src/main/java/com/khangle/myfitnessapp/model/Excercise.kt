@@ -13,7 +13,6 @@ class Excercise(
     var equipment: String,
     var tutorial: String,
     val picSteps: List<String>,
-    val viewCount: Int,
     var catId: String
 ): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -23,7 +22,6 @@ class Excercise(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.createStringArrayList() ?: listOf(),
-        parcel.readInt(),
         parcel.readString() ?: ""
     ) {
     }
@@ -35,7 +33,6 @@ class Excercise(
         parcel.writeString(equipment)
         parcel.writeString(tutorial)
         parcel.writeStringList(picSteps)
-        parcel.writeInt(viewCount)
         parcel.writeString(catId)
     }
 

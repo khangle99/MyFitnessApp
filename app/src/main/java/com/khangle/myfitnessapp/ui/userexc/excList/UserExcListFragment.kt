@@ -43,7 +43,7 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         super.onViewCreated(view, savedInstanceState)
         val session: Session = requireArguments().getParcelable("session")!!
 
-        // chi enable sau khi load tuple
+
         startWorkoutBtn.setOnClickListener {
             // pass data to new activity to count down
             val list = viewModel.excerciseTuple.value
@@ -55,7 +55,13 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
 
         userListAdapter = UserExcListAdapter {
             val frag = UserExcDetailFragment()
-            frag.arguments = bundleOf("tuple" to it)
+            if (it.excercise?.name == null) {
+                frag.arguments = bundleOf("tuple" to it, "isDeleted" to true)
+            } else {
+                frag.arguments = bundleOf("tuple" to it)
+            }
+
+
             parentFragmentManager.commitAnimate {
                 addToBackStack(null)
                 replace(R.id.userexcContainer, frag)
@@ -68,6 +74,7 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         viewModel.excerciseTuple.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+            startWorkoutBtn.visibility = View.VISIBLE
         }
         viewModel.invalidateUserExcercise(session.id)
          nameTV.text = session.name

@@ -37,11 +37,4 @@ class StepTrackViewModel @Inject constructor(private val repository: MyFitnessAp
         }
     }
 
-    fun addStep(step: UserStep, handle: (ResponseMessage) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.insertStep(uid, step)
-            handle(res)
-        }
-    }
-
 }
