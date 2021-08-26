@@ -45,7 +45,7 @@ class AddSessionDialogFragment constructor(private val viewmodel: UserExcViewMod
         addChip.setOnClickListener {
             val name = nameTV.text.toString()
             if (!name.equals("")) {
-                val session = Session("", name, "")
+                val session = Session("", name)
                 viewmodel.addExcSession(session) {
                     dismiss()
                 }

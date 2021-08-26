@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/cardItem"
     android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -25,9 +26,17 @@
             android:layout_gravity="center"
             android:id="@+id/categoryNameTextview"
             android:layout_weight="1"
+            android:fontFamily="@font/signika"
             tools:text="Sample"
             android:textSize="24sp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>
+        <ImageView
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_next"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

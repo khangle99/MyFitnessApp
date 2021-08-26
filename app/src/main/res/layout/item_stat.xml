@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/cardItem"
     android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -19,8 +20,12 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Sample"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:drawableStart="@drawable/ic_height"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="@font/signika"
                 android:id="@+id/statHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -28,11 +33,16 @@
                 android:id="@+id/statWeight"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:drawablePadding="10dp"
                 android:layout_weight="1"
+                android:drawableStart="@drawable/ic_weight"
+                android:fontFamily="@font/signika"
                 android:text="Sample"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -42,6 +52,7 @@
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:layout_gravity="center"
+                android:fontFamily="@font/signika"
                 android:id="@+id/bmiTV"
                 tools:text="Sample"
                 android:textSize="24sp"
@@ -52,6 +63,7 @@
                 android:id="@+id/dateTV"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center"
+                android:fontFamily="@font/signika"
                 android:gravity="end"
                 android:text="Sample"
                 android:layout_width="match_parent"

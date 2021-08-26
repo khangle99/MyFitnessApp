@@ -27,12 +27,10 @@ class SessionListAdapter constructor(private val onClick: (Session) -> Unit ): L
     class SessionHolder(itemView: View, private val onClick: (Session) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
         private val nameTV: TextView
-        private val timeTV: TextView
         private lateinit var session: Session
 
         init {
             nameTV = itemView.findViewById(R.id.sessioNameTv)
-            timeTV = itemView.findViewById(R.id.sessionSumTime)
             itemView.setOnClickListener {
                 onClick(session)
             }
@@ -41,7 +39,6 @@ class SessionListAdapter constructor(private val onClick: (Session) -> Unit ): L
         fun configureWith(session: Session) {
             this.session = session
             nameTV.text = session.name
-            timeTV.text = session.time
         }
     }
 }

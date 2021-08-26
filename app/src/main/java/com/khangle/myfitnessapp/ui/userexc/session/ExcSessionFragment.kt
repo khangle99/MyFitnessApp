@@ -68,7 +68,11 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val item = adapter.currentList[position]
+                progressBar.visibility = View.VISIBLE
+                sessionRecyclerView.isEnabled = false
                userExcerciseViewModel.removeExcSession(item.id) {
+                   progressBar.visibility = View.INVISIBLE
+                   sessionRecyclerView.isEnabled = true
                    Toast.makeText(context, "Deleted Session", Toast.LENGTH_SHORT).show()
                }
             }

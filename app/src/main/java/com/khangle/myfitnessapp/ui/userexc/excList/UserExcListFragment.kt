@@ -21,6 +21,7 @@ import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 
 
 class UserExcListFragment constructor(private val viewModel: UserExcViewModel): Fragment() {
+
     private lateinit var nameTV: TextView
     private lateinit var excListRecyclerView: RecyclerView
     private lateinit var userListAdapter: UserExcListAdapter
@@ -43,7 +44,6 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         super.onViewCreated(view, savedInstanceState)
         val session: Session = requireArguments().getParcelable("session")!!
 
-
         startWorkoutBtn.setOnClickListener {
             // pass data to new activity to count down
             val list = viewModel.excerciseTuple.value
@@ -52,7 +52,6 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
             startActivity(intent)
         }
 
-
         userListAdapter = UserExcListAdapter {
             val frag = UserExcDetailFragment()
             if (it.excercise?.name == null) {
@@ -60,7 +59,6 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
             } else {
                 frag.arguments = bundleOf("tuple" to it)
             }
-
 
             parentFragmentManager.commitAnimate {
                 addToBackStack(null)
@@ -74,8 +72,13 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         viewModel.excerciseTuple.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
-            startWorkoutBtn.visibility = View.VISIBLE
+           if (it.isEmpty()) {
+               startWorkoutBtn.visibility = View.INVISIBLE
+           } else {
+               startWorkoutBtn.visibility = View.VISIBLE
+           }
         }
+
         viewModel.invalidateUserExcercise(session.id)
          nameTV.text = session.name
     }

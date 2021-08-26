@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/cardItem"
+    app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
@@ -17,6 +18,7 @@
             android:id="@+id/menuNameTv"
             android:layout_weight="3"
             tools:text="Sample"
+            android:fontFamily="@font/signika"
             android:textSize="24sp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>

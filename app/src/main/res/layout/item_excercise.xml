@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/cardItem"
     android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,6 +18,7 @@
             android:id="@+id/excerciseNameTv"
             android:layout_weight="4"
             tools:text="Sample"
+            android:fontFamily="@font/signika"
             android:textSize="24sp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>
@@ -39,6 +41,7 @@
                 <TextView
                     tools:text="Sample"
                     android:layout_margin="5dp"
+                    android:fontFamily="@font/signika"
                     android:id="@+id/excDifficultyTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

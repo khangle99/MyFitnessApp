@@ -9,7 +9,9 @@ tools:context=".ui.userexc.session.ExcSessionFragment">
     android:id="@+id/title"
     android:layout_width="match_parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:textSize="30sp"
+    android:textSize="28sp"
+    android:layout_margin="10dp"
+    android:fontFamily="@font/nunito_extrabold"
     android:gravity="center"
     android:padding="10dp"
     android:textStyle="bold"
@@ -23,6 +25,7 @@ tools:context=".ui.userexc.session.ExcSessionFragment">
     android:layout_height="0dp">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sessionRecycleview"
+        android:background="@color/listbackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

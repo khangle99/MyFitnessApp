@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -36,6 +37,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
     private lateinit var stepHistoryListAdapter: StepHistoryListAdapter
     lateinit var progressBar: ProgressBar
     private lateinit var setGoalBtn: Chip
+    private lateinit var clearHistory: ImageView
 
     private lateinit var sensorManager: SensorManager
     private lateinit var sensor: Sensor
@@ -50,6 +52,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
         progressBar = view.findViewById(R.id.stepProgress)
         currentStepTV = view.findViewById(R.id.currentStepTV)
         setGoalBtn = view.findViewById(R.id.setDailyGoal)
+        clearHistory = view.findViewById(R.id.clearHistory)
         if(ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
             //init for first time
@@ -83,6 +86,9 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
 
                 stepHistoryListAdapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+        }
+        clearHistory.setOnClickListener {
+
         }
     }
 

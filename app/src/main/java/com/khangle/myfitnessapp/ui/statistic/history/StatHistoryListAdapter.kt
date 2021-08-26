@@ -17,7 +17,6 @@ class StatHistoryListAdapter : ListAdapter<UserStat, StatHistoryListAdapter.User
     statDiffUtil
 ) {
 
-
     class UserStatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val weightTV: TextView
         val heightTV: TextView

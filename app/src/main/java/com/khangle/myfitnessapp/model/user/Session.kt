@@ -6,9 +6,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Session(@PrimaryKey var id: String, var name: String, var time: String): Parcelable {
+class Session(@PrimaryKey var id: String, var name: String): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: ""
     ) {
@@ -17,7 +16,6 @@ class Session(@PrimaryKey var id: String, var name: String, var time: String): P
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
-        parcel.writeString(time)
     }
 
     override fun describeContents(): Int {

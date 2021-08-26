@@ -3,56 +3,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.excercise.excdetail.ExcDetailFragment">
     <LinearLayout
 
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:text="Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
         <TextView
             android:text="Name"
             android:id="@+id/titleTV"
-            android:layout_margin="10dp"
-            android:textSize="18sp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:textSize="28sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:text="Difficulty"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:text="Do kho"
-            android:textSize="18sp"
-            android:id="@+id/difficultyTv"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="10dp"
-            android:textSize="24sp"
-            android:text="Equipment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/equipmentTv"
-            android:text="Yeu cau"
-            android:textSize="18sp"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                app:cardElevation="10dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:drawableStart="@drawable/ic_fire"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="Difficulty"
+                        android:drawablePadding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="Do kho"
+                        android:textSize="18sp"
+                        android:id="@+id/difficultyTv"
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                app:cardElevation="10dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:drawableStart="@drawable/ic_tool"
+                        android:textSize="20sp"
+                        android:drawablePadding="10dp"
+                        android:text="Equipment"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/equipmentTv"
+                        android:text="Yeu cau"
+                        android:textSize="18sp"
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
 
         <TextView
             android:layout_margin="10dp"
             android:textSize="24sp"
+            android:textStyle="bold"
             android:text="Tutorial"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -48,6 +52,20 @@ class ContainerActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        loadUser()
+    }
+
+    private fun loadUser() {
+        val user = FirebaseAuth.getInstance().currentUser!!
+        val headerView = binding.navView.getHeaderView(0)
+        headerView.findViewById<ImageView>(R.id.userAvartar).load(user.photoUrl.toString()){
+            crossfade(true)
+            placeholder(R.drawable.ic_launcher_foreground)
+            transformations(CircleCropTransformation())
+        }
+        headerView.findViewById<TextView>(R.id.userName).setText(user.displayName)
+        headerView.findViewById<TextView>(R.id.userMail).setText(user.email)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -10,12 +10,15 @@
         android:layout_height="match_parent">
         <TextView
             android:text="Excercise List"
-            android:textSize="20dp"
+            android:textSize="28sp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/nunito_extrabold"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/excList"
+            android:background="@color/listbackground"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>

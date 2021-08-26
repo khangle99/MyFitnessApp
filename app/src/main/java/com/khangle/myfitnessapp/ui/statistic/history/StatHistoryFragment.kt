@@ -55,11 +55,14 @@ class StatHistoryFragment(private val viewModel: StatisticViewModel) : Fragment(
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val item = statHistoryListAdapter.currentList[position]
+                progressBar.visibility = View.VISIBLE
                 viewModel.removeStat(item) {
+                    progressBar.visibility = View.INVISIBLE
                     Toast.makeText(context, "Deleted Session", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(historyRecyclerView)
     }
