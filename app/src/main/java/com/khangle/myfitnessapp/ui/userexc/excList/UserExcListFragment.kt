@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -22,7 +24,7 @@ import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 
 class UserExcListFragment constructor(private val viewModel: UserExcViewModel): Fragment() {
 
-    private lateinit var nameTV: TextView
+    private lateinit var nameTV: EditText
     private lateinit var excListRecyclerView: RecyclerView
     private lateinit var userListAdapter: UserExcListAdapter
     private lateinit var startWorkoutBtn: Chip
@@ -80,7 +82,13 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         }
 
         viewModel.invalidateUserExcercise(session.id)
-         nameTV.text = session.name
+         nameTV.setText(session.name)
+        nameTV.addTextChangedListener {
+            session.name = it.toString()
+            viewModel.updateSession(session) {
+
+            }
+        }
     }
 
 }

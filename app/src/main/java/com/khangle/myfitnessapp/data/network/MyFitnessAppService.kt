@@ -84,6 +84,15 @@ interface MyFitnessAppService {
     ):
             ResponseMessage
 
+    @FormUrlEncoded
+    @PUT("updateSession")
+    suspend fun updateUserSession(
+        @Field("uid") uid: String,
+        @Field("name") name: String,
+        @Field("sessionId") sessionId: String
+    ):
+            ResponseMessage
+
     @DELETE("deleteSession")
     suspend fun deleteUserSession(
         @Query("uid") uid: String,
@@ -102,7 +111,7 @@ interface MyFitnessAppService {
     @POST("newUserExc")
     suspend fun postUserExcercise(
         @Field("uid") uid: String,
-        @Field("sessionID") sessionID: String,
+        @Field("sessionId") sessionID: String,
         @Field("noTurn") noTurn: String,
         @Field("noSec") noSec: String,
         @Field("noGap") noGap: String,
@@ -115,7 +124,7 @@ interface MyFitnessAppService {
     @PUT("updateUserExc")
     suspend fun updateUserExcercise(
         @Field("uid") uid: String,
-        @Field("sessionID") sessionID: String,
+        @Field("sessionId") sessionID: String,
         @Field("id") id: String,
         @Field("noTurn") noTurn: String,
         @Field("noSec") noSec: String,

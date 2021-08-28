@@ -121,6 +121,12 @@ class MyFitnessAppRepository @Inject constructor(
         return res
     }
 
+    suspend fun updateSession(uid: String, session: Session): ResponseMessage {
+        val res = service.updateUserSession(uid, session.name, session.id)
+        dao.updateSession(session)
+        return res
+    }
+
     suspend fun deleteSession(uid: String, sessId: String): ResponseMessage {
         val res = service.deleteUserSession(uid, sessId)
         dao.deleteSession(sessId)

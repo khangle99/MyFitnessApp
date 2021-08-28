@@ -90,6 +90,9 @@ interface MyFitnessDao {
     @Insert
     suspend fun insertSession(vararg session: Session)
 
+    @Update
+    suspend fun updateSession(vararg session: Session)
+
     @Query("DELETE FROM Session")
     suspend fun deleteAllSession()
 

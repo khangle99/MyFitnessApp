@@ -36,6 +36,16 @@ class UserExcViewModel @Inject constructor(private val repository: MyFitnessAppR
         }
     }
 
+
+    fun updateSession(session: Session, handle: (ResponseMessage) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val res =  repository.updateSession(uid, session)
+            withContext(Dispatchers.Main) {
+                handle(res)
+            }
+        }
+    }
+
     fun removeExcSession(sessionId: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch((Dispatchers.IO)) {
             val res = repository.deleteSession(uid, sessionId)

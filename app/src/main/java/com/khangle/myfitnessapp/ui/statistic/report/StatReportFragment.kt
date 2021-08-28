@@ -92,7 +92,6 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
         weighHeightChart.axisRight.isEnabled = false
         weighHeightChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         weighHeightChart.invalidate()
-
     }
 
     private fun setupBMIChart(statList: List<UserStat>) {
