@@ -1,6 +1,5 @@
 package com.khangle.myfitnessapp.data
 
-import com.google.firebase.auth.FirebaseAuth
 import com.khangle.myfitnessapp.data.db.MyFitnessDao
 import com.khangle.myfitnessapp.data.network.MyFitnessAppService
 import com.khangle.myfitnessapp.data.network.ResponseMessage
@@ -101,6 +100,10 @@ class MyFitnessAppRepository @Inject constructor(
         step.id = res.id!!
         dao.insertUserStep(step)
         return res
+    }
+
+    suspend fun clearHistory(uid: String): ResponseMessage {
+        return service.deleteAllStep(uid)
     }
 
     //===========================session

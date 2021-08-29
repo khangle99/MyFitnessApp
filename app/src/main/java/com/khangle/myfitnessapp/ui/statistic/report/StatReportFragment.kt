@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -46,9 +47,13 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewmodel.statHistoryList.observe(viewLifecycleOwner) {
-            setupBMIChart(it)
-            setupWHChart(it)
-            setupReportTV(it)
+            if (it.isNotEmpty()) {
+                setupBMIChart(it)
+                setupWHChart(it)
+                setupReportTV(it)
+            } else {
+                Toast.makeText(context, "No Statistic added", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

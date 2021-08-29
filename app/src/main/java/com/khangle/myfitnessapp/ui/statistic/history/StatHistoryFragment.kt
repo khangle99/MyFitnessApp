@@ -41,8 +41,12 @@ class StatHistoryFragment(private val viewModel: StatisticViewModel) : Fragment(
         historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
         viewModel.statHistoryList.observe(viewLifecycleOwner) {
-            statHistoryListAdapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+            if(it.isNotEmpty()) {
+                statHistoryListAdapter.submitList(it)
+            } else {
+                Toast.makeText(context, "No Statistic added", Toast.LENGTH_SHORT).show()
+            }
         }
 
         addStatButton.setOnClickListener {

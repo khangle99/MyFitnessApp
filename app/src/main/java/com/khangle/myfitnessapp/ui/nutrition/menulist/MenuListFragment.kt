@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,8 +55,12 @@ class MenuListFragment : Fragment() {
             loadListForCategory(category)
         }
         viewmodel.menuList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+            if (it.isNotEmpty()) {
+                adapter.submitList(it)
+            } else {
+                Toast.makeText(context, "No Menu added", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

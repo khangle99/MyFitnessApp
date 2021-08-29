@@ -58,8 +58,12 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
         }
 
         userExcerciseViewModel.excerciseSession.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+            if(it.isNotEmpty()) {
+                adapter.submitList(it)
+            } else {
+                Toast.makeText(context,"No Session added", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -72,8 +76,14 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
                 sessionRecyclerView.isEnabled = false
                userExcerciseViewModel.removeExcSession(item.id) {
                    progressBar.visibility = View.INVISIBLE
-                   sessionRecyclerView.isEnabled = true
-                   Toast.makeText(context, "Deleted Session", Toast.LENGTH_SHORT).show()
+                   if(it.id != null) {
+                       sessionRecyclerView.isEnabled = true
+                       Toast.makeText(context, "Deleted Session", Toast.LENGTH_SHORT).show()
+                   } else {
+                       Toast.makeText(context, "Cant deleted Session have excercise", Toast.LENGTH_SHORT).show()
+                       adapter.notifyDataSetChanged()
+                   }
+
                }
             }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,21 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.excerciseTuple.observe(viewLifecycleOwner) {
+            progressBar.visibility = View.INVISIBLE
+            if(it.isNotEmpty()) {
+                userListAdapter.submitList(it)
+                startWorkoutBtn.visibility = View.VISIBLE
+            } else {
+                startWorkoutBtn.visibility = View.INVISIBLE
+                Toast.makeText(context,"No Excercise added", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val session: Session = requireArguments().getParcelable("session")!!
@@ -71,23 +87,13 @@ class UserExcListFragment constructor(private val viewModel: UserExcViewModel): 
         excListRecyclerView.adapter = userListAdapter
         excListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        viewModel.excerciseTuple.observe(viewLifecycleOwner) {
-            userListAdapter.submitList(it)
-            progressBar.visibility = View.INVISIBLE
-           if (it.isEmpty()) {
-               startWorkoutBtn.visibility = View.INVISIBLE
-           } else {
-               startWorkoutBtn.visibility = View.VISIBLE
-           }
-        }
+
 
         viewModel.invalidateUserExcercise(session.id)
          nameTV.setText(session.name)
         nameTV.addTextChangedListener {
             session.name = it.toString()
-            viewModel.updateSession(session) {
-
-            }
+            viewModel.updateSession(session) { }
         }
     }
 

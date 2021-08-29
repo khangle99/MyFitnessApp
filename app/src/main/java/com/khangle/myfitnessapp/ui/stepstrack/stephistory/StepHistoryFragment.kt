@@ -15,6 +15,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -83,12 +84,24 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
             }.show(childFragmentManager, "StepGoal")
         }
         stepTrackViewModel.stepHistoryList.observe(viewLifecycleOwner) {
-
-                stepHistoryListAdapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+            if(it.isNotEmpty()) {
+                stepHistoryListAdapter.submitList(it)
+            } else {
+                Toast.makeText(context, "No Steptrack added", Toast.LENGTH_SHORT).show()
+            }
         }
         clearHistory.setOnClickListener {
-
+            progressBar.visibility = View.VISIBLE
+            stepTrackViewModel.clearHistory {
+                progressBar.visibility = View.INVISIBLE
+                if(it.id != null) {
+                    stepHistoryListAdapter.submitList(listOf())
+                    stepTrackViewModel.getStepHistory()
+                } else {
+                    Toast.makeText(context, "Delete error: ${it.error}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

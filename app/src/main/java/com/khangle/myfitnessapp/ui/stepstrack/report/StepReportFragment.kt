@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -47,8 +48,12 @@ class StepReportFragment constructor(private val stepTrackViewModel: StepTrackVi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         stepTrackViewModel.stepHistoryList.observe(viewLifecycleOwner) {
-            setupStepHistoryChart(it)
-            setupReportTV(it)
+            if (it.isNotEmpty()) {
+                setupStepHistoryChart(it)
+                setupReportTV(it)
+            } else {
+                Toast.makeText(context, "No StepTrack added", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

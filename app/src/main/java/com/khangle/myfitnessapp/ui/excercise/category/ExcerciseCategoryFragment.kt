@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -41,8 +42,12 @@ class ExcerciseCategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.excerciseCategory.observe(viewLifecycleOwner, {
-            adapter.submitList(it)
             progressBar.visibility = View.INVISIBLE
+            if(it.isNotEmpty()) {
+                adapter.submitList(it)
+            } else {
+                Toast.makeText(context, "No Catagory added", Toast.LENGTH_SHORT).show()
+            }
         })
         viewModel.invalidateExcCategory()
         adapter = ExcCategoryListAdapter {

@@ -65,10 +65,9 @@ interface MyFitnessAppService {
     ):
             ResponseMessage
 
-//    @DELETE("deleteUserStatHistory")
-//    suspend fun deleteStep(@Query("uid") uid: String,
-//                           @Query("statId") statId: String):
-//            ResponseMessage
+    @DELETE("deleteAllUserStep")
+    suspend fun deleteAllStep(@Query("uid") uid: String):
+            ResponseMessage
 
 
     /////////////session

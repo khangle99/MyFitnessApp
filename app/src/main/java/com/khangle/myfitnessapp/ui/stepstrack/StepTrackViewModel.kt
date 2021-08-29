@@ -6,13 +6,15 @@ import com.khangle.myfitnessapp.common.toFormatDate
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
 import com.khangle.myfitnessapp.data.network.ResponseMessage
 import com.khangle.myfitnessapp.model.user.UserStep
+import com.khangle.myfitnessapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class StepTrackViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
+class StepTrackViewModel @Inject constructor(private val repository: MyFitnessAppRepository): BaseViewModel() {
 
     val stepHistoryList: LiveData<List<UserStep>> = repository.getStepTrack().asLiveData().map {
         val sortedByDate = it.sortedWith(Comparator { o1, o2 ->
@@ -34,6 +36,17 @@ class StepTrackViewModel @Inject constructor(private val repository: MyFitnessAp
     fun getStepHistory() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.invalidateStepList(uid)
+        }
+    }
+
+    fun clearHistory(handle: (ResponseMessage) -> Unit ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            handleResponse(handle) {
+               val res = repository.clearHistory(uid)
+               withContext(Dispatchers.Main) {
+                   handle(res)
+               }
+            }
         }
     }
 
