@@ -34,4 +34,9 @@ class NutritionViewModel @Inject constructor(private val repository: MyFitnessAp
             }
         }
     }
+    fun increaseView(menu: Menu) {
+        viewModelScope.launch {
+            repository.increaseView(menu.catId, menu.id)
+        }
+    }
 }

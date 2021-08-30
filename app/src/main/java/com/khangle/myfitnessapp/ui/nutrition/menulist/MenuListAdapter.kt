@@ -27,10 +27,12 @@ class MenuListAdapter(val onItemclick: (item: Menu) -> Unit) :
     class MenuVH(itemView: View, val onItemclick: (item: Menu) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val nameTv: TextView
+        val viewTv: TextView
         lateinit var item: Menu
 
         init {
             nameTv = itemView.findViewById(R.id.menuNameTv)
+            viewTv = itemView.findViewById(R.id.views)
             itemView.findViewById<CardView>(R.id.cardItem).setOnClickListener {
                 onItemclick(item)
             }
@@ -39,6 +41,7 @@ class MenuListAdapter(val onItemclick: (item: Menu) -> Unit) :
         fun bind(menu: Menu) {
             item = menu
             nameTv.text = menu.name
+            viewTv.setText(menu.view.toString())
         }
     }
 }

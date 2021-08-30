@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 class Excercise(
     @PrimaryKey val id: String = "",
     var name: String,
-    var difficulty: String,
+    var difficulty: Int,
     var equipment: String,
     var tutorial: String,
     val picSteps: List<String>,
@@ -18,7 +18,7 @@ class Excercise(
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readString() ?: "",
+        parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.createStringArrayList() ?: listOf(),
@@ -29,7 +29,7 @@ class Excercise(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
-        parcel.writeString(difficulty)
+        parcel.writeInt(difficulty)
         parcel.writeString(equipment)
         parcel.writeString(tutorial)
         parcel.writeStringList(picSteps)

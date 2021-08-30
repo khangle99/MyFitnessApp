@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.common.Difficulty
 import com.khangle.myfitnessapp.model.user.Session
 import com.khangle.myfitnessapp.model.user.UserExcTuple
 import com.khangle.myfitnessapp.model.user.UserExcercise
@@ -54,7 +55,7 @@ class UserExcListAdapter constructor(private val onClick: (UserExcTuple) -> Unit
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             nameTV.text = userExc.excercise?.name ?: spannable
-            difficultyTV.text = userExc.excercise?.difficulty
+            difficultyTV.text = Difficulty.fromInt(userExc.excercise!!.difficulty).name
         }
     }
 }

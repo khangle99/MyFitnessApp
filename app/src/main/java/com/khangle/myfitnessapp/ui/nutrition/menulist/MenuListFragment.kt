@@ -39,6 +39,7 @@ class MenuListFragment : Fragment() {
         adapter = MenuListAdapter {
             val frag = MenuDetailFragment()
             frag.arguments = bundleOf("menu" to it)
+            viewmodel.increaseView(it)
             parentFragmentManager.commitAnimate {
                 replace(R.id.nutritionContainer, frag)
             }
@@ -67,6 +68,4 @@ class MenuListFragment : Fragment() {
     private fun loadListForCategory(category: NutritionCategory) {
         viewmodel.invalidateMenu(category)
     }
-
-
 }

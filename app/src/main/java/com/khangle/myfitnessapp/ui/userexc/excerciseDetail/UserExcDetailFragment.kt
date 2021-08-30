@@ -88,7 +88,6 @@ class UserExcDetailFragment: BaseComposableFragment() {
             }
         }
 
-
     }
 
     private fun loadSessionSpiner() {

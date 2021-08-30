@@ -2,6 +2,8 @@ package com.khangle.myfitnessapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -39,7 +41,7 @@ class LaunchScreenActivity: AppCompatActivity() {
         val response = result.idpResponse
         if (result.resultCode == RESULT_OK) {
             val user = FirebaseAuth.getInstance().currentUser
-            Toast.makeText(baseContext, "email ${user?.email}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "Sign In ${user?.email}", Toast.LENGTH_SHORT).show()
             lifecycleScope.launch(Dispatchers.IO) {
                 authService.registerUser(user!!.uid, user.email ?: "")
                 val intent = Intent(baseContext, ContainerActivity::class.java)
@@ -60,10 +62,13 @@ class LaunchScreenActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
-            Toast.makeText(baseContext, "email ${user.email}", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ContainerActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            Handler(Looper.getMainLooper()).postDelayed({
+                Toast.makeText(baseContext, "email ${user.email}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ContainerActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+            }, 1000)
+
         } else {
             signInLauncher.launch(signInIntent)
         }

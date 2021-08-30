@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.common.Difficulty
 import com.khangle.myfitnessapp.common.UseState
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.model.Excercise
@@ -49,7 +50,7 @@ class ExcDetailFragment : Fragment() {
 
         excercise = arguments?.getParcelable("excercise")!!
         titleTextView.text = excercise.name
-        difficultyTextView.text = excercise.difficulty
+        difficultyTextView.text = Difficulty.fromInt(excercise.difficulty).name
         equipmentTextView.text = excercise.equipment
         tutorialTextView.text = excercise.tutorial
         viewStepsButton.setOnClickListener {

@@ -59,6 +59,10 @@ class MyFitnessAppRepository @Inject constructor(
         dao.invalidateMenu(nutriId, *menuList.toTypedArray())
     }
 
+    suspend fun increaseView(nutriId: String, id: String) {
+       service.increaseView(nutriId,id)
+    }
+
     //======================== statistic
     fun getStatistic(): Flow<List<UserStat>> {
         return dao.getUserStat()

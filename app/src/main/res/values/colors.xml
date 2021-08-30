@@ -9,5 +9,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="desgin_black">#2D2926</color>
+    <color name="desgin_tomator">#E94B3C</color>
     <color name="listbackground">#F4F4F4</color>
+    <color name="desgin_tomator_sec">#F95700</color>
+
 </resources>

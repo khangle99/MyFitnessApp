@@ -1,26 +1,17 @@
 package com.khangle.myfitnessapp.ui.nutrition.menudetail
 
-import android.media.Image
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.CircleCropTransformation
+import androidx.fragment.app.Fragment
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.khangle.myfitnessapp.R
-import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.Menu
-import com.stfalcon.imageviewer.StfalconImageViewer
 
 class MenuDetailFragment : Fragment() {
-
     private lateinit var imageSlider: ImageSlider
     private lateinit var nameTextView: TextView
     private lateinit var breakfastTextView: TextView

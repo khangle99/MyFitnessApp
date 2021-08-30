@@ -18,7 +18,10 @@ interface MyFitnessAppService {
     suspend fun fetchExcerciseCategory(): List<ExcerciseCategory>
 
     @GET("excercisesDetail")
-    suspend fun fetchExcerciseDetail(@Query("categoryId") catId: String, @Query("id") id: String): Excercise
+    suspend fun fetchExcerciseDetail(
+        @Query("categoryId") catId: String,
+        @Query("id") id: String,
+    ): Excercise
 
 
     @GET("excercises")
@@ -41,14 +44,14 @@ interface MyFitnessAppService {
         @Field("uid") uid: String,
         @Field("dateString") dateString: String,
         @Field("weight") weight: Int,
-        @Field("height") height: Int
+        @Field("height") height: Int,
     ):
             ResponseMessage
 
     @DELETE("deleteUserStatHistory")
     suspend fun deleteStat(
         @Query("uid") uid: String,
-        @Query("statId") statId: String
+        @Query("statId") statId: String,
     ):
             ResponseMessage
 
@@ -61,7 +64,7 @@ interface MyFitnessAppService {
     suspend fun postStep(
         @Field("uid") uid: String,
         @Field("dateString") dateString: String,
-        @Field("steps") weight: Int
+        @Field("steps") weight: Int,
     ):
             ResponseMessage
 
@@ -79,7 +82,7 @@ interface MyFitnessAppService {
     @POST("newSession")
     suspend fun postUserSession(
         @Field("uid") uid: String,
-        @Field("name") name: String
+        @Field("name") name: String,
     ):
             ResponseMessage
 
@@ -88,14 +91,14 @@ interface MyFitnessAppService {
     suspend fun updateUserSession(
         @Field("uid") uid: String,
         @Field("name") name: String,
-        @Field("sessionId") sessionId: String
+        @Field("sessionId") sessionId: String,
     ):
             ResponseMessage
 
     @DELETE("deleteSession")
     suspend fun deleteUserSession(
         @Query("uid") uid: String,
-        @Query("sessionId") sessId: String
+        @Query("sessionId") sessId: String,
     ):
             ResponseMessage
     /////////////userexcercise
@@ -103,7 +106,7 @@ interface MyFitnessAppService {
     @GET("userExcercise")
     suspend fun fetchUserExcercise(
         @Query("uid") uid: String,
-        @Query("sessionId") sessionId: String
+        @Query("sessionId") sessionId: String,
     ): List<UserExcercise>
 
     @FormUrlEncoded
@@ -115,7 +118,7 @@ interface MyFitnessAppService {
         @Field("noSec") noSec: String,
         @Field("noGap") noGap: String,
         @Field("categoryId") categoryId: String,
-        @Field("excId") excId: String
+        @Field("excId") excId: String,
     ):
             ResponseMessage
 
@@ -127,7 +130,7 @@ interface MyFitnessAppService {
         @Field("id") id: String,
         @Field("noTurn") noTurn: String,
         @Field("noSec") noSec: String,
-        @Field("noGap") noGap: String
+        @Field("noGap") noGap: String,
     ):
             ResponseMessage
 
@@ -138,6 +141,13 @@ interface MyFitnessAppService {
         @Query("id") id: String,
     ):
             ResponseMessage
+
+    @FormUrlEncoded
+    @POST("increaseMenuView")
+    suspend fun increaseView(
+        @Field("nutriId") nutriId: String,
+        @Field("id") id: String,
+    ): ResponseMessage
 
 }
 
