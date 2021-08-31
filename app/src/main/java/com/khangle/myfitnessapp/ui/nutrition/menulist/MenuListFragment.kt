@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khangle.myfitnessapp.R
@@ -27,7 +28,7 @@ class MenuListFragment : Fragment() {
     lateinit var excerciseList: RecyclerView
     lateinit var adapter: MenuListAdapter
     lateinit var progressBar: ProgressBar
-    private val viewmodel: NutritionViewModel by activityViewModels()
+    private val viewmodel: MenuListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

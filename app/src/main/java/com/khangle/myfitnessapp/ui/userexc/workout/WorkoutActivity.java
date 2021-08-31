@@ -131,15 +131,15 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
             return;
         }
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage("R.string.abort_message");
+        alertBuilder.setMessage("Abort current workout");
         alertBuilder.setTitle("Abort");
-        alertBuilder.setNegativeButton("R.string.yes", new DialogInterface.OnClickListener() {
+        alertBuilder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 WorkoutActivity.super.onBackPressed();
             }
         });
-        alertBuilder.setPositiveButton("R.string.no", new DialogInterface.OnClickListener() {
+        alertBuilder.setPositiveButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }

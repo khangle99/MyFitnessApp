@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.khangle.myfitnessapp.R
@@ -24,7 +25,7 @@ class ExcListFragment : Fragment() {
     lateinit var excerciseList: RecyclerView
     lateinit var adapter: ExcerciseListAdapter
     lateinit var progressBar: ProgressBar
-    private val viewmodel: ExcerciseViewModel by activityViewModels()
+    private val viewmodel: ExcerciseListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
