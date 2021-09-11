@@ -12,6 +12,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.khangle.myfitnessapp.common.SharePreferenceUtil
 import com.khangle.myfitnessapp.common.StepUtil
+import com.khangle.myfitnessapp.notification.NotificationUtil.createGoalNotificationChanel
 import com.khangle.myfitnessapp.notification.NotificationUtil.createNotificationChanel
 import com.khangle.myfitnessapp.service.StepTrackUploadService
 import dagger.hilt.android.HiltAndroidApp
@@ -29,7 +30,10 @@ class MyFitnessApp: Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+       
         createNotificationChanel(applicationContext)
+        createGoalNotificationChanel(applicationContext)
+
         scheduleAlarmUploadStep()
 
     }

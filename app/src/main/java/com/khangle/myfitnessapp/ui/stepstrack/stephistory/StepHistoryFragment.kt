@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.SharePreferenceUtil
 import com.khangle.myfitnessapp.common.StepUtil
+import com.khangle.myfitnessapp.notification.NotificationUtil
 import com.khangle.myfitnessapp.ui.statistic.history.AddStatDialogFragment
 import com.khangle.myfitnessapp.ui.stepstrack.StepTrackViewModel
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -39,6 +41,9 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
     lateinit var progressBar: ProgressBar
     private lateinit var setGoalBtn: Chip
     private lateinit var clearHistory: ImageView
+    private var currentGoal: Int = 0
+    private var isFinished = false
+    private lateinit var sharePreferenceUtil: SharePreferenceUtil
 
     private lateinit var sensorManager: SensorManager
     private lateinit var sensor: Sensor
@@ -48,6 +53,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_step_history, container, false)
+        sharePreferenceUtil = SharePreferenceUtil.getInstance(requireContext())
         stepHistoryRecyclerView = view.findViewById(R.id.stepHistoryList)
         circularProgressIndicator = view.findViewById(R.id.currentStepTrackIndicator)
         progressBar = view.findViewById(R.id.stepProgress)
@@ -58,7 +64,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
                 Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
             //init for first time
              isInit = true
-            SharePreferenceUtil.getInstance(requireContext()).setStepGoal(5000) // default value
+            sharePreferenceUtil.setStepGoal(5000) // default value
             requestPermissions( arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), 99);
         }
         sensorManager =
@@ -70,7 +76,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        isFinished = sharePreferenceUtil.getFinished()
 
         stepHistoryListAdapter = StepHistoryListAdapter()
         loadUIStep()
@@ -106,7 +112,7 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
     }
 
     private fun loadUIStep(goal: Int = 0) {
-        var currentGoal = if (goal == 0)  SharePreferenceUtil.getInstance(requireContext()).getStepGoal() else goal
+        currentGoal = if (goal == 0)  SharePreferenceUtil.getInstance(requireContext()).getStepGoal() else goal
 
         circularProgressIndicator.progressMax = currentGoal.toFloat()
         stepHistoryListAdapter.setGoal(currentGoal)
@@ -135,8 +141,16 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
         } else {
             steps = StepUtil.calculateTodayStep(requireContext(), value).toFloat()
         }
+
         circularProgressIndicator.setProgressWithAnimation(steps,500, DecelerateInterpolator())
         currentStepTV.text = "Current Step: ${steps}"
+        if (steps.toInt() >= currentGoal && !isFinished) {
+            sharePreferenceUtil.setFinished(true)
+            val notification = NotificationUtil.buildGoalFinishedNotification(requireContext())
+            with(NotificationManagerCompat.from(requireContext())) {
+                notify(89, notification)
+            }
+        }
 
     }
 

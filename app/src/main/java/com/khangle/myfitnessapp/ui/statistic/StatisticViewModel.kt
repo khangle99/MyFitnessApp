@@ -9,6 +9,7 @@ import com.khangle.myfitnessapp.model.user.UserStat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,7 +41,9 @@ class StatisticViewModel @Inject constructor(private val repository: MyFitnessAp
     fun addStat(stat: UserStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = repository.insertStat(uid, stat)
-            handle(res)
+            withContext(Dispatchers.Main) {
+                handle(res)
+            }
         }
     }
 

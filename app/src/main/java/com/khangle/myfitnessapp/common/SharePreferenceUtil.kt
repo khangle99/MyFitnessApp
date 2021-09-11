@@ -39,6 +39,14 @@ class SharePreferenceUtil constructor(private val pref: SharedPreferences) {
             .commit()
     }
 
+    fun getFinished(): Boolean {
+        return pref.getBoolean("isFinished", false)
+    }
+
+    fun setFinished(isFinish: Boolean) {
+        pref.edit().putBoolean("isFinished", isFinish).apply()
+    }
+
     companion object {
         private var _instance: SharePreferenceUtil? = null
 

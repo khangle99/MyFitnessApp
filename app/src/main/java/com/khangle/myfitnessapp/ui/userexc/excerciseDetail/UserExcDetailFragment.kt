@@ -6,7 +6,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -19,13 +18,13 @@ import com.khangle.myfitnessapp.model.user.UserExcTuple
 import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.ui.base.BaseComposableFragment
 import com.khangle.myfitnessapp.ui.excercise.excdetail.ExcDetailFragment
-import com.khangle.myfitnessapp.ui.userexc.UserExcViewModel
+import com.khangle.myfitnessapp.ui.userexc.UserSessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserExcDetailFragment: BaseComposableFragment() {
 
-    private val viewModel: UserExcViewModel by viewModels()
+    private val viewModel: UserExcDetailViewModel by viewModels()
 
     private lateinit var excNameTV: TextView
     private lateinit var noGapEditText: EditText

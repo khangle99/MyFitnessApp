@@ -15,11 +15,11 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.SwipeToDeleteCallback
 import com.khangle.myfitnessapp.extension.commitAnimate
-import com.khangle.myfitnessapp.ui.userexc.UserExcViewModel
+import com.khangle.myfitnessapp.ui.userexc.UserSessionViewModel
 import com.khangle.myfitnessapp.ui.userexc.excList.UserExcListFragment
 
 
-class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExcViewModel): Fragment() {
+class ExcSessionFragment constructor(private val userExcerciseViewModel: UserSessionViewModel): Fragment() {
 
     private lateinit var sessionRecyclerView: RecyclerView
     private lateinit var adapter: SessionListAdapter
@@ -41,7 +41,7 @@ class ExcSessionFragment constructor(private val userExcerciseViewModel: UserExc
         super.onViewCreated(view, savedInstanceState)
         setupSwipeToDelete()
         adapter = SessionListAdapter {
-            val frag = UserExcListFragment(userExcerciseViewModel)
+            val frag = UserExcListFragment()
             frag.arguments = bundleOf("session" to it)
             parentFragmentManager.commitAnimate {
                 addToBackStack(null)

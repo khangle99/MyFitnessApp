@@ -8,23 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.ui.userexc.UserExcViewModel
+import com.khangle.myfitnessapp.ui.userexc.UserSessionViewModel
 import com.khangle.myfitnessapp.ui.userexc.excerciseDetail.UserExcDetailFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class UserExcListFragment : Fragment() {
 
-class UserExcListFragment constructor(private val viewModel: UserExcViewModel): Fragment() {
-
+    private val viewModel: UserExcViewModel by viewModels()
     private lateinit var nameTV: EditText
     private lateinit var excListRecyclerView: RecyclerView
     private lateinit var userListAdapter: UserExcListAdapter

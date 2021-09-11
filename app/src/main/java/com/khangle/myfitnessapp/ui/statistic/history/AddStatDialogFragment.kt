@@ -48,6 +48,7 @@ class AddStatDialogFragment constructor(private val viewmodel: StatisticViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadSpinner()
+        datePicker.minDate = System.currentTimeMillis()
         cancelChip.setOnClickListener {
             dismiss()
         }

@@ -49,6 +49,7 @@ class StepTrackUploadService : Service(), SensorEventListener {
             applicationContext.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+        SharePreferenceUtil.getInstance(applicationContext).setFinished(false) // reset
         val notification = NotificationUtil.buildUploadStepNotification(applicationContext)
         startForeground(99, notification)
         return START_REDELIVER_INTENT

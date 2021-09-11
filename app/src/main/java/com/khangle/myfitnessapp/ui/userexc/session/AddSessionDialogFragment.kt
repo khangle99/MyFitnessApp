@@ -1,7 +1,6 @@
 package com.khangle.myfitnessapp.ui.userexc.session
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,10 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.model.user.UserStat
-import com.khangle.myfitnessapp.ui.statistic.StatisticViewModel
-import com.khangle.myfitnessapp.ui.userexc.UserExcViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.khangle.myfitnessapp.ui.userexc.UserSessionViewModel
 
 
-class AddSessionDialogFragment constructor(private val viewmodel: UserExcViewModel) :
+class AddSessionDialogFragment constructor(private val viewmodel: UserSessionViewModel) :
     DialogFragment() {
 
     private lateinit var cancelChip: Chip
