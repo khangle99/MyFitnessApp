@@ -9,8 +9,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <EditText
-            android:text="Session Name"
+        <TextView
+            android:text="Excercise Plan"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="28sp"

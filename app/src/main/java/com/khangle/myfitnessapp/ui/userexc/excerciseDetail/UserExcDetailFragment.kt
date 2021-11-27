@@ -14,11 +14,11 @@ import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.UseState
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.extension.setReadOnly
+import com.khangle.myfitnessapp.model.user.PlanDay
 import com.khangle.myfitnessapp.model.user.UserExcTuple
 import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.ui.base.BaseComposableFragment
 import com.khangle.myfitnessapp.ui.excercise.excdetail.ExcDetailFragment
-import com.khangle.myfitnessapp.ui.userexc.UserSessionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,15 +27,11 @@ class UserExcDetailFragment: BaseComposableFragment() {
     private val viewModel: UserExcDetailViewModel by viewModels()
 
     private lateinit var excNameTV: TextView
-    private lateinit var noGapEditText: EditText
-    private lateinit var noSecEditText: EditText
-    private lateinit var noTurnEditText: EditText
-    private lateinit var sessionSpinner: Spinner
+    private lateinit var daySpinner: Spinner
     private lateinit var viewDetail: Chip
-    private lateinit var sessionTitleTV: TextView
-
-    private var selectedSessionId = ""
-    private var userExcercise: UserExcercise? = null
+    private var selectedDay: String = "Monday"
+    private lateinit var planDay: PlanDay
+    private val dayList = listOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,12 +40,9 @@ class UserExcDetailFragment: BaseComposableFragment() {
         setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_user_exc_detail, container, false)
         excNameTV = view.findViewById(R.id.excName)
-        noGapEditText = view.findViewById(R.id.noGap)
-        noSecEditText = view.findViewById(R.id.noSec)
-        noTurnEditText = view.findViewById(R.id.noTurn)
         viewDetail = view.findViewById(R.id.viewExcDetailBtn)
-        sessionSpinner = view.findViewById(R.id.sessionSpinner)
-        sessionTitleTV = view.findViewById(R.id.sessionTitle)
+        daySpinner = view.findViewById(R.id.dayinWeekSpinner)
+        setupDaySpinner()
         return view
     }
 
@@ -61,10 +54,9 @@ class UserExcDetailFragment: BaseComposableFragment() {
 
         if (state == UseState.ADD) {
             excNameTV.text = requireArguments().getString("excName")
-            loadSessionSpiner()
         } else {
-            val tuple: UserExcTuple = requireArguments().getParcelable("tuple")!!
-            loadTuple(tuple)
+            planDay = requireArguments().getParcelable("planDay")!!
+            loadPlanDay(planDay)
             if (requireArguments().getBoolean("isDeleted", false)) {
                 viewDetail.visibility = View.INVISIBLE
                 val spannableString = SpannableString("This Excercise has been deleted by admin! Please manually remove this reference")
@@ -78,55 +70,45 @@ class UserExcDetailFragment: BaseComposableFragment() {
             }
             viewDetail.setOnClickListener {
                 val frag = ExcDetailFragment()
-                frag.arguments = bundleOf("excercise" to tuple.excercise, "isViewOnly" to true)
+                frag.arguments = bundleOf("excercise" to planDay.exc, "isViewOnly" to true)
                 parentFragmentManager.commitAnimate {
                     addToBackStack(null)
                     replace(R.id.userexcContainer, frag)
-
                 }
             }
         }
 
+
     }
 
-    private fun loadSessionSpiner() {
-        viewModel.excerciseSession.observe(viewLifecycleOwner) {
-            val nameList = it.map { it.name }
-            sessionSpinner.adapter = ArrayAdapter(requireContext(),R.layout.item_spinner, nameList)
-        }
-        sessionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+    private fun loadPlanDay(planDay: PlanDay) {
+        excNameTV.setText(planDay.exc?.name)
+        daySpinner.setSelection(planDay.day.toInt())
+    }
+
+    private fun setupDaySpinner() {
+        daySpinner.adapter = ArrayAdapter(requireActivity(),R.layout.item_spinner, dayList)
+        daySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long,
             ) {
-                selectedSessionId = viewModel.excerciseSession.value!![position].id
+                selectedDay = position.toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) { }
         }
     }
 
-    private fun loadTuple(tuple: UserExcTuple) {
-        userExcercise = tuple.timeInfo
-        excNameTV.text = tuple.excercise!!.name
-        noGapEditText.setText(tuple.timeInfo!!.noGap.toString())
-        noSecEditText.setText(tuple.timeInfo.noSec.toString())
-        noTurnEditText.setText(tuple.timeInfo.noTurn.toString())
-    }
-
-
     override fun onAdded() {
         if (!validateInput()) return
-        val noGap = noGapEditText.text.toString()
-        val noSec = noSecEditText.text.toString()
-        val noTurn = noTurnEditText.text.toString()
 
         val categoryId = requireArguments().getString("categoryId")!!
         val excId = requireArguments().getString("excId")!!
-        val userExcercise = UserExcercise("",noGap.toInt(), noSec.toInt(), noTurn.toInt(),selectedSessionId, categoryId, excId)
-        viewModel.addUserExcercise(userExcercise, selectedSessionId) { message ->
+
+        viewModel.updatePlanDay(categoryId,excId, selectedDay!!, "9") { message -> // 9 is create new day
             if (message.id != null) {
                 Toast.makeText(
                     requireContext(),
@@ -146,21 +128,20 @@ class UserExcDetailFragment: BaseComposableFragment() {
 
     override fun onUpdated() {
         if (!validateInput()) return
-        userExcercise!!.noTurn = noTurnEditText.text.toString().toInt()
-        userExcercise!!.noSec = noSecEditText.text.toString().toInt()
-        userExcercise!!.noGap = noGapEditText.text.toString().toInt()
-        viewModel.updateUserExcercise(userExcercise!!) { message ->
+
+        val excId = requireArguments().getString("excId")!!
+        viewModel.updatePlanDay(planDay.categoryId,excId, selectedDay!!,planDay.day) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     requireContext(),
-                    "Update thành công với id: ${message.id}",
+                    "Thêm thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
                 parentFragmentManager.popBackStack()
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Lỗi khi update error: ${message.error}",
+                    "Lỗi khi thêm error: ${message.error}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -168,14 +149,13 @@ class UserExcDetailFragment: BaseComposableFragment() {
     }
 
     override fun onDeleted() {
-        viewModel.deleteUserExcercise(userExcercise!!) { message ->
+        viewModel.deletePlanDay(selectedDay!!) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     requireContext(),
                     "Delete thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-
                 parentFragmentManager.popBackStack()
             } else {
                 Toast.makeText(
@@ -192,45 +172,16 @@ class UserExcDetailFragment: BaseComposableFragment() {
     }
 
     override fun invalidateView() {
-        when (state) {
-            UseState.EDIT, UseState.ADD -> {
-                noGapEditText.setReadOnly(false)
-                noTurnEditText.setReadOnly(false)
-                noSecEditText.setReadOnly(false)
-
-            }
-            else -> {
-                noGapEditText.setReadOnly(true)
-                noTurnEditText.setReadOnly(true)
-                noSecEditText.setReadOnly(true)
-
-            }
-        }
-
         if (state == UseState.ADD) {
-            sessionSpinner.visibility = View.VISIBLE
-            sessionTitleTV.visibility = View.VISIBLE
             viewDetail.visibility = View.INVISIBLE
         } else {
-            sessionSpinner.visibility = View.GONE
-            sessionTitleTV.visibility = View.GONE
             viewDetail.visibility = View.VISIBLE
         }
+
+        daySpinner.isEnabled = state == UseState.ADD || state == UseState.EDIT
     }
 
-    private fun validateInput(): Boolean { // false khi fail
-        if (noGapEditText.toString().trim { it <= ' ' }.length == 0) {
-            noGapEditText.setError("Không được để trống Gap")
-            return false
-        }
-        if (noSecEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            noSecEditText.setError("Không được để trống Sec")
-            return false
-        }
-        if (noTurnEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            noTurnEditText.setError("Không được để trống no Turn")
-            return false
-        }
+    private fun validateInput(): Boolean {
         return true
     }
 

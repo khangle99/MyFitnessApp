@@ -47,7 +47,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.khangle.myfitnessapp.R;
-import com.khangle.myfitnessapp.model.user.UserExcTuple;
+import com.khangle.myfitnessapp.model.user.PlanDay;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -63,7 +63,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private final float RATIO = 0.2f;
     private TextToSpeech textToSpeech;
     //Current state variables:
-    private ArrayList<UserExcTuple> exercises;
+    private ArrayList<PlanDay> exercises;
     private volatile int index;
     private volatile float timePassed;
     private volatile int turnsPassed;
@@ -233,7 +233,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private void drawProgressCircle(Canvas canvas) {
         double timeRatio = 0;
         if (timePassed > 0)
-            timeRatio = timePassed / exercises.get(index).getTimeInfo().getNoSec() * 2 * Math.PI;
+            timeRatio = timePassed / exercises.get(index).getExc().getNoSec() * 2 * Math.PI;
 
         if (paused) {
             long timeElap = System.nanoTime() - tappedTime;
@@ -256,13 +256,13 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private void drawRingText(Canvas canvas) {
         String text;
         if(true) {
-            text = Integer.toString(exercises.get(index).getTimeInfo().getNoTurn() - turnsPassed);
+            text = Integer.toString(exercises.get(index).getExc().getNoTurn() - turnsPassed);
         } else {
             text = Integer.toString(turnsPassed);
         }
         canvas.drawText(text, (cx - paintTurns.measureText(text) / 2), turnsTextYpos, paintTurns);
 
-        String exName = exercises.get(index).getExcercise().getName();
+        String exName = exercises.get(index).getExc().getName();
         if (paintExName.getTextSize() == 0 && exName.length() != 0)
             setRingFontFor(exName);
 
@@ -301,8 +301,8 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     }
 
     private void drawEstimatedTime(Canvas canvas) {
-        UserExcTuple ex = exercises.get(index);
-        float timePassedInEx = turnsPassed * (ex.getTimeInfo().getNoSec() + ex.getTimeInfo().getNoGap()) + timePassed;
+        PlanDay ex = exercises.get(index);
+        float timePassedInEx = turnsPassed * (ex.getExc().getNoSec() + ex.getExc().getNoGap()) + timePassed;
         int leftTime = (int) (timeLeftAfterCurrentExercise + timeForExerciseAt[index] - timePassedInEx);
         String mins = getTwoDigitStringFor(leftTime / 60);
         String secs = getTwoDigitStringFor(leftTime % 60);
@@ -310,7 +310,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     }
 
     private void drawSuccess(Canvas canvas) {
-        String text = "Success!";
+        String text = "Success!"; // ban tinh hieu success de log diem danh thanh cong
         if (index < 0)
             text = "Start";
         canvas.drawText(text, (cx - paintExName.measureText(text) / 2), turnsTextYpos, paintExName);
@@ -353,7 +353,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
             timePassed += deltaX;
 
             if (timePassed < 0 && deltaX < 0) {
-                timePassed = exercises.get(index).getTimeInfo().getNoSec();
+                timePassed = exercises.get(index).getExc().getNoSec();
                 if (turnsPassed <= 0) {
                     setIndex(getIndex() - 1); //index--
                     if (index < 0) {
@@ -361,8 +361,8 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
                         turnsPassed = 0;
                         timePassed = 0;
                     } else {
-                        turnsPassed = exercises.get(index).getTimeInfo().getNoTurn() - 1;
-                        timePassed = exercises.get(index).getTimeInfo().getNoSec();
+                        turnsPassed = exercises.get(index).getExc().getNoTurn() - 1;
+                        timePassed = exercises.get(index).getExc().getNoSec();
                     }
                 } else {
                     turnsPassed--;
@@ -380,13 +380,13 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
         if (!paused)
             timePassed += (System.nanoTime() - time) / Math.pow(10, 9);
         time = System.nanoTime();
-        float tpt = exercises.get(index).getTimeInfo().getNoSec();
+        float tpt = exercises.get(index).getExc().getNoSec();
         if (timePassed > tpt) {
             turnsPassed++;
-            if (turnsPassed != exercises.get(index).getTimeInfo().getNoTurn() && currentTappedX == -1) {
+            if (turnsPassed != exercises.get(index).getExc().getNoTurn() && currentTappedX == -1) {
                 final String text;
                 if(true)
-                    text = exercises.get(index).getTimeInfo().getNoTurn() - turnsPassed + "to go";
+                    text = exercises.get(index).getExc().getNoTurn() - turnsPassed + "to go";
                 else text = turnsPassed + " completed";
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -399,17 +399,17 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
                     }
                 }, 300);
             }
-            if (turnsPassed >= exercises.get(index).getTimeInfo().getNoTurn()) {
+            if (turnsPassed >= exercises.get(index).getExc().getNoTurn()) {
                 timePassed = -gapBetweenExercises;
                 setIndex(getIndex() + 1); //index++
                 turnsPassed = 0;
 
-            } else timePassed = 0 - exercises.get(index).getTimeInfo().getNoGap();
+            } else timePassed = 0 - exercises.get(index).getExc().getNoGap();
         }
     }
 
     private void updateTimers() {
-        int currSec = (int) (Math.max(0, timePassed) / exercises.get(index).getTimeInfo().getNoSec() * 10);
+        int currSec = (int) (Math.max(0, timePassed) / exercises.get(index).getExc().getNoSec() * 10);
         if(timePassed < 0) currSec = 10;
         if (currSec != prevSec) {
             //Skip very first count
@@ -627,7 +627,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
         }
         if (val >= 0 && val < exercises.size()) {
             final Handler handler = new Handler();
-            final String text = exercises.get(val).getExcercise().getName();
+            final String text = exercises.get(val).getExc().getName();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -644,9 +644,9 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private void calcTimeForExercises() {
         timeForExerciseAt = new int[exercises.size()];
         for (int i = 0; i < exercises.size(); i++) {
-            UserExcTuple exercise = exercises.get(i);
-            timeForExerciseAt[i] = (int) (exercise.getTimeInfo().getNoTurn() * exercise.getTimeInfo().getNoSec()
-                    + (exercise.getTimeInfo().getNoTurn() - 1) * exercise.getTimeInfo().getNoGap());
+            PlanDay exercise = exercises.get(i);
+            timeForExerciseAt[i] = (int) (exercise.getExc().getNoTurn() * exercise.getExc().getNoSec()
+                    + (exercise.getExc().getNoTurn() - 1) * exercise.getExc().getNoGap());
         }
     }
     /*        Utility methods end        */
@@ -668,11 +668,11 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
 
 
     /*        Getters,setters,etc begin       */
-    public ArrayList<UserExcTuple> getExercises() {
+    public ArrayList<PlanDay> getExercises() {
         return exercises;
     }
 
-    public void setExercises(ArrayList<UserExcTuple> exercises) {
+    public void setExercises(ArrayList<PlanDay> exercises) {
         if (this.exercises == null) {
             this.exercises = exercises;
             calcTimeForExercises();
@@ -696,11 +696,11 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
         try {
             System.gc();
             if (exercises != null && exercises.get(val) != null) {
-                UserExcTuple ex = exercises.get(val);
+                PlanDay ex = exercises.get(val);
                 if (false)
                     timePassed = 0;
                 calculateTimeLeftAfterCurrentExercise(val);
-                setRingFontFor(ex.getExcercise().getName());
+                setRingFontFor(ex.getExc().getName());
                 paused = true ? paused : true;
             } else {
                 Log.e(TAG, "Exercises is null");

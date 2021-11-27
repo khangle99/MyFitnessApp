@@ -1,14 +1,14 @@
 package com.khangle.myfitnessapp.ui.userexc
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.khangle.myfitnessapp.R
-import com.khangle.myfitnessapp.ui.userexc.session.ExcSessionFragment
+import com.khangle.myfitnessapp.ui.userexc.excList.UserExcListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -21,7 +21,6 @@ class UserExcFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.invalidateExcSession()
         val view = inflater.inflate(R.layout.fragment_user_exc, container, false)
         return view
     }
@@ -31,8 +30,8 @@ class UserExcFragment : Fragment() {
 
         childFragmentManager.commit {
             setReorderingAllowed(true)
-            val sessionFragment = ExcSessionFragment(viewModel)
-            add(R.id.userexcContainer, sessionFragment)
+            val excListFrag = UserExcListFragment()
+            add(R.id.userexcContainer, excListFrag)
         }
     }
 

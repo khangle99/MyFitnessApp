@@ -2,15 +2,14 @@ package com.khangle.myfitnessapp.ui.userexc.excList
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,18 +17,18 @@ import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.ui.userexc.UserSessionViewModel
 import com.khangle.myfitnessapp.ui.userexc.excerciseDetail.UserExcDetailFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserExcListFragment : Fragment() {
 
     private val viewModel: UserExcViewModel by viewModels()
-    private lateinit var nameTV: EditText
+    private lateinit var nameTV: TextView
     private lateinit var excListRecyclerView: RecyclerView
-    private lateinit var userListAdapter: UserExcListAdapter
+    private lateinit var userListAdapter: PlanDayAdapter
     private lateinit var startWorkoutBtn: Chip
     lateinit var progressBar: ProgressBar
 
@@ -48,7 +47,7 @@ class UserExcListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.excerciseTuple.observe(viewLifecycleOwner) {
+        viewModel.dayList.observe(viewLifecycleOwner) {
             progressBar.visibility = View.INVISIBLE
             if(it.isNotEmpty()) {
                 userListAdapter.submitList(it)
@@ -62,41 +61,38 @@ class UserExcListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val session: Session = requireArguments().getParcelable("session")!!
 
         startWorkoutBtn.setOnClickListener {
+            // code lai ham bat dau tap luyen
             // pass data to new activity to count down
-            val list = viewModel.excerciseTuple.value
+            val list = viewModel.dayList.value
             val intent = Intent(requireContext(), WorkoutActivity::class.java)
-            intent.putExtras(bundleOf("tupleList" to list))
+            intent.putExtras(bundleOf("dayList" to list))
             startActivity(intent)
         }
 
-        userListAdapter = UserExcListAdapter {
+        userListAdapter = PlanDayAdapter {
+//            // mo den man hinh bai tap (tai su dung)
             val frag = UserExcDetailFragment()
-            if (it.excercise?.name == null) {
-                frag.arguments = bundleOf("tuple" to it, "isDeleted" to true)
-            } else {
-                frag.arguments = bundleOf("tuple" to it)
-            }
+            val bundle = bundleOf("planDay" to it, "categoryId" to it.categoryId, "excId" to it.excId, "isDeleted" to true)
 
+            if (it.exc?.name == null) {
+                frag.arguments = bundleOf("planDay" to it, "categoryId" to it.categoryId, "excId" to it.excId, "isDeleted" to true)
+            } else {
+                frag.arguments = bundleOf("planDay" to it, "categoryId" to it.categoryId, "excId" to it.excId)
+            }
             parentFragmentManager.commitAnimate {
                 addToBackStack(null)
                 replace(R.id.userexcContainer, frag)
-
             }
+
+
         }
         excListRecyclerView.adapter = userListAdapter
         excListRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        viewModel.loadList()
 
-
-        viewModel.invalidateUserExcercise(session.id)
-         nameTV.setText(session.name)
-        nameTV.addTextChangedListener {
-            session.name = it.toString()
-            viewModel.updateSession(session) { }
-        }
     }
 
 }

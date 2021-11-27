@@ -4,10 +4,7 @@ import com.khangle.myfitnessapp.data.db.MyFitnessDao
 import com.khangle.myfitnessapp.data.network.MyFitnessAppService
 import com.khangle.myfitnessapp.data.network.ResponseMessage
 import com.khangle.myfitnessapp.model.*
-import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.model.user.UserExcercise
-import com.khangle.myfitnessapp.model.user.UserStat
-import com.khangle.myfitnessapp.model.user.UserStep
+import com.khangle.myfitnessapp.model.user.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -34,6 +31,10 @@ class MyFitnessAppRepository @Inject constructor(
 
     fun getExcerciseList(catId: String): Flow<List<Excercise>> {
         return dao.getExcerciseByCatId(catId)
+    }
+
+    suspend fun getExcercise(catId: String, id: String): Excercise {
+        return service.fetchExcercise(catId, id)
     }
 
     suspend fun invalidateExcerciseList(catId: String) {
@@ -192,4 +193,22 @@ class MyFitnessAppRepository @Inject constructor(
     suspend fun getStatEnsureList(id: String, catId: String): Map<String,Any> {
         return service.getStatEnsureList(id, catId)
     }
+
+
+    // planday
+    suspend fun loadDayList(uid: String): List<PlanDay> {
+        return service.fetchDayList(uid)
+    }
+
+    suspend fun updatePlanDay(uid: String, categoryId: String, excId: String, day: String, oldDay: String): ResponseMessage {
+        return service.updatePlanDay(uid, categoryId, excId, day, oldDay)
+    }
+
+    suspend fun deletePlanDay(uid: String, day: String): ResponseMessage {
+        return service.deletePlanDay(uid, day)
+    }
+
+
+
+
 }

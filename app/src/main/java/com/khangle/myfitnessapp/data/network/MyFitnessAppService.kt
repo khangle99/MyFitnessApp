@@ -2,10 +2,7 @@ package com.khangle.myfitnessapp.data.network
 
 import androidx.room.Delete
 import com.khangle.myfitnessapp.model.*
-import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.model.user.UserExcercise
-import com.khangle.myfitnessapp.model.user.UserStat
-import com.khangle.myfitnessapp.model.user.UserStep
+import com.khangle.myfitnessapp.model.user.*
 import retrofit2.http.*
 
 interface MyFitnessAppService {
@@ -23,6 +20,9 @@ interface MyFitnessAppService {
 
     @GET("excercises")
     suspend fun fetchExcerciseList(@Query("categoryId") catId: String): List<Excercise>
+
+    @GET("excercisesDetail")
+    suspend fun fetchExcercise(@Query("categoryId") catId: String, @Query("id") id: String): Excercise
 
     @GET("nutritionCategory")
     suspend fun fetchNutritionCategory(): List<NutritionCategory>
@@ -153,9 +153,29 @@ interface MyFitnessAppService {
     ): ResponseMessage
 
 
-    // body stat
+    //////////// body stat
     @GET("bodyStats")
     suspend fun fetchBodyStat(): List<BodyStat>
+
+
+    /////////// user plan
+    @GET("userPlan")
+    suspend fun fetchDayList(@Query("uid") uid: String): List<PlanDay>
+
+    @FormUrlEncoded
+    @PUT("updateExcPlanOnDay")
+    suspend fun updatePlanDay(
+        @Field("uid") uid: String,
+        @Field("categoryId") categoryId: String,
+        @Field("excId") excId: String,
+        @Field("day") day: String,
+        @Field("oldDay") oldDay: String
+    ): ResponseMessage
+
+    @DELETE("deleteExcPlanOnDay")
+    suspend fun deletePlanDay(@Query("uid") uid: String,
+                              @Query("day") day: String
+    ): ResponseMessage
 
 }
 

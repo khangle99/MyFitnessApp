@@ -31,16 +31,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.khangle.myfitnessapp.R;
 import com.khangle.myfitnessapp.customview.ExerciseModificationListener;
-import com.khangle.myfitnessapp.model.user.UserExcTuple;
+import com.khangle.myfitnessapp.model.user.PlanDay;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -52,11 +50,11 @@ import java.util.Locale;
 public class UpcomingExercisesAdapter extends RecyclerView.Adapter<UpcomingExercisesAdapter.ExerciseViewHolder>
         implements ListChangeAdapter {
 
-    private ArrayList<UserExcTuple> exercises;
+    private ArrayList<PlanDay> exercises;
     private List<ExerciseModificationListener> exerciseModificationListeners;
     private int beg;
 
-    public UpcomingExercisesAdapter(ArrayList<UserExcTuple> exercises, int index, List<ExerciseModificationListener> exerciseModificationListeners) {
+    public UpcomingExercisesAdapter(ArrayList<PlanDay> exercises, int index, List<ExerciseModificationListener> exerciseModificationListeners) {
         this.exercises = exercises;
         this.exerciseModificationListeners = exerciseModificationListeners;
         beg = index + 1;
@@ -71,8 +69,8 @@ public class UpcomingExercisesAdapter extends RecyclerView.Adapter<UpcomingExerc
 
     @Override
     public void onBindViewHolder(ExerciseViewHolder holder, int position) {
-        holder.name.setText(exercises.get(beg + position).getExcercise().getName());
-        holder.reps.setText(String.format(Locale.ENGLISH, "X %d", exercises.get(beg + position).getTimeInfo().getNoTurn()));
+        holder.name.setText(exercises.get(beg + position).getExc().getName());
+        holder.reps.setText(String.format(Locale.ENGLISH, "X %d", exercises.get(beg + position).getExc().getNoTurn()));
     }
 
     @Override

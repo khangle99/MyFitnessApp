@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
 import com.khangle.myfitnessapp.data.network.ResponseMessage
+import com.khangle.myfitnessapp.model.user.PlanDay
 import com.khangle.myfitnessapp.model.user.Session
 import com.khangle.myfitnessapp.model.user.UserExcTuple
 import com.khangle.myfitnessapp.model.user.UserExcercise
@@ -21,32 +23,21 @@ class UserExcViewModel @Inject constructor(private val repository: MyFitnessAppR
 
     private val uid = FirebaseAuth.getInstance().uid!!
 
-    private val _excerciseTuple = MutableLiveData<List<UserExcTuple>>()
-    val excerciseTuple: LiveData<List<UserExcTuple>> = _excerciseTuple
-
-    fun invalidateUserExcercise(sessionId: String) {
+    private var _dayList = MutableLiveData<List<PlanDay>>()
+    val dayList: LiveData<List<PlanDay>> = _dayList
+    fun loadList() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.invalidateUserExcList(uid, sessionId)
-            repository.getUserExc(sessionId).collect {
-                val list: List<UserExcTuple> = it.map {
-                    async {
-                        val excercise = repository.fetchExcercise(it.categoryId, it.excId)
-                        UserExcTuple(it, excercise)
-                    }
-                }.awaitAll()
-                _excerciseTuple.postValue(list)
-            }
+            val list = repository.loadDayList(uid).map {
+                async {
+                    it.exc = repository.getExcercise(it.categoryId, it.excId)
+                    val ensure =  repository.getStatEnsureList(it.excId,it.categoryId)
+                    it.exc!!.achieveEnsure = Gson().toJson(ensure)
+                    it.day = it.id // do cung value
+                    it
+                }
+            }.awaitAll()
+            _dayList.postValue(list)
         }
     }
-
-    fun updateSession(session: Session, handle: (ResponseMessage) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res =  repository.updateSession(uid, session)
-            withContext(Dispatchers.Main) {
-                handle(res)
-            }
-        }
-    }
-
 
 }

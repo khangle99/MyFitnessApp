@@ -38,6 +38,7 @@ import com.khangle.myfitnessapp.R;
 import com.khangle.myfitnessapp.customview.ExerciseModificationListener;
 import com.khangle.myfitnessapp.customview.IntegerChangeListener;
 import com.khangle.myfitnessapp.customview.PlayingView;
+import com.khangle.myfitnessapp.model.user.PlanDay;
 import com.khangle.myfitnessapp.model.user.Session;
 import com.khangle.myfitnessapp.model.user.UserExcTuple;
 
@@ -52,15 +53,15 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
     PlayingView playingView;
     RecyclerView recyclerView;
     UpcomingExercisesAdapter adapter;
-    ArrayList<UserExcTuple> prev, temp;
-    ArrayList<UserExcTuple> exercises;
+    ArrayList<PlanDay> prev, temp;
+    ArrayList<PlanDay> exercises;
     private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        exercises = getIntent().getParcelableArrayListExtra("tupleList");
+        exercises = getIntent().getParcelableArrayListExtra("dayList");
 
         setContentView(R.layout.activity_workout);
         setupView();
