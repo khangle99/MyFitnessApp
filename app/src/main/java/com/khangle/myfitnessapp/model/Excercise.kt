@@ -4,49 +4,27 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity
 class Excercise(
     @PrimaryKey val id: String = "",
     var name: String,
     var difficulty: Int,
     var equipment: String,
-    var tutorial: String,
+    var noTurn: Int,
+    var noSec: Int,
+    var noGap: Int,
+    var caloFactor: Float,
+    var tutorial: List<String>,
     val picSteps: List<String>,
-    var catId: String
-): Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readInt(),
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.createStringArrayList() ?: listOf(),
-        parcel.readString() ?: ""
-    ) {
-    }
+    var achieveEnsure: String, // json
+    val addedCount: Int,
+    var tutorialWithPic: Map<String, String>,
+    var categoryId: String
+): Parcelable
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeInt(difficulty)
-        parcel.writeString(equipment)
-        parcel.writeString(tutorial)
-        parcel.writeStringList(picSteps)
-        parcel.writeString(catId)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Excercise> {
-        override fun createFromParcel(parcel: Parcel): Excercise {
-            return Excercise(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Excercise?> {
-            return arrayOfNulls(size)
-        }
-    }
-}

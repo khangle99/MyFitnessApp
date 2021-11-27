@@ -3,10 +3,7 @@ package com.khangle.myfitnessapp.data
 import com.khangle.myfitnessapp.data.db.MyFitnessDao
 import com.khangle.myfitnessapp.data.network.MyFitnessAppService
 import com.khangle.myfitnessapp.data.network.ResponseMessage
-import com.khangle.myfitnessapp.model.Excercise
-import com.khangle.myfitnessapp.model.ExcerciseCategory
-import com.khangle.myfitnessapp.model.Menu
-import com.khangle.myfitnessapp.model.NutritionCategory
+import com.khangle.myfitnessapp.model.*
 import com.khangle.myfitnessapp.model.user.Session
 import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.model.user.UserStat
@@ -18,6 +15,9 @@ class MyFitnessAppRepository @Inject constructor(
     private val service: MyFitnessAppService,
     private val dao: MyFitnessDao
 ) {
+    suspend fun getBodyStat(): List<BodyStat> {
+        return service.fetchBodyStat()
+    }
 
     suspend fun fetchExcercise(categoryid: String, excId: String): Excercise {
         return service.fetchExcerciseDetail(categoryid, excId)
@@ -183,5 +183,13 @@ class MyFitnessAppRepository @Inject constructor(
         val res = service.deleteUserExcercise(uid, sessId, excId)
         dao.deleteUserExcerciseBySessionId(sessId, excId)
         return res
+    }
+
+    suspend fun loadExcerciseList(categoryId: String): List<Excercise> {
+        return service.fetchExcerciseList(categoryId)
+    }
+
+    suspend fun getStatEnsureList(id: String, catId: String): Map<String,Any> {
+        return service.getStatEnsureList(id, catId)
     }
 }

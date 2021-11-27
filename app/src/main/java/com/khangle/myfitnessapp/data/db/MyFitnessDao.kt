@@ -29,13 +29,13 @@ interface MyFitnessDao {
         insertExcCategory(*excCategory)
     }
 
-    @Query("SELECT * FROM Excercise WHERE catId = :catId")
+    @Query("SELECT * FROM Excercise WHERE categoryId = :catId")
     fun getExcerciseByCatId(catId: String): Flow<List<Excercise>>
 
     @Insert
     suspend fun insertExcercise(vararg excercise: Excercise)
 
-    @Query("DELETE FROM Excercise WHERE catId = :catId")
+    @Query("DELETE FROM Excercise WHERE categoryId = :catId")
     suspend fun deleteAllExcerciseByCatId(catId: String)
 
     @Transaction
@@ -43,7 +43,7 @@ interface MyFitnessDao {
         deleteAllExcerciseByCatId(catId)
         val list = excercise.asList()
         list.forEach {
-            it.catId = catId
+            it.categoryId = catId
         }
         insertExcercise(*list.toTypedArray())
     }

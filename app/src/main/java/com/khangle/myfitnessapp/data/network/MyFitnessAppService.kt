@@ -1,10 +1,7 @@
 package com.khangle.myfitnessapp.data.network
 
 import androidx.room.Delete
-import com.khangle.myfitnessapp.model.Excercise
-import com.khangle.myfitnessapp.model.ExcerciseCategory
-import com.khangle.myfitnessapp.model.Menu
-import com.khangle.myfitnessapp.model.NutritionCategory
+import com.khangle.myfitnessapp.model.*
 import com.khangle.myfitnessapp.model.user.Session
 import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.model.user.UserStat
@@ -32,6 +29,12 @@ interface MyFitnessAppService {
 
     @GET("menuList")
     suspend fun fetchMenuList(@Query("nutriId") nutriId: String): List<Menu>
+
+    @GET("statEnsure")
+    suspend fun getStatEnsureList(
+        @Query("excId") id: String,
+        @Query("catId") catId: String
+    ): Map<String, Any> // moi string la json map chua cac statName va value
 
     //////////////stat
 
@@ -148,6 +151,11 @@ interface MyFitnessAppService {
         @Field("nutriId") nutriId: String,
         @Field("id") id: String,
     ): ResponseMessage
+
+
+    // body stat
+    @GET("bodyStats")
+    suspend fun fetchBodyStat(): List<BodyStat>
 
 }
 

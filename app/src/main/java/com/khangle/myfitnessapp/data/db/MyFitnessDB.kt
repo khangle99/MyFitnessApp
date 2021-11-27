@@ -25,7 +25,7 @@ import com.khangle.myfitnessapp.model.user.UserStep
         Excercise::class
     ), version = 1
 )
-@TypeConverters(StringListTypeConverter::class)
+@TypeConverters(StringListTypeConverter::class, MapConverter::class)
 abstract class MyFitnessDB : RoomDatabase() {
     abstract fun myFitnessDao(): MyFitnessDao
 }
