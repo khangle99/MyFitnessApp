@@ -177,6 +177,22 @@ interface MyFitnessAppService {
                               @Query("day") day: String
     ): ResponseMessage
 
+    ////////////// log excercise
+    @FormUrlEncoded
+    @POST("newHistoryMonth")
+    suspend fun createMonth(  @Field("uid") uid: String,
+                              @Field("mYStr") mYstr: String
+    ): ResponseMessage
+
+    @FormUrlEncoded
+    @POST("newUserExcLog")
+    suspend fun logDay(  @Field("uid") uid: String,
+                         @Field("mYStr") mYstr: String,
+                         @Field("excId") excId: String,
+                         @Field("categoryId") categoryId: String,
+                         @Field("dateInMonth") dateInMonth: String
+    ): ResponseMessage
+
 }
 
 class ResponseMessage(val id: String?, val error: String?)

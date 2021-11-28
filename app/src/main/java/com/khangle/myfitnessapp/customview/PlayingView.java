@@ -79,6 +79,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private int prevSec = -1;
     private int timeLeftAfterCurrentExercise; //I know that LOOONG name hurts ;)
     private LinkedList<IntegerChangeListener> integerChangeListeners;
+    private FinishSetListener finishSetListener;
     private float gapBetweenExercises;
     private int playCircleColor = Color.RED;
     private int playRingColor = Color.WHITE;
@@ -714,8 +715,18 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
             Log.e(TAG, "index out of bounds. Font size adjusted for \"Success!\"");
         }
         for (IntegerChangeListener listener : integerChangeListeners) {
+            if (index == exercises.size()) {
+                finishSetListener.onFinish(exercises.get(index-1));
+            }
             listener.onChange(index);
         }
+    }
+
+    public void addFinishListener(FinishSetListener listener) {
+        finishSetListener = listener;
+    }
+    public void removeFinishListener() {
+        finishSetListener = null;
     }
 
     public void addIntegerChangeListener(IntegerChangeListener listener) {
@@ -726,7 +737,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     }
 
     public void removeIntegerChangeListener(IntegerChangeListener listener) {
-        integerChangeListeners.add(listener);
+        integerChangeListeners.remove(listener);
     }
     /*        Getters,setters,etc end       */
 

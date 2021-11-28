@@ -31,11 +31,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.khangle.myfitnessapp.R;
 import com.khangle.myfitnessapp.customview.ExerciseModificationListener;
+import com.khangle.myfitnessapp.customview.FinishSetListener;
 import com.khangle.myfitnessapp.customview.IntegerChangeListener;
 import com.khangle.myfitnessapp.customview.PlayingView;
 import com.khangle.myfitnessapp.model.user.PlanDay;
@@ -45,8 +47,10 @@ import com.khangle.myfitnessapp.model.user.UserExcTuple;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class WorkoutActivity extends AppCompatActivity implements IntegerChangeListener, ExerciseModificationListener {
+@AndroidEntryPoint
+public class WorkoutActivity extends AppCompatActivity implements IntegerChangeListener, ExerciseModificationListener, FinishSetListener {
 
     private static final String TAG = "EXACTIVITY";
     public static Session session;
@@ -57,15 +61,18 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
     ArrayList<PlanDay> exercises;
     private int index;
 
+    private WorkoutViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        viewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
         exercises = getIntent().getParcelableArrayListExtra("dayList");
 
         setContentView(R.layout.activity_workout);
         setupView();
         playingView.addIntegerChangeListener(this);
+        playingView.addFinishListener(this);
 
         LinkedList<ExerciseModificationListener> exerciseModificationListeners = new LinkedList<>();
         exerciseModificationListeners.add(this);
@@ -155,7 +162,8 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
         outState.putParcelable("session_exercise", session);
     }
 
-
-
-
+    @Override
+    public void onFinish(PlanDay planDay) {
+        viewModel.logDay(planDay);
+    }
 }

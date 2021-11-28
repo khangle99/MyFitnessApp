@@ -209,6 +209,12 @@ class MyFitnessAppRepository @Inject constructor(
     }
 
 
-
+    // log excercise day
+    suspend fun createMonth(uid: String, mYStr: String): ResponseMessage {
+        return service.createMonth(uid, mYStr)
+    }
+    suspend fun logDay(uid: String, myStr: String, excId: String, categoryId: String, dateInMonth: String): ResponseMessage {
+        return service.logDay(uid, myStr,excId,categoryId,dateInMonth)
+    }
 
 }

@@ -31,7 +31,7 @@ class UserExcDetailFragment: BaseComposableFragment() {
     private lateinit var viewDetail: Chip
     private var selectedDay: String = "Monday"
     private lateinit var planDay: PlanDay
-    private val dayList = listOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+    private val dayList = listOf("Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -21,6 +21,7 @@ import com.khangle.myfitnessapp.ui.userexc.excerciseDetail.UserExcDetailFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class UserExcListFragment : Fragment() {
@@ -65,10 +66,22 @@ class UserExcListFragment : Fragment() {
         startWorkoutBtn.setOnClickListener {
             // code lai ham bat dau tap luyen
             // pass data to new activity to count down
-            val list = viewModel.dayList.value
-            val intent = Intent(requireContext(), WorkoutActivity::class.java)
-            intent.putExtras(bundleOf("dayList" to list))
-            startActivity(intent)
+
+            // chi lay ra ngay tuong ung
+            val calendar = Calendar.getInstance(TimeZone.getDefault())
+            val dayInWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1 // do bat dau tu 1
+
+            val selectDay = viewModel.dayList.value?.filter {
+                it.day.equals(dayInWeek.toString())
+            }
+
+            if (selectDay == null || selectDay.size == 0) {
+                Toast.makeText(context, "Chua co bai tap cho ngay hom nay", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(requireContext(), WorkoutActivity::class.java)
+                intent.putExtras(bundleOf("dayList" to selectDay))
+                startActivity(intent)
+            }
         }
 
         userListAdapter = PlanDayAdapter {
