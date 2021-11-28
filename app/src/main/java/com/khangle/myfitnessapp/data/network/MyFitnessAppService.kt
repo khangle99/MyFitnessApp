@@ -178,6 +178,10 @@ interface MyFitnessAppService {
     ): ResponseMessage
 
     ////////////// log excercise
+    @GET("userExcLog")
+    suspend fun fetchLogOfMonth(@Query("uid") uid: String, @Query("mYStr") mYStr: String): List<ExcLog>
+
+
     @FormUrlEncoded
     @POST("newHistoryMonth")
     suspend fun createMonth(  @Field("uid") uid: String,

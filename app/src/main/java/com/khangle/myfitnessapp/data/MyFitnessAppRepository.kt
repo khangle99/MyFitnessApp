@@ -210,6 +210,10 @@ class MyFitnessAppRepository @Inject constructor(
 
 
     // log excercise day
+    suspend fun loadLogOfMonth(uid: String, myStr: String): List<ExcLog> {
+        return service.fetchLogOfMonth(uid, myStr)
+    }
+
     suspend fun createMonth(uid: String, mYStr: String): ResponseMessage {
         return service.createMonth(uid, mYStr)
     }

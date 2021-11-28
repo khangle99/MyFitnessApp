@@ -4,11 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/example_1_today_bg.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/drawable/ic_fire.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/layout/calendar_day_layout.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/calendar_day_legend.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/calendar_month_header_layout.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_add_stat_dialog.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/fragment_day_log.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_exc_detail.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/fragment_excercise.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_excercise_category.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_user_exc_detail.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_user_exc_list.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/item_excercise.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/item_planday.xml" value="0.1" />
         <entry key="app/src/main/res/layout/view_achievement_ticket.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/view_tutorial_ticket.xml" value="0.23125" />

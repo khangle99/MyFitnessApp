@@ -19,6 +19,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
     <style name="Theme.MyFitnessApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyFitnessApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

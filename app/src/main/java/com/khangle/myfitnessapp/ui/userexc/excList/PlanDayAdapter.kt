@@ -27,6 +27,7 @@ class PlanDayAdapter(val onItemclick: (item: PlanDay) -> Unit):
     }
 
     class PlanDayVH(itemView: View, val onItemclick: (item: PlanDay) -> Unit) : RecyclerView.ViewHolder(itemView) {
+
         val nameTv: TextView
         val difficultyTv: TextView
         val addtimesTv: TextView
@@ -42,8 +43,12 @@ class PlanDayAdapter(val onItemclick: (item: PlanDay) -> Unit):
         fun bind(planDay: PlanDay) {
             item = planDay
             nameTv.text = planDay.exc?.name
-            difficultyTv.text = planDay.day
+            difficultyTv.text = dayList[planDay.day.toInt()]
           //  addtimesTv.setText(excercise.addedCount.toString())
+        }
+
+        companion object {
+            private val dayList = listOf("Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
         }
     }
 }
