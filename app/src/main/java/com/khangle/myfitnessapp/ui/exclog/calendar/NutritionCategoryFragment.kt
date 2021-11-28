@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.nutrition.category
+package com.khangle.myfitnessapp.ui.exclog.calendar
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.khangle.myfitnessapp.R
-import com.khangle.myfitnessapp.ui.nutrition.NutritionViewModel
+import com.khangle.myfitnessapp.ui.exclog.NutritionViewModel
 import com.kizitonwose.calendarview.CalendarView
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth

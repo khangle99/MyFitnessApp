@@ -12,9 +12,6 @@ class MyFitnessAppRepository @Inject constructor(
     private val service: MyFitnessAppService,
     private val dao: MyFitnessDao
 ) {
-    suspend fun getBodyStat(): List<BodyStat> {
-        return service.fetchBodyStat()
-    }
 
     suspend fun fetchExcercise(categoryid: String, excId: String): Excercise {
         return service.fetchExcerciseDetail(categoryid, excId)
@@ -42,28 +39,6 @@ class MyFitnessAppRepository @Inject constructor(
         dao.invalidateExcercise(catId, *excercises.toTypedArray())
     }
 
-    fun getNutritionCategory(): Flow<List<NutritionCategory>> {
-        return dao.getNutCategory()
-    }
-
-    suspend fun invalidateNutCategory() {
-        val nutritionCategory = service.fetchNutritionCategory()
-        dao.invalidateNutCategory(*nutritionCategory.toTypedArray())
-    }
-
-    fun getMenuList(catId: String): Flow<List<Menu>> {
-        return dao.getMenuByCatId(catId)
-    }
-
-    suspend fun invalidateMenuList(nutriId: String) {
-        val menuList = service.fetchMenuList(nutriId)
-        dao.invalidateMenu(nutriId, *menuList.toTypedArray())
-    }
-
-    suspend fun increaseView(nutriId: String, id: String) {
-       service.increaseView(nutriId,id)
-    }
-
     //======================== statistic
     fun getStatistic(): Flow<List<UserStat>> {
         return dao.getUserStat()
@@ -73,7 +48,7 @@ class MyFitnessAppRepository @Inject constructor(
         val statList = service.fetchUserStat(uid)
         dao.invalidateStat(*statList.toTypedArray())
     }
-
+// sao cho nay k co return ??
     suspend fun deleteStat(uid: String, statId: String) {
         service.deleteStat(uid, statId)
         dao.deleteUserStat(statId)
@@ -84,6 +59,22 @@ class MyFitnessAppRepository @Inject constructor(
         stat.id = res.id!!
         dao.insertUserStat(stat)
         return res
+    }
+    //======================== other stat
+    suspend fun getBodyStat(uid: String): List<BodyStat> {
+        return service.fetchBodyStat(uid)
+    }
+
+    suspend fun deleteOtherStat(uid: String, id: String): ResponseMessage {
+        return service.deleteBodyStat(uid, id)
+    }
+
+    suspend fun inserOthertStat(uid: String, stat: BodyStat): ResponseMessage {
+        return  service.postBodyStat(uid,stat.dateString,stat.value,stat.statId)
+    }
+
+    suspend fun updateOthertStat(uid: String, stat: BodyStat): ResponseMessage {
+        return  service.updateBodyStat(uid,stat.dateString,stat.value,stat.statId,stat.id)
     }
 
     //===========================step track

@@ -1,16 +1,11 @@
-package com.khangle.myfitnessapp.ui.nutrition
+package com.khangle.myfitnessapp.ui.exclog
 
 import androidx.lifecycle.*
 import com.google.firebase.auth.FirebaseAuth
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
-import com.khangle.myfitnessapp.model.Excercise
-import com.khangle.myfitnessapp.model.ExcerciseCategory
-import com.khangle.myfitnessapp.model.Menu
-import com.khangle.myfitnessapp.model.NutritionCategory
 import com.khangle.myfitnessapp.model.user.ExcLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

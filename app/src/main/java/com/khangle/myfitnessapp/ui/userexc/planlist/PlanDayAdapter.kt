@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.userexc.excList
+package com.khangle.myfitnessapp.ui.userexc.planlist
 
 import android.view.LayoutInflater
 import android.view.View

@@ -20,7 +20,7 @@ import com.khangle.myfitnessapp.common.Difficulty
 import com.khangle.myfitnessapp.common.UseState
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.model.Excercise
-import com.khangle.myfitnessapp.ui.userexc.excerciseDetail.UserExcDetailFragment
+import com.khangle.myfitnessapp.ui.userexc.plandetail.UserExcDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

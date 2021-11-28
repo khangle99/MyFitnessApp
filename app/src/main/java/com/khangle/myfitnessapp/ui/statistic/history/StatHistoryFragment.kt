@@ -1,5 +1,6 @@
 package com.khangle.myfitnessapp.ui.statistic.history
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,17 +11,20 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.SwipeToDeleteCallback
 import com.khangle.myfitnessapp.ui.statistic.StatisticFragment
 import com.khangle.myfitnessapp.ui.statistic.StatisticViewModel
+import com.khangle.myfitnessapp.ui.statistic.otherstat.OtherStatActivity
 
 
 class StatHistoryFragment(private val viewModel: StatisticViewModel) : Fragment() {
     private lateinit var addStatButton: FloatingActionButton
     private lateinit var statHistoryListAdapter: StatHistoryListAdapter
     private lateinit var historyRecyclerView: RecyclerView
+    private lateinit var moreStatChip: Chip
     lateinit var progressBar: ProgressBar
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,7 @@ class StatHistoryFragment(private val viewModel: StatisticViewModel) : Fragment(
         addStatButton = view.findViewById(R.id.addStatFAB)
         historyRecyclerView = view.findViewById(R.id.statHistoryList)
         progressBar = view.findViewById(R.id.statHistoryProgress)
+        moreStatChip = view.findViewById(R.id.moreStatChip)
         return view
     }
 
@@ -51,6 +56,11 @@ class StatHistoryFragment(private val viewModel: StatisticViewModel) : Fragment(
 
         addStatButton.setOnClickListener {
             AddStatDialogFragment(viewModel).show(childFragmentManager, "AddStat")
+        }
+
+        moreStatChip.setOnClickListener {
+            // start more stat activity
+            startActivity(Intent(requireContext(), OtherStatActivity::class.java))
         }
     }
 

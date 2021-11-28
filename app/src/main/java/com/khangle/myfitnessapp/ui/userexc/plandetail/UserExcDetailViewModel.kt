@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.userexc.excerciseDetail
+package com.khangle.myfitnessapp.ui.userexc.plandetail
 
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -15,39 +15,6 @@ import javax.inject.Inject
 class UserExcDetailViewModel @Inject constructor(private val repository: MyFitnessAppRepository): BaseViewModel() {
 
     private val uid = FirebaseAuth.getInstance().uid!!
-
-//    private val _excerciseSession = repository.getUserSession().asLiveData(Dispatchers.IO)
-//    val excerciseSession: LiveData<List<Session>> = _excerciseSession
-//
-//
-//    fun addUserExcercise(userExcercise: UserExcercise, sessionId: String, handle: (ResponseMessage) -> Unit) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val res = repository.insertUserExc(uid, userExcercise)
-//            withContext(Dispatchers.Main) {
-//                handle(res)
-//            }
-//
-//        }
-//    }
-//
-//    fun updateUserExcercise(userExcercise: UserExcercise, handle: (ResponseMessage) -> Unit) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val res = repository.updateUserExc(uid, userExcercise)
-//            withContext(Dispatchers.Main) {
-//                handle(res)
-//            }
-//        }
-//    }
-//
-//    fun deleteUserExcercise(userExcercise: UserExcercise, handle: (ResponseMessage) -> Unit)  {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val res = repository.deleteUserExc(uid, userExcercise.sessionId, userExcercise.id)
-//            withContext(Dispatchers.Main) {
-//                handle(res)
-//            }
-//        }
-//    }
-
 
     fun updatePlanDay(categoryId: String, excId: String, day: String, oldDay: String, handle: (ResponseMessage) -> Unit){
         viewModelScope.launch(Dispatchers.IO) {

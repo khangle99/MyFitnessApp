@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.userexc.excerciseDetail
+package com.khangle.myfitnessapp.ui.userexc.plandetail
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,10 +13,7 @@ import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.common.UseState
 import com.khangle.myfitnessapp.extension.commitAnimate
-import com.khangle.myfitnessapp.extension.setReadOnly
 import com.khangle.myfitnessapp.model.user.PlanDay
-import com.khangle.myfitnessapp.model.user.UserExcTuple
-import com.khangle.myfitnessapp.model.user.UserExcercise
 import com.khangle.myfitnessapp.ui.base.BaseComposableFragment
 import com.khangle.myfitnessapp.ui.excercise.excdetail.ExcDetailFragment
 import dagger.hilt.android.AndroidEntryPoint

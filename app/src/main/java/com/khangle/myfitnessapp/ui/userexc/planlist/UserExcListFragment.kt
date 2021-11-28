@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.userexc.excList
+package com.khangle.myfitnessapp.ui.userexc.planlist
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.extension.commitAnimate
-import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.ui.userexc.excerciseDetail.UserExcDetailFragment
+import com.khangle.myfitnessapp.ui.userexc.plandetail.UserExcDetailFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 
 import dagger.hilt.android.AndroidEntryPoint

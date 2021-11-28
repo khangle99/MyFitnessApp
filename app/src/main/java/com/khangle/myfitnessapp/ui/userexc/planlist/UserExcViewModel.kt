@@ -1,4 +1,4 @@
-package com.khangle.myfitnessapp.ui.userexc.excList
+package com.khangle.myfitnessapp.ui.userexc.planlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,14 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
-import com.khangle.myfitnessapp.data.network.ResponseMessage
 import com.khangle.myfitnessapp.model.user.PlanDay
-import com.khangle.myfitnessapp.model.user.Session
-import com.khangle.myfitnessapp.model.user.UserExcTuple
-import com.khangle.myfitnessapp.model.user.UserExcercise
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 

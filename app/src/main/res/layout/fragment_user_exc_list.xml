@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    tools:context=".ui.userexc.excList.UserExcListFragment">
+    tools:context=".ui.userexc.planlist.UserExcListFragment">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

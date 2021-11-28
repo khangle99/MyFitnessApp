@@ -153,11 +153,6 @@ interface MyFitnessAppService {
     ): ResponseMessage
 
 
-    //////////// body stat
-    @GET("bodyStats")
-    suspend fun fetchBodyStat(): List<BodyStat>
-
-
     /////////// user plan
     @GET("userPlan")
     suspend fun fetchDayList(@Query("uid") uid: String): List<PlanDay>
@@ -197,6 +192,34 @@ interface MyFitnessAppService {
                          @Field("dateInMonth") dateInMonth: String
     ): ResponseMessage
 
+    ////////////// other stat
+    @GET("otherStat")
+    suspend fun fetchBodyStat(@Query("uid") uid: String): List<BodyStat>
+
+    @FormUrlEncoded
+    @POST("newOtherStat")
+    suspend fun postBodyStat(
+        @Field("uid") uid: String,
+        @Field("dateString") dateString: String,
+        @Field("value") value: String,
+        @Field("statId") statId: String
+    ): ResponseMessage
+
+    @FormUrlEncoded
+    @PUT("updateOtherStat")
+    suspend fun updateBodyStat(
+        @Field("uid") uid: String,
+        @Field("dateString") dateString: String,
+        @Field("value") value: String,
+        @Field("statId") statId: String,
+        @Field("id") id: String
+    ): ResponseMessage
+
+    @DELETE("deleteOtherStat")
+    suspend fun deleteBodyStat(@Query("uid") uid: String, @Query("id") id: String): ResponseMessage
+
+    @DELETE("deleteAllOtherStat")
+    suspend fun deleteAllBodyStat(@Query("uid") uid: String): ResponseMessage
 }
 
 class ResponseMessage(val id: String?, val error: String?)

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.khangle.myfitnessapp.R
-import com.khangle.myfitnessapp.ui.userexc.excList.UserExcListFragment
+import com.khangle.myfitnessapp.ui.userexc.planlist.UserExcListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 

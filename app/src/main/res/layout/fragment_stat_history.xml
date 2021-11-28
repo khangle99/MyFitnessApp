@@ -6,14 +6,28 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".ui.statistic.history.StatHistoryFragment">
-<TextView
-    android:textSize="28sp"
-    android:layout_margin="10dp"
-    android:fontFamily="@font/nunito_extrabold"
-    android:textAlignment="center"
-    android:text="Statistic History"
+<LinearLayout
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content">
+    <TextView
+        android:textSize="28sp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:textAlignment="center"
+        android:text="Statistic History"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.chip.Chip
+        android:text="More Stat"
+        android:id="@+id/moreStatChip"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/desgin_tomator_sec"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"/>
+</LinearLayout>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_weight="1"
     android:layout_width="match_parent"
