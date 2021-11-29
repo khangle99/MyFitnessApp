@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/cardItem"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/dateTV"
+            android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/signika"
+            android:text="Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Sample"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_height"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:fontFamily="@font/signika"
+                android:id="@+id/statNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_margin="10dp"
+                android:layout_gravity="top"
+                android:fontFamily="@font/signika"
+                android:id="@+id/valueTv"
+                tools:text="Sample"
+                android:textSize="24sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

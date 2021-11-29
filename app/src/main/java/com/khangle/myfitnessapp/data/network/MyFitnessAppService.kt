@@ -192,6 +192,9 @@ interface MyFitnessAppService {
                          @Field("dateInMonth") dateInMonth: String
     ): ResponseMessage
 
+    @GET("bodyStats")
+    suspend fun fetchAppBodyStat(): List<AppBodyStat>
+
     ////////////// other stat
     @GET("otherStat")
     suspend fun fetchBodyStat(@Query("uid") uid: String): List<BodyStat>

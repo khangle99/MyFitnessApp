@@ -61,6 +61,10 @@ class MyFitnessAppRepository @Inject constructor(
         return res
     }
     //======================== other stat
+    suspend fun getAppBodyStat(): List<AppBodyStat> {
+        return service.fetchAppBodyStat()
+    }
+
     suspend fun getBodyStat(uid: String): List<BodyStat> {
         return service.fetchBodyStat(uid)
     }

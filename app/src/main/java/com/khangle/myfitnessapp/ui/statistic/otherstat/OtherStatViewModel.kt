@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
 import com.khangle.myfitnessapp.data.network.ResponseMessage
+import com.khangle.myfitnessapp.model.AppBodyStat
 import com.khangle.myfitnessapp.model.BodyStat
 import com.khangle.myfitnessapp.model.user.PlanDay
 import com.khangle.myfitnessapp.model.user.UserStat
@@ -22,12 +23,24 @@ class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAp
 
     private val uid = FirebaseAuth.getInstance().uid!!
 
+    private var _appBodyStatList =  MutableLiveData<List<AppBodyStat>>()
+    val appBodyStatList: LiveData<List<AppBodyStat>> = _appBodyStatList
+    fun getAppBodyStatList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _appBodyStatList.postValue(repository.getAppBodyStat())
+        }
+    }
+
     private var _bodyStatList = MutableLiveData<List<BodyStat>>()
     val bodyStatList: LiveData<List<BodyStat>> = _bodyStatList
 
     fun getStatHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            _bodyStatList.postValue(repository.getBodyStat(uid))
+            val res = repository.getBodyStat(uid)
+            withContext(Dispatchers.Main) {
+                _bodyStatList.value = res
+            }
+
         }
     }
 
@@ -40,18 +53,22 @@ class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAp
         }
     }
 
-    fun updateOtherStat(stat: BodyStat, handle: (ResponseMessage) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.inserOthertStat(uid, stat)
-            withContext(Dispatchers.Main) {
-                handle(res)
-            }
-        }
-    }
+//    fun updateOtherStat(stat: BodyStat, handle: (ResponseMessage) -> Unit) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val res = repository.inserOthertStat(uid, stat)
+//            withContext(Dispatchers.Main) {
+//                handle(res)
+//            }
+//        }
+//    }
 
     fun removeOtherStat(stat: BodyStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteOtherStat(uid, stat.id)
+            val res =  repository.deleteOtherStat(uid, stat.id)
+            withContext(Dispatchers.Main) {
+                handle(res)
+            }
+
         }
     }
 }
