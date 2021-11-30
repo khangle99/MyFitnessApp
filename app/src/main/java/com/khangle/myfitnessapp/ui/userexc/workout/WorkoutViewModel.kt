@@ -2,6 +2,7 @@ package com.khangle.myfitnessapp.ui.userexc.workout
 
 import android.app.Application
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -38,6 +39,13 @@ class WorkoutViewModel @Inject constructor(private val repository: MyFitnessAppR
                     print("")
                 }
             }
+        }
+    }
+
+    var currentWeight = MutableLiveData<Int>()
+    fun fetchCurrentWeight() {
+        viewModelScope.launch(Dispatchers.IO) {
+            currentWeight.postValue(repository.fetchStatisticList(uid).first().weight)
         }
     }
 }

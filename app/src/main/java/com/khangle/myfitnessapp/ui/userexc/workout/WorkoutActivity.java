@@ -27,6 +27,7 @@ package com.khangle.myfitnessapp.ui.userexc.workout;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -40,6 +41,8 @@ import com.khangle.myfitnessapp.customview.ExerciseModificationListener;
 import com.khangle.myfitnessapp.customview.FinishSetListener;
 import com.khangle.myfitnessapp.customview.IntegerChangeListener;
 import com.khangle.myfitnessapp.customview.PlayingView;
+import com.khangle.myfitnessapp.customview.TurnFinishListener;
+import com.khangle.myfitnessapp.model.Excercise;
 import com.khangle.myfitnessapp.model.user.PlanDay;
 import com.khangle.myfitnessapp.model.user.Session;
 import com.khangle.myfitnessapp.model.user.UserExcTuple;
@@ -50,11 +53,12 @@ import java.util.LinkedList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class WorkoutActivity extends AppCompatActivity implements IntegerChangeListener, ExerciseModificationListener, FinishSetListener {
+public class WorkoutActivity extends AppCompatActivity implements IntegerChangeListener, ExerciseModificationListener, FinishSetListener, TurnFinishListener {
 
     private static final String TAG = "EXACTIVITY";
     public static Session session;
     PlayingView playingView;
+    TextView messageTV;
     RecyclerView recyclerView;
     UpcomingExercisesAdapter adapter;
     ArrayList<PlanDay> prev, temp;
@@ -73,6 +77,7 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
         setupView();
         playingView.addIntegerChangeListener(this);
         playingView.addFinishListener(this);
+        playingView.addTurnFinishListener(this);
 
         LinkedList<ExerciseModificationListener> exerciseModificationListeners = new LinkedList<>();
         exerciseModificationListeners.add(this);
@@ -97,6 +102,20 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
     private void setupView() {
         playingView = (PlayingView) findViewById(R.id.playing_view);
         recyclerView = (RecyclerView) findViewById(R.id.upcoming_exercises);
+        messageTV = (TextView) findViewById(R.id.excMessageTV);
+        viewModel.fetchCurrentWeight();
+        viewModel.getCurrentWeight();
+    }
+
+    @Override
+    public void onNextTurn(int turnPassed) {
+        Excercise exc = exercises.get(0).getExc();
+        int weight = viewModel.getCurrentWeight().getValue();
+        int totalCalories = (int) (exc.getCaloFactor() * (exc.getNoSec()/60.0) * weight * turnPassed);
+
+        String message = "Current calories: "+ totalCalories + "\n";
+        String nutriStr = calculateNutri(exc.getNutriFactor(), totalCalories);
+        messageTV.setText(message + nutriStr);
     }
 
     @Override
@@ -165,5 +184,21 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
     @Override
     public void onFinish(PlanDay planDay) {
         viewModel.logDay(planDay);
+    }
+
+
+    private String calculateNutri(String nutriFactor, int totalCalo) {
+        // 1 gram protein - 4 calo
+        // 1 gram lipit - 9 calo
+        // 1 gram carbon hydrat - 4 calo
+        String[] split = nutriFactor.split("-");
+        int dam = Integer.parseInt(split[0]);
+        int beo = Integer.parseInt(split[1]);
+        int tinhbot = Integer.parseInt(split[2]);
+        int khoang = Integer.parseInt(split[3]);
+        int base = totalCalo/(dam + beo + tinhbot + khoang);
+        return "Đạm: " + base*dam/4 + " gram\n" +
+                "Béo: " + base*beo/9 + " gram\n" +
+                "Tinh bột: " + base*tinhbot/4 + " gram\n";
     }
 }

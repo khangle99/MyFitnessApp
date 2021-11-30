@@ -44,6 +44,10 @@ class MyFitnessAppRepository @Inject constructor(
         return dao.getUserStat()
     }
 
+    suspend fun fetchStatisticList(uid: String): List<UserStat> {
+        return service.fetchUserStat(uid)
+    }
+
     suspend fun invalidateStatisticList(uid: String) {
         val statList = service.fetchUserStat(uid)
         dao.invalidateStat(*statList.toTypedArray())

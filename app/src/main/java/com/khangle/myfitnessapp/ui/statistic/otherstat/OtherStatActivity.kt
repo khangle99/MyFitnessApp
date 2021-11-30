@@ -1,19 +1,17 @@
 package com.khangle.myfitnessapp.ui.statistic.otherstat
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.khangle.myfitnessapp.common.SwipeToDeleteCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.common.SwipeToDeleteCallback
 import com.khangle.myfitnessapp.model.AppBodyStat
-import com.khangle.myfitnessapp.model.BodyStat
-import com.khangle.myfitnessapp.ui.statistic.history.AddStatDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

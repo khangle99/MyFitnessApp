@@ -80,6 +80,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private int timeLeftAfterCurrentExercise; //I know that LOOONG name hurts ;)
     private LinkedList<IntegerChangeListener> integerChangeListeners;
     private FinishSetListener finishSetListener;
+    private TurnFinishListener turnFinishListener;
     private float gapBetweenExercises;
     private int playCircleColor = Color.RED;
     private int playRingColor = Color.WHITE;
@@ -384,6 +385,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
         float tpt = exercises.get(index).getExc().getNoSec();
         if (timePassed > tpt) {
             turnsPassed++;
+            turnFinishListener.onNextTurn(turnsPassed);
             if (turnsPassed != exercises.get(index).getExc().getNoTurn() && currentTappedX == -1) {
                 final String text;
                 if(true)
@@ -727,6 +729,13 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     }
     public void removeFinishListener() {
         finishSetListener = null;
+    }
+
+    public void addTurnFinishListener(TurnFinishListener listener) {
+        turnFinishListener = listener;
+    }
+    public void removeTurnFinishListener() {
+        turnFinishListener = null;
     }
 
     public void addIntegerChangeListener(IntegerChangeListener listener) {

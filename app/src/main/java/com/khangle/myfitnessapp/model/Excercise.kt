@@ -25,6 +25,7 @@ class Excercise(
     var achieveEnsure: String, // json
     val addedCount: Int,
     var tutorialWithPic: Map<String, String>,
-    var categoryId: String
+    var categoryId: String,
+    var nutriFactor: String
 ): Parcelable
 
