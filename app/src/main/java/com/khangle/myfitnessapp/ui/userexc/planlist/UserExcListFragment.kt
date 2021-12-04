@@ -14,9 +14,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
+import com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.ui.userexc.plandetail.UserExcDetailFragment
+import com.khangle.myfitnessapp.ui.userexc.planlist.packagePick.ExcPackageActivity
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,7 @@ class UserExcListFragment : Fragment() {
     private lateinit var excListRecyclerView: RecyclerView
     private lateinit var userListAdapter: PlanDayAdapter
     private lateinit var startWorkoutBtn: Chip
+    private lateinit var choosePackage: Chip
     lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -41,6 +44,7 @@ class UserExcListFragment : Fragment() {
         excListRecyclerView = view.findViewById(R.id.userexcList)
         startWorkoutBtn = view.findViewById(R.id.startWorkoutBtn)
         progressBar = view.findViewById(R.id.excListProgress)
+        choosePackage = view.findViewById(R.id.choosePackage)
         return view
     }
 
@@ -57,6 +61,7 @@ class UserExcListFragment : Fragment() {
                 Toast.makeText(context,"No Excercise added", Toast.LENGTH_SHORT).show()
             }
         }
+        viewModel.loadList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,6 +88,11 @@ class UserExcListFragment : Fragment() {
             }
         }
 
+        choosePackage.setOnClickListener {
+            val intent = Intent(requireContext(), SuggestActivity::class.java)
+            startActivity(intent)
+        }
+
         userListAdapter = PlanDayAdapter {
 //            // mo den man hinh bai tap (tai su dung)
             val frag = UserExcDetailFragment()
@@ -103,7 +113,7 @@ class UserExcListFragment : Fragment() {
         excListRecyclerView.adapter = userListAdapter
         excListRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        viewModel.loadList()
+      //  viewModel.loadList()
 
     }
 

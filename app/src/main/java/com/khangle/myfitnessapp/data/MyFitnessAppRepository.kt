@@ -220,4 +220,16 @@ class MyFitnessAppRepository @Inject constructor(
         return service.logDay(uid, myStr,excId,categoryId,dateInMonth)
     }
 
+    /////////////// suggest plan
+    suspend fun loadSuggestPlan(): List<Plan> {
+        return service.fetchSuggestPlans()
+    }
+
+    suspend fun loadPackageDayList(sugId: String): List<PlanDay> {
+        return service.fetchPackageDayList(sugId)
+    }
+
+    suspend fun applyPackage(sugId: String, uid: String) : ResponseMessage {
+        return service.selectPlan(uid, sugId)
+    }
 }

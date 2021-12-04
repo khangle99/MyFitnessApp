@@ -223,6 +223,17 @@ interface MyFitnessAppService {
 
     @DELETE("deleteAllOtherStat")
     suspend fun deleteAllBodyStat(@Query("uid") uid: String): ResponseMessage
+
+    /////////////// suggest package
+
+    @GET("allSuggestPlan")
+    suspend fun fetchSuggestPlans(): List<Plan>
+
+    @GET("suggestPlanDetail")
+    suspend fun fetchPackageDayList(@Query("sugId") sugId: String): List<PlanDay>
+
+    @GET("selectSuggestPlan")
+    suspend fun selectPlan(@Query("uid") uid: String, @Query("sugId") sugId: String): ResponseMessage
 }
 
 class ResponseMessage(val id: String?, val error: String?)

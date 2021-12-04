@@ -4,22 +4,36 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.userexc.planlist.UserExcListFragment">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:text="Excercise Plan"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="28sp"
-            android:layout_margin="10dp"
-            android:fontFamily="@font/nunito_extrabold"
-            android:id="@+id/sessionNameTv"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Excercise Plan"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/nunito_extrabold"
+                android:id="@+id/sessionNameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/choosePackage"
+                app:chipIcon="@drawable/ic_baseline_star_24"
+                app:chipBackgroundColor="@color/desgin_tomator_sec"
+                android:layout_gravity="center"
+                android:text="Package"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_weight="1"
             android:id="@+id/userexcList"

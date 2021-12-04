@@ -20,7 +20,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessApp">
         <activity
+            android:name=".ui.userexc.planlist.packagePick.ExcPackageActivity"
+            android:label="Excercise Package"
+            android:exported="true" />
+        <activity
+            android:name="com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity"
+            android:label="Suggest Package"
+            android:exported="true" />
+        <activity
+            android:name="com.khangle.myfitnessadmin.suggestpack.plandetail.PlanDetailActivity"
+            android:label="Package Detail"
+            android:exported="true" />
+        <activity
             android:name=".ui.statistic.otherstat.OtherStatActivity"
+            android:label="Other Stats"
             android:exported="true" />
 
         <service
