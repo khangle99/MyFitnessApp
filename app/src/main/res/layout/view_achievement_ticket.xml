@@ -23,5 +23,12 @@
         android:hint="Input"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/unitTV"
+        android:gravity="center"
+        android:hint="Unit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>

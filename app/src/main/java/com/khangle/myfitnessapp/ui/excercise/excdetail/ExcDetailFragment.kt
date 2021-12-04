@@ -65,9 +65,12 @@ class ExcDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-     //   viewmodel.getBodyStatList()
+        viewmodel.getBodyStatList()
         excercise = arguments?.getParcelable("excercise")!!
-        loadExcercise(excercise)
+        viewmodel.appBodyStatList.observe(viewLifecycleOwner) {
+            loadExcercise(excercise)
+        }
+
 //        viewStepsButton.setOnClickListener {
 //            StfalconImageViewer.Builder(context, excercise.picSteps) { view, image ->
 //                view.load(image) {
@@ -124,6 +127,10 @@ class ExcDetailFragment : Fragment() {
         for ((key, value) in fromJson.entrySet()) {
             val view = onAddAchievement()
             view.findViewById<TextView>(R.id.promiseValue).setText(value.asString)
+            val unitString = viewmodel.appBodyStatList.value?.find {
+                it.name.equals(key.toString())
+            }?.unit ?: ""
+            view.findViewById<TextView>(R.id.unitTV).setText(unitString)
             view.findViewById<TextView>(R.id.bodyStatTextView).setText(key.toString())
         }
 

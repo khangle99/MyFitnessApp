@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.khangle.myfitnessapp.data.MyFitnessAppRepository
+import com.khangle.myfitnessapp.model.AppBodyStat
 import com.khangle.myfitnessapp.model.BodyStat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,11 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExcDetailViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
-//    private var _bodyStatList =  MutableLiveData<List<BodyStat>>()
-//    val bodyStatList: LiveData<List<BodyStat>> = _bodyStatList
-//    fun getBodyStatList() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            _bodyStatList.postValue(repository.getBodyStat())
-//        }
-//    }
+    private var _appBodyStatList =  MutableLiveData<List<AppBodyStat>>()
+    val appBodyStatList: LiveData<List<AppBodyStat>> = _appBodyStatList
+    fun getBodyStatList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _appBodyStatList.postValue(repository.getAppBodyStat())
+        }
+    }
 }
