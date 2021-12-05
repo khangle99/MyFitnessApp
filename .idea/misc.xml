@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/activity_exc_package.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/activity_other_stat.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/activity_plan_detail.xml" value="0.1625" />
+        <entry key="app/src/main/res/layout/activity_stat_report.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/activity_suggest.xml" value="0.1625" />
         <entry key="app/src/main/res/layout/activity_workout.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/calendar_day_layout.xml" value="0.221875" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_excercise_category.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_stat_history.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_stat_report.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_user_exc_detail.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_user_exc_list.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/item_body_stat.xml" value="0.2635416666666667" />

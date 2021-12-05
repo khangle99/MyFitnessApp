@@ -20,21 +20,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessApp">
         <activity
-            android:name=".ui.userexc.planlist.packagePick.ExcPackageActivity"
-            android:label="Excercise Package"
+            android:name=".ui.statistic.otherstat.report.StatReportActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.userexc.planlist.packagePick.ExcPackageActivity"
+            android:exported="true"
+            android:label="Excercise Package" />
         <activity
             android:name="com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity"
-            android:label="Suggest Package"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Suggest Package" />
         <activity
             android:name="com.khangle.myfitnessadmin.suggestpack.plandetail.PlanDetailActivity"
-            android:label="Package Detail"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Package Detail" />
         <activity
             android:name=".ui.statistic.otherstat.OtherStatActivity"
-            android:label="Other Stats"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Other Stats" />
 
         <service
             android:name=".service.StepTrackUploadService"

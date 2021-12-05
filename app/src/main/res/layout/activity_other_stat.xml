@@ -25,6 +25,16 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
     </LinearLayout>
+    <com.google.android.material.chip.Chip
+        android:id="@+id/viewReport"
+        android:enabled="false"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        app:chipBackgroundColor="@color/desgin_tomator_sec"
+        android:textSize="20sp"
+        android:text="View Report"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_weight="1"
@@ -47,4 +57,5 @@
             android:layout_height="50dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </LinearLayout>
