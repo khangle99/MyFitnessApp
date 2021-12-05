@@ -69,7 +69,25 @@
                 app:cv_outDateStyle="endOfRow"
                 app:cv_inDateStyle="allMonths"
                 app:cv_scrollMode="paged" />
-
+          <LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Excercise Name: "
+                  android:textStyle="bold"
+                  android:layout_margin="10dp"
+                  android:textSize="20sp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:id="@+id/selectDayInfo"
+                  android:textSize="20sp"
+                  tools:text="Sample"
+                  android:layout_margin="10dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
         </LinearLayout>
         <ProgressBar
             android:id="@+id/excLogProgress"

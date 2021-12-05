@@ -4,29 +4,50 @@
     android:orientation="horizontal"
     android:layout_margin="10dp"
     android:layout_height="80dp">
-
+    <TextView
+        android:text="Stat Name: "
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/bodyStatTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
         android:text="Value"
         android:layout_weight="1"
         android:minHeight="80dp" />
-
+    <TextView
+        android:text="Value: "
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/promiseValue"
         android:layout_weight="1"
-        android:gravity="center"
-
+        android:gravity="center_vertical"
+        android:textSize="18sp"
         android:hint="Input"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
     <TextView
+        android:text="Unit: "
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+    <TextView
         android:id="@+id/unitTV"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:hint="Unit"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
 

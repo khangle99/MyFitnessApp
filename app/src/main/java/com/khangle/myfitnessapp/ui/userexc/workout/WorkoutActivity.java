@@ -110,12 +110,18 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
     @Override
     public void onNextTurn(int turnPassed) {
         Excercise exc = exercises.get(0).getExc();
-        int weight = viewModel.getCurrentWeight().getValue();
-        int totalCalories = (int) (exc.getCaloFactor() * (exc.getNoSec()/60.0) * weight * turnPassed);
 
-        String message = "Current calories: "+ totalCalories + "\n";
-        String nutriStr = calculateNutri(exc.getNutriFactor(), totalCalories);
-        messageTV.setText(message + nutriStr);
+        try {
+            int weight = viewModel.getCurrentWeight().getValue();
+            int totalCalories = (int) (exc.getCaloFactor() * (exc.getNoSec()/60.0) * weight * turnPassed);
+            String message = "Current calories: "+ totalCalories + "\n";
+            String nutriStr = calculateNutri(exc.getNutriFactor(), totalCalories);
+            messageTV.setText(message + nutriStr);
+        } catch (Exception e) {
+            messageTV.setText("Need at least one weight record to calculate");
+        }
+
+
     }
 
     @Override

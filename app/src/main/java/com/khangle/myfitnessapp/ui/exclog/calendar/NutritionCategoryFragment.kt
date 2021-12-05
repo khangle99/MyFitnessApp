@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.model.user.ExcLog
 import com.khangle.myfitnessapp.ui.exclog.NutritionViewModel
 import com.kizitonwose.calendarview.CalendarView
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -22,6 +23,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthScrollListener
 import com.kizitonwose.calendarview.ui.ViewContainer
 import dagger.hilt.android.AndroidEntryPoint
+import org.w3c.dom.Text
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -37,6 +39,7 @@ class NutritionCategoryFragment : Fragment() {
     private lateinit var yearTextView: TextView
     private lateinit var monthTextView: TextView
     private lateinit var progressBar: ProgressBar
+    private lateinit var selectDayInfoTV: TextView
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val today = LocalDate.now()
     override fun onCreateView(
@@ -48,6 +51,7 @@ class NutritionCategoryFragment : Fragment() {
         yearTextView = view.findViewById(R.id.exOneYearText)
         monthTextView = view.findViewById(R.id.exOneMonthText)
         progressBar = view.findViewById(R.id.excLogProgress)
+        selectDayInfoTV = view.findViewById(R.id.selectDayInfo)
         setupCalendar()
 
         return view
@@ -56,7 +60,20 @@ class NutritionCategoryFragment : Fragment() {
     private fun setupCalendar() {
         calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             // Called only when a new container is needed.
-            override fun create(view: View) = DayViewContainer(view)
+            override fun create(view: View) = DayViewContainer(view) { excLog ->
+                excLog?.let {  log ->
+                    val exc = viewModel.excercises.value?.find { exc ->
+                        if (exc.categoryId != null) {
+                            exc.categoryId.equals(log.categoryId) && exc.id.equals(log.excId)
+                        } else false
+                    }
+                    if (exc != null) {
+                        selectDayInfoTV.setText(exc.name)
+                    } else {
+                        selectDayInfoTV.setText("Excercise has been deleted")
+                    }
+                }
+            }
 
             // Called every time we need to reuse a container.
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -78,7 +95,9 @@ class NutritionCategoryFragment : Fragment() {
                         val find = it.find {
                             it.dateInMonth.equals(day.day.toString())
                         }
+
                         if (find != null) {
+                            container.excLog= find
                             textView.setBackgroundResource(R.drawable.example_1_today_bg)
                         } else {
                             textView.background = null
@@ -125,15 +144,14 @@ class NutritionCategoryFragment : Fragment() {
 
 }
 
-class DayViewContainer(view: View) : ViewContainer(view) {
+class DayViewContainer(view: View,var onClick: (ExcLog?) -> Unit) : ViewContainer(view) {
     val textView = view.findViewById<TextView>(R.id.exOneDayText)
     lateinit var day: CalendarDay
+    var excLog: ExcLog? = null
     init {
         view.setOnClickListener {
             if (day.owner == DayOwner.THIS_MONTH) {
-            // kiem tra ngay dc chon co phai ngay da log
-            Toast.makeText(view.context,"Select",Toast.LENGTH_SHORT).show()
-            // neu co thi navigate hien detail ngay hom do
+                onClick(excLog)
             }
         }
     }

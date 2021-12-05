@@ -25,7 +25,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ExcDetailFragment : Fragment() {
-    lateinit var linearLayout: LinearLayout
+    lateinit var stepLayout: LinearLayout
+    lateinit var achievementLayout: LinearLayout
     private lateinit var titleTextView: TextView
     private lateinit var difficultyTextView: TextView
     private lateinit var equipmentTextView: TextView
@@ -39,7 +40,6 @@ class ExcDetailFragment : Fragment() {
     lateinit var caloFactorEditText: TextView
     private val viewmodel: ExcDetailViewModel by viewModels()
 
-    private var achievementCount = 0
     private val stepTicketList = mutableListOf<View>()
     private val stepEditTextList = mutableListOf<TextView>()
     private val stepPicImageViewList = mutableListOf<ImageView>() // uri dc luu thong qua tag
@@ -49,7 +49,8 @@ class ExcDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_exc_detail, container, false)
-        linearLayout = view.findViewById(R.id.container)
+        stepLayout = view.findViewById(R.id.stepLayout)
+        achievementLayout = view.findViewById(R.id.achievementLayout)
         titleTextView = view.findViewById(R.id.titleTV)
        noTurnEditText = view.findViewById(R.id.excNoTurn)
        noGapEditText = view.findViewById(R.id.excNoGap)
@@ -58,7 +59,6 @@ class ExcDetailFragment : Fragment() {
         caloFactorEditText = view.findViewById(R.id.caloFactor)
         difficultyTextView = view.findViewById(R.id.difficultyTv)
         equipmentTextView = view.findViewById(R.id.equipmentTv)
-      //  viewStepsButton = view.findViewById(R.id.viewStepBtn)
         addExcerciseBtn = view.findViewById(R.id.addFavourite)
         return view
     }
@@ -70,15 +70,6 @@ class ExcDetailFragment : Fragment() {
         viewmodel.appBodyStatList.observe(viewLifecycleOwner) {
             loadExcercise(excercise)
         }
-
-//        viewStepsButton.setOnClickListener {
-//            StfalconImageViewer.Builder(context, excercise.picSteps) { view, image ->
-//                view.load(image) {
-//                    crossfade(true)
-//                    placeholder(R.drawable.ic_menu_gallery)
-//                }
-//            }.show()
-//        }
 
         if (requireArguments().getBoolean("isViewOnly",false)) {
             addExcerciseBtn.visibility = View.INVISIBLE
@@ -107,7 +98,8 @@ class ExcDetailFragment : Fragment() {
         noGapEditText.setText(excercise.noGap.toString() + " Break Sec")
         noSecEditText.setText(excercise.noSec.toString()+ " Set Sec")
         caloFactorEditText.setText(excercise.caloFactor.toString()+ " Kcal/Kg/Minute")
-
+        stepLayout.removeAllViews()
+        achievementLayout.removeAllViews()
         // load step tu cac array tutorial for de new view voi moi picurl
         var count = 1
         excercise.tutorialWithPic.forEach { tutoText, urlString ->
@@ -137,10 +129,9 @@ class ExcDetailFragment : Fragment() {
     }
 
     private fun onAddAchievement(): View {
-        achievementCount++
         val achieveTicket = layoutInflater.inflate(R.layout.view_achievement_ticket, null)
         achievementTicketList.add(achieveTicket)
-        linearLayout.addView(achieveTicket,linearLayout.childCount - 1)
+        achievementLayout.addView(achieveTicket,achievementLayout.childCount - 1)
         return achieveTicket
     }
 
@@ -162,7 +153,7 @@ class ExcDetailFragment : Fragment() {
         }
         imageView.tag = ""
 
-        linearLayout.addView(stepTicket,linearLayout.childCount - achievementCount - 1)
+        stepLayout.addView(stepTicket,stepLayout.childCount - 1)
         return stepTicket
     }
 

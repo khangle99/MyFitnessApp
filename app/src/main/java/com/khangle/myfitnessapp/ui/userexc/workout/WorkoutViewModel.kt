@@ -22,6 +22,7 @@ import javax.inject.Inject
 class WorkoutViewModel @Inject constructor(private val repository: MyFitnessAppRepository): BaseViewModel(){
 
     private val uid = FirebaseAuth.getInstance().uid!!
+    var currentWeight = MutableLiveData<Int>()
 
     fun logDay(planDay: PlanDay) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -42,10 +43,13 @@ class WorkoutViewModel @Inject constructor(private val repository: MyFitnessAppR
         }
     }
 
-    var currentWeight = MutableLiveData<Int>()
+
     fun fetchCurrentWeight() {
         viewModelScope.launch(Dispatchers.IO) {
-            currentWeight.postValue(repository.fetchStatisticList(uid).first().weight)
+            repository.fetchStatisticList(uid).firstOrNull()?.let {
+                currentWeight.postValue(it.weight)
+            }
+
         }
     }
 }

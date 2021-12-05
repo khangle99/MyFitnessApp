@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.databinding.FragmentNutritionBinding
 import com.khangle.myfitnessapp.extension.commitAnimate
@@ -25,7 +26,7 @@ class NutritionFragment : Fragment() {
     ): View? {
         _binding = FragmentNutritionBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        childFragmentManager.commitAnimate {
+        childFragmentManager.commit {
             setReorderingAllowed(true)
             add<NutritionCategoryFragment>(R.id.nutritionContainer)
         }

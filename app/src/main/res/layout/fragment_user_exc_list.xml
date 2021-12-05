@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"/>
             <com.google.android.material.chip.Chip
                 android:id="@+id/choosePackage"
+                android:layout_margin="10dp"
                 app:chipIcon="@drawable/ic_baseline_star_24"
                 app:chipBackgroundColor="@color/desgin_tomator_sec"
                 android:layout_gravity="center"
@@ -37,6 +38,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_weight="1"
             android:id="@+id/userexcList"
+            android:backgroundTint="@color/white"
             android:background="@color/listbackground"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>

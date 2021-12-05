@@ -166,14 +166,36 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="Tutorial &amp; Achievement "
+            android:text="Tutorial "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/stepLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+        <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Achievement "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/achievementLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
         <Button
             android:id="@+id/addFavourite"
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:text="Add to Favourite"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
 </ScrollView>
