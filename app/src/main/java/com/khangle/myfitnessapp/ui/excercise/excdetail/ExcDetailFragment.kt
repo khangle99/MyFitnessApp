@@ -131,7 +131,7 @@ class ExcDetailFragment : Fragment() {
     private fun onAddAchievement(): View {
         val achieveTicket = layoutInflater.inflate(R.layout.view_achievement_ticket, null)
         achievementTicketList.add(achieveTicket)
-        achievementLayout.addView(achieveTicket,achievementLayout.childCount - 1)
+        achievementLayout.addView(achieveTicket,achievementLayout.childCount)
         return achieveTicket
     }
 
@@ -153,7 +153,7 @@ class ExcDetailFragment : Fragment() {
         }
         imageView.tag = ""
 
-        stepLayout.addView(stepTicket,stepLayout.childCount - 1)
+        stepLayout.addView(stepTicket,stepLayout.childCount)
         return stepTicket
     }
 
