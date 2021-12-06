@@ -5,16 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.chip.Chip
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.khangle.myfitnessapp.R
+import com.khangle.myfitnessapp.common.dateFormat
+import com.khangle.myfitnessapp.common.isSameMonth
+import com.khangle.myfitnessapp.common.toFormatDate
+import com.khangle.myfitnessapp.model.AppBodyStat
 import com.khangle.myfitnessapp.model.user.ExcLog
 import com.khangle.myfitnessapp.ui.exclog.NutritionViewModel
+import com.khangle.myfitnessapp.ui.exclog.RatingDialogFragment
 import com.kizitonwose.calendarview.CalendarView
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
@@ -23,6 +30,9 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthScrollListener
 import com.kizitonwose.calendarview.ui.ViewContainer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.w3c.dom.Text
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -30,6 +40,7 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.*
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class NutritionCategoryFragment : Fragment() {
@@ -40,8 +51,11 @@ class NutritionCategoryFragment : Fragment() {
     private lateinit var monthTextView: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var selectDayInfoTV: TextView
+    private lateinit var summarizeTV: TextView
+    private lateinit var ratingBtn: Button
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val today = LocalDate.now()
+    private var selectMonthStr = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,10 +65,98 @@ class NutritionCategoryFragment : Fragment() {
         yearTextView = view.findViewById(R.id.exOneYearText)
         monthTextView = view.findViewById(R.id.exOneMonthText)
         progressBar = view.findViewById(R.id.excLogProgress)
+        ratingBtn = view.findViewById(R.id.ratingChip)
         selectDayInfoTV = view.findViewById(R.id.selectDayInfo)
+        summarizeTV = view.findViewById(R.id.excerciseSumTV)
         setupCalendar()
+        viewModel.excercises.observe(viewLifecycleOwner) { list ->
+            var str = ""
+            list.groupBy { it.id }
+                .forEach {
+                    val btName = it.value.firstOrNull()?.name ?: "Exercise has been delete"
+                    str += "- ${btName}: ${it.value.size} ngày \n"
+                }
+            summarizeTV.setText(str)
+        }
+        viewModel.getStatHistory()
+        viewModel.getAppBodyStatList()
+
+
+        setupRatingBtn()
 
         return view
+    }
+    private fun setupRatingBtn() {
+        ratingBtn.setOnClickListener { // when has data will clickable, else null will skipe function
+            // compose report message
+            var reportMessage = ""
+            if (viewModel.excercises.value == null && viewModel.bodyStatList.value == null && viewModel.appBodyStatList.value == null && viewModel.excLogOfMonth.value != null) {
+                return@setOnClickListener
+            }
+
+            /* giai thuat :
+                group exclog cho nhung bt nao duoc tap hon 4 tuan
+                tu exclog -> excer -> statEnsure map
+                lay ra lastest record (lay tu list body) ve stat trong statEnsure yeu cau (for statensure)
+                so voi first record of the month
+             */
+
+            lifecycleScope.launch(Dispatchers.Default) {
+                viewModel.excLogOfMonth.value?.groupBy { it.excId }?.forEach { excId, list -> // group thanh 1 list nhom cac bt
+
+                    val firstExcercise = viewModel.excercises.value?.find {
+                        it.id == excId
+                    } ?: return@forEach
+
+                    if (list.size >= 4) {
+                        reportMessage += "--- ${firstExcercise.name}: \n"
+
+                        val fromJson = Gson().fromJson(firstExcercise.achieveEnsure, JsonObject::class.java)
+
+                        for ((statName, value) in fromJson.entrySet()) { // each ensure of excercise
+                            val appBodyStat = viewModel.appBodyStatList.value?.find { it.name == statName  } // reference body stat id
+                            if (appBodyStat != null) {
+                                // lastest record is first (ordered at vm)
+                                val lastestRecord = viewModel.bodyStatList.value?.find { it.statId == appBodyStat.id && it.dateString.isSameMonth("10/${selectMonthStr}/2021") }
+
+                                if (lastestRecord != null) {
+                                    val firstRecordValue = viewModel.bodyStatList.value?.findLast {
+                                        it.statId == appBodyStat.id && it.dateString.isSameMonth(lastestRecord.dateString)
+                                    }?.value ?: ""
+                                    reportMessage += compareCurrentStatWithEnsure(firstRecordValue, lastestRecord.value, value.asString, statName, appBodyStat.unit)
+                                } else {
+                                    reportMessage += "+ ${statName}: Chưa có record nào được ghi về chỉ số này \n"
+                                }
+
+                            } else {
+                                reportMessage += "+ ${statName}: Tên stat đã bị thay đổi, admin sẽ cập nhật sau \n"
+                            }
+
+                        }
+
+                    } else {
+                        reportMessage += "- ${firstExcercise.name}: Không đủ số lượng buổi tập trong tháng \n"
+                    }
+
+
+                }
+                // use message
+                withContext(Dispatchers.Main) {
+                    RatingDialogFragment( reportMessage).show(childFragmentManager, "rating")
+                }
+
+            }
+        }
+    }
+
+    private fun compareCurrentStatWithEnsure(monthBegin: String, lastest: String, ensure: String, statName: String, unit: String): String {
+        val beginFloat = monthBegin.toFloatOrNull() ?: return ""
+        val lastesFloat = lastest.toFloatOrNull() ?: return ""
+        val ensureFloat = ensure.toFloatOrNull() ?: return ""
+
+        val deltaMonth = lastesFloat - beginFloat
+        val percentRating = (deltaMonth/ensureFloat - 1)*100
+        return "+ ${statName}: Phần trăm gia tăng: ${percentRating}%  [đạt được: ${deltaMonth}  - mục tiêu: ${ensureFloat}] (đơn vị: $unit)\n"
     }
 
     private fun setupCalendar() {
@@ -113,10 +215,12 @@ class NutritionCategoryFragment : Fragment() {
         calendarView.monthScrollListener = object : MonthScrollListener {
             override fun invoke(p1: CalendarMonth) {
                 yearTextView.text = p1.yearMonth.year.toString()
+
                 monthTextView.text = monthTitleFormatter.format(p1.yearMonth)
 
                 val year = p1.year % 100
                 val month = p1.month
+                selectMonthStr = if (month < 10) "0${month}" else month.toString()
                 val myStr = month.toString() + year.toString()
                 progressBar.visibility = View.VISIBLE
                 viewModel.loadExcLogOfMonth(myStr)

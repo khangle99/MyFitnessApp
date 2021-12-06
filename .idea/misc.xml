@@ -17,12 +17,13 @@
         <entry key="app/src/main/res/layout/calendar_month_header_layout.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_add_body_stat_dialog.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_add_stat_dialog.xml" value="0.1875" />
-        <entry key="app/src/main/res/layout/fragment_day_log.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_day_log.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_exc_detail.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_exc_list.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/fragment_excercise.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_excercise_category.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_rating_dialog.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/fragment_stat_history.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_stat_report.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_user_exc_detail.xml" value="0.34010416666666665" />

@@ -11,14 +11,30 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:textSize="28sp"
-                android:fontFamily="@font/nunito_extrabold"
-                android:textAlignment="center"
-                android:layout_margin="10dp"
-                android:text="Daily Log"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="28sp"
+                    android:fontFamily="@font/nunito_extrabold"
+                    android:textAlignment="center"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Daily Log"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:id="@+id/ratingChip"
+                    android:drawableLeft="@drawable/ic_baseline_star_24"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/white"
+                    app:chipBackgroundColor="@color/desgin_tomator_sec"
+                    android:text="Rating"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/exOneAppBarLayout"
                 android:layout_width="match_parent"
@@ -88,6 +104,20 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"/>
           </LinearLayout>
+            <TextView
+                android:text="Summarize"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                tools:text="Sample"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:id="@+id/excerciseSumTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <ProgressBar
             android:id="@+id/excLogProgress"

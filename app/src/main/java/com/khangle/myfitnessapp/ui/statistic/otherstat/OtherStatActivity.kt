@@ -109,6 +109,7 @@ class OtherStatActivity : AppCompatActivity() {
                                return@Comparator 0
                            }
                        })
+
                        viewReportBtn.isEnabled = true
                        adapter.submitList(filterList)
                        progressBar.visibility = View.INVISIBLE
