@@ -41,9 +41,9 @@ class StatisticFragment : Fragment() {
         binding.statisPager.isUserInputEnabled = false
         TabLayoutMediator(binding.statTablayout, binding.statisPager) { tab, position ->
             if (position == 0) {
-                tab.text = "History"
+                tab.text = "Lịch sử"
             } else {
-                tab.text = "Chart"
+                tab.text = "Biểu đồ"
             }
         }.attach()
     }

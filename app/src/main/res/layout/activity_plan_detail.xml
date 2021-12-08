@@ -14,7 +14,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Name:"
+            android:text="Tên:"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_width="0dp"
@@ -25,12 +25,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Package Name"/>
+            android:hint="Tên gói"/>
     </LinearLayout>
     <TextView
         android:id="@+id/listTitle"
         app:layout_constraintTop_toBottomOf="@id/nameContainer"
-        android:text="Excercise Per Date List"
+        android:text="Bài tập theo ngày"
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -61,7 +61,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Apply Package"
+        android:text="Áp dụng gói"
         android:layout_width="300dp"
         android:layout_height="wrap_content"/>
 

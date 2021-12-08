@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Name"
+            android:text="Tên"
             android:id="@+id/titleTV"
             android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
@@ -40,12 +40,12 @@
                         android:drawableStart="@drawable/speedometer"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="Difficulty"
+                        android:text="Độ khó"
                         android:drawablePadding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
-                        android:text="Do kho"
+                        android:text="Độ khó"
                         android:textSize="18sp"
                         android:id="@+id/difficultyTv"
                         android:layout_margin="10dp"
@@ -69,12 +69,12 @@
                         android:drawableStart="@drawable/kcal"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:text="Calor Factor"
+                        android:text="Hệ số calo"
                         android:drawablePadding="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
-                        android:text="Calor"
+                        android:text="Calo"
                         android:textSize="18sp"
                         android:id="@+id/caloFactor"
                         android:layout_margin="10dp"
@@ -101,13 +101,13 @@
                     android:drawableStart="@drawable/ic_tool"
                     android:textSize="20sp"
                     android:drawablePadding="10dp"
-                    android:text="Equipment"
+                    android:text="Yêu cầu"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/equipmentTv"
-                    android:text="Yeu cau"
+                    android:text="Yêu cầu"
                     android:textSize="18sp"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
@@ -121,7 +121,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="Timing"
+            android:text="Chỉ số thời gian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
@@ -129,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:hint="NoTurn"
+                android:hint="Số lượt"
                 android:layout_margin="12dp"
                 android:padding="10dp"
                 android:layout_weight="1"
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:hint="NoSec"
+                android:hint="Số giây"
                 android:layout_margin="12dp"
                 android:padding="10dp"
                 android:inputType="number"
@@ -151,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:hint="NoGap"
+                android:hint="Số giây "
                 android:layout_margin="12dp"
                 android:padding="10dp"
                 android:layout_weight="1"
@@ -166,7 +166,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="Tutorial "
+            android:text="Hướng dẫn "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
@@ -180,7 +180,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="Achievement "
+            android:text="Thành tựu "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
@@ -194,7 +194,7 @@
             android:id="@+id/addFavourite"
             android:layout_gravity="center"
             android:layout_width="300dp"
-            android:text="Add to Favourite"
+            android:text="Thêm vào kế hoạch"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>

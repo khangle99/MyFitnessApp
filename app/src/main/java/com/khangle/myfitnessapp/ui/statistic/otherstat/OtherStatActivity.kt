@@ -56,15 +56,7 @@ class OtherStatActivity : AppCompatActivity() {
         viewmodel.getAppBodyStatList()
         viewmodel.getStatHistory()
 
-        viewmodel.bodyStatList.observe(this) {
-            if (!selectStat?.id.equals("")) {
-                viewReportBtn.isEnabled = true
-                val list =  it.filter { it.statId.equals(selectStat?.id) }
-                filterList = list
-                adapter.submitList(list)
-                progressBar.visibility = View.INVISIBLE
-            }
-        }
+
     }
 
     private fun setupRecyclerview(bodyList: List<AppBodyStat>) {
@@ -77,6 +69,17 @@ class OtherStatActivity : AppCompatActivity() {
     private fun setupSpinner() {
         viewmodel.appBodyStatList.observe(this) {
             setupRecyclerview(it)
+
+            viewmodel.bodyStatList.observe(this) {
+                if (!selectStat?.id.equals("")) {
+                    viewReportBtn.isEnabled = true
+                    val list =  it.filter { it.statId.equals(selectStat?.id) }
+                    filterList = list
+                    adapter.submitList(list)
+                    progressBar.visibility = View.INVISIBLE
+                }
+            }
+
             val array = it.map {
                 it.name
             }

@@ -13,7 +13,7 @@
         android:fontFamily="@font/nunito_extrabold"
         android:textSize="28sp"
         android:id="@+id/chartName"
-        android:text="Chart Name"
+        android:text="Tên đồ thị"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <androidx.cardview.widget.CardView

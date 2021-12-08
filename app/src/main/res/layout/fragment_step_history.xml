@@ -15,7 +15,7 @@
             <com.google.android.material.chip.Chip
                 android:layout_gravity="center"
                 android:id="@+id/setDailyGoal"
-                android:text="Set Daily Goal"
+                android:text="Cài đặt mục tiêu bước chân"
                 android:textColor="@color/white"
                 app:chipBackgroundColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
@@ -54,12 +54,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:textSize="28sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
-                    android:text="Step Track By Day"
+                    android:text="Theo dõi bước chân theo ngày"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
                 <ImageView

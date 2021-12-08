@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:text="Excercise List"
+            android:text="Danh sách bài tập"
             android:textSize="28sp"
             android:layout_margin="10dp"
             android:fontFamily="@font/nunito_extrabold"

@@ -141,7 +141,7 @@ class StatReportFragment(private val viewmodel: StatisticViewModel) : Fragment()
         val bmiPercent = (lastBMI/firstBMI*1.0)*100 - 100
 
 
-        val composeStr = TextUtils.concat(" Weight: ", composeSpanString(weightPercent.toInt()), "\n Height: ", composeSpanString(heightPercent.toInt()), "\n BMI: ", composeSpanString(bmiPercent.toInt()))
+        val composeStr = TextUtils.concat(" Cân nặng: ", composeSpanString(weightPercent.toInt()), "\n Chiều cao: ", composeSpanString(heightPercent.toInt()), "\n BMI: ", composeSpanString(bmiPercent.toInt()))
         reportTV.text = composeStr
     }
 

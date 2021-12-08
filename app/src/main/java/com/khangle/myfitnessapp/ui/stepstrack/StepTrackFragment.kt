@@ -36,9 +36,9 @@ class StepTrackFragment : Fragment() {
         pager.adapter = adapter
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             if (position == 0) {
-                tab.text = "History"
+                tab.text = "Lịch sử"
             } else {
-                tab.text = "Chart"
+                tab.text = "Biểu đồ"
             }
         }.attach()
     }

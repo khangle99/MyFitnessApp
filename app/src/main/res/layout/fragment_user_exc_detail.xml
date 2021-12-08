@@ -9,13 +9,13 @@
         android:layout_margin="18dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Excercise Name"
+        android:text="Tên bài tập"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
         android:padding="10dp"
         android:background="@drawable/rounded_bkg"
-        android:hint="Excercise Name"
+        android:hint="Tên BT"
         android:layout_margin="12dp"
         android:id="@+id/excName"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_margin="18dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:text="Day"
+        android:text="Ngày"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -36,7 +36,7 @@
         android:layout_margin="12dp"
         android:padding="10dp" />
     <com.google.android.material.chip.Chip
-        android:text="View Detail"
+        android:text="Xem chi tiết BT"
         android:backgroundTint="@color/orange"
         android:textAlignment="center"
         android:textSize="20sp"

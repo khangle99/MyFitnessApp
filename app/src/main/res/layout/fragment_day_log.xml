@@ -22,7 +22,7 @@
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Daily Log"
+                    android:text="Điểm danh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <Button
@@ -32,7 +32,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/white"
                     app:chipBackgroundColor="@color/desgin_tomator_sec"
-                    android:text="Rating"
+                    android:text="Đánh giá"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <com.google.android.material.appbar.AppBarLayout
@@ -90,7 +90,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Excercise Name: "
+                  android:text="Tên BT: "
                   android:textStyle="bold"
                   android:layout_margin="10dp"
                   android:textSize="20sp"
@@ -105,7 +105,7 @@
                   android:layout_height="wrap_content"/>
           </LinearLayout>
             <TextView
-                android:text="Summarize"
+                android:text="Tổng quan tháng:"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
                 android:textStyle="bold"

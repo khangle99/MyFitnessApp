@@ -23,7 +23,7 @@
       android:layout_height="50dp">
       <TextView
           android:gravity="center"
-          android:text="Stat: "
+          android:text="Chỉ số: "
           android:layout_width="wrap_content"
           android:layout_height="match_parent"/>
       <Spinner

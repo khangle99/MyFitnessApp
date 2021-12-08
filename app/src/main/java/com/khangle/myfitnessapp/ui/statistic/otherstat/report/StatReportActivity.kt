@@ -39,6 +39,7 @@ class StatReportActivity : AppCompatActivity() {
     }
 
     private fun reportSum() {
+        if (filterList.isEmpty()) return
         var reportStr = "7 ngày gần nhất:\n "
 
         val sevenRecord = filterList.take(7)
@@ -46,7 +47,7 @@ class StatReportActivity : AppCompatActivity() {
         val last = sevenRecord.last()
         val percent = (last.value.toFloat() / first.value.toFloat()) - 1
 
-        reportStr += "Total percent: ${ if (percent > 0)  "+ " else ""} ${percent*100} %"
+        reportStr += "Phần trăm trong 7 ngày: ${ if (percent > 0)  "+ " else ""} ${percent*100} %"
         reportSumTV.setText(reportStr)
     }
 

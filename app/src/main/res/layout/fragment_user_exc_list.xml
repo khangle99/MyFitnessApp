@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:text="Excercise Plan"
+                android:text="Kế hoạch"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textSize="28sp"
@@ -31,7 +31,7 @@
                 app:chipIcon="@drawable/ic_baseline_star_24"
                 app:chipBackgroundColor="@color/desgin_tomator_sec"
                 android:layout_gravity="center"
-                android:text="Package"
+                android:text="Gói"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -51,7 +51,7 @@
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textAlignment="center"
-            android:text="Start Workout"
+            android:text="Bắt đầu tập hôm nay"
             android:backgroundTint="@color/colorPrimaryDark"
             android:layout_width="250dp"
             android:layout_height="80dp"/>

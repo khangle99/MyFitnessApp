@@ -99,7 +99,7 @@ class StepReportFragment constructor(private val stepTrackViewModel: StepTrackVi
             if (it.steps >= goal) countSuccessGoal++
         }
 
-        val composeStr = TextUtils.concat(" Steps: ", composeSpanString(stepPercent.toInt()) , "\n Goal Days: ${countSuccessGoal}")
+        val composeStr = TextUtils.concat(" Bước chân: ", composeSpanString(stepPercent.toInt()) , "\n Số ngày đạt: ${countSuccessGoal}")
         reportTV.text = composeStr
     }
 

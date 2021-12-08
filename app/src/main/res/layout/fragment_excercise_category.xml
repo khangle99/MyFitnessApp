@@ -13,7 +13,7 @@
             android:fontFamily="@font/nunito_extrabold"
             android:textAlignment="center"
             android:layout_margin="10dp"
-            android:text="Excercise Category"
+            android:text="Thể loại BT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView

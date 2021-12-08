@@ -16,11 +16,11 @@
         android:layout_margin="10dp"
         android:fontFamily="@font/nunito_extrabold"
         android:textAlignment="center"
-        android:text="Statistic History"
+        android:text="Lịch sử chỉ số"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <com.google.android.material.chip.Chip
-        android:text="More Stat"
+        android:text="Chỉ số khác"
         android:layout_margin="10dp"
         android:id="@+id/moreStatChip"
         android:layout_gravity="center"

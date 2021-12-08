@@ -18,7 +18,7 @@
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
             android:fontFamily="@font/signika"
-            android:text="Date"
+            android:text="Ngày"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

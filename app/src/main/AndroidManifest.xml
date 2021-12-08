@@ -25,19 +25,19 @@
         <activity
             android:name=".ui.userexc.planlist.packagePick.ExcPackageActivity"
             android:exported="true"
-            android:label="Excercise Package" />
+            android:label="Bài tập" />
         <activity
             android:name="com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity"
             android:exported="true"
-            android:label="Suggest Package" />
+            android:label="Gói bài tập" />
         <activity
             android:name="com.khangle.myfitnessadmin.suggestpack.plandetail.PlanDetailActivity"
             android:exported="true"
-            android:label="Package Detail" />
+            android:label="Chi tiết gói" />
         <activity
             android:name=".ui.statistic.otherstat.OtherStatActivity"
             android:exported="true"
-            android:label="Other Stats" />
+            android:label="Chỉ số khác" />
 
         <service
             android:name=".service.StepTrackUploadService"

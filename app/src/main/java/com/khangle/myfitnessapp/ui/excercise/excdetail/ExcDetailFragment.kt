@@ -94,9 +94,9 @@ class ExcDetailFragment : Fragment() {
 
         equipmentTextView.setText(excercise.equipment)
 
-        noTurnEditText.setText(excercise.noTurn.toString() + " Turns")
-        noGapEditText.setText(excercise.noGap.toString() + " Break Sec")
-        noSecEditText.setText(excercise.noSec.toString()+ " Set Sec")
+        noTurnEditText.setText(excercise.noTurn.toString() + " Lần")
+        noGapEditText.setText(excercise.noGap.toString() + " Giầy nghỉ")
+        noSecEditText.setText(excercise.noSec.toString()+ " Giây")
         caloFactorEditText.setText(excercise.caloFactor.toString()+ " Kcal/Kg/Minute")
         stepLayout.removeAllViews()
         achievementLayout.removeAllViews()

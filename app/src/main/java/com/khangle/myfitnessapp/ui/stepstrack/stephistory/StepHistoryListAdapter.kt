@@ -32,7 +32,7 @@ class StepHistoryListAdapter : ListAdapter<UserStep, StepHistoryListAdapter.User
 
         fun bind(step: UserStep, goal: Int) {
             item = step
-            stepTV.text = "${item.steps} steps"
+            stepTV.text = "${item.steps} Bước"
             percentTV.text = "${(item.steps*100.0/ goal).toInt()} %" // dang set goal cung
             dateTV.text = item.dateString
         }

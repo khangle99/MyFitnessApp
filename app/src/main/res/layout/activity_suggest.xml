@@ -12,7 +12,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:textStyle="bold"
-        android:text="Excercise Suggest Packages"
+        android:text="Các gói bài tập"
         android:layout_height="wrap_content"/>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
