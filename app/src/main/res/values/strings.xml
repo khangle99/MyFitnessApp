@@ -13,6 +13,7 @@
     <string name="menu_statistic">Statistic</string>
     <string name="menu_steptrack">StepTrack</string>
     <string name="menu_userexc">My Excercise</string>
+    <string name="menu_nutri_ref">Nutrition Reference</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_drawe_navr">DraweNavrActivity</string>
 

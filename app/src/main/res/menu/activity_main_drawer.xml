@@ -24,5 +24,9 @@
             android:id="@+id/nav_userexc"
             android:icon="@drawable/ic_baseline_favorite_24"
             android:title="@string/menu_userexc" />
+        <item
+            android:id="@+id/nav_nutri_reference"
+            android:icon="@drawable/nutri"
+            android:title="@string/menu_nutri_ref" />
     </group>
 </menu>

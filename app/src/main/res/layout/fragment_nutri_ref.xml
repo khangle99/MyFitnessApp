@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.nutri_ref.NutriRefFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:text="Một số loại thức ăn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.jsibbold.zoomage.ZoomageView
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"
+            android:src="@drawable/ref_motso"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"/>
+        <TextView
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:text="Thức ăn từ trứng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.jsibbold.zoomage.ZoomageView
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"
+            android:src="@drawable/ref_trung"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:text="Thức ăn từ thịt lợn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.jsibbold.zoomage.ZoomageView
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"
+            android:src="@drawable/ref_thilon"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:text="Thức ăn từ thịt bò"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.jsibbold.zoomage.ZoomageView
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"
+            android:src="@drawable/ref_thitbo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:text="Thức ăn từ thịt gà"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.jsibbold.zoomage.ZoomageView
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"
+            android:src="@drawable/ref_thitga"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+        <TextView
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:text="Thức ăn khác"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.jsibbold.zoomage.ZoomageView
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"
+            android:src="@drawable/ref_otherfood"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+    </LinearLayout>
+
+
+</ScrollView>

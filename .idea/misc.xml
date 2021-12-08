@@ -22,6 +22,7 @@
         <entry key="app/src/main/res/layout/fragment_exc_list.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/fragment_excercise.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_excercise_category.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/fragment_nutri_ref.xml" value="0.2720806164789567" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_rating_dialog.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/fragment_stat_history.xml" value="0.221875" />
@@ -36,6 +37,7 @@
         <entry key="app/src/main/res/layout/view_achievement_ticket.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/view_tutorial_ticket.xml" value="0.23125" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/menu/container.xml" value="0.34010416666666665" />
       </map>
     </option>
   </component>
