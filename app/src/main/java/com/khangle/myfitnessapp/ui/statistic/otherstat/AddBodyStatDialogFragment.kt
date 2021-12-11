@@ -73,9 +73,25 @@ class AddBodyStatDialogFragment constructor(private val viewmodel: OtherStatView
         }
         addChip.setOnClickListener {
             val stat = getStatFromInput()
-            viewmodel.addOtherStat(stat) {
-                viewmodel.getStatHistory()
+            viewmodel.addOtherStat(stat) { message ->
+
+                if (message.id != null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Delete thành công với id: ${message.id}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    viewmodel.getStatHistory()
+
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Lỗi khi delete error: ${message.error}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 dismiss()
+
             }
         }
     }

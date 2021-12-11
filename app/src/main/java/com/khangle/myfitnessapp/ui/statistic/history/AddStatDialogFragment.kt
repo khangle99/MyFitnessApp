@@ -54,7 +54,21 @@ class AddStatDialogFragment constructor(private val viewmodel: StatisticViewMode
         }
         addChip.setOnClickListener {
             val stat = getStatFromInput()
-            viewmodel.addStat(stat) {
+            viewmodel.addStat(stat) { message ->
+                if (message.id != null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Delete thành công với id: ${message.id}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Lỗi khi delete error: ${message.error}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 dismiss()
             }
         }

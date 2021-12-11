@@ -35,7 +35,9 @@ class StepTrackViewModel @Inject constructor(private val repository: MyFitnessAp
 
     fun getStepHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.invalidateStepList(uid)
+            handleResponse {
+                repository.invalidateStepList(uid)
+            }
         }
     }
 

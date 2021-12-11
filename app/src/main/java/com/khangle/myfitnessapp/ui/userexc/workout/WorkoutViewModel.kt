@@ -26,29 +26,33 @@ class WorkoutViewModel @Inject constructor(private val repository: MyFitnessAppR
 
     fun logDay(planDay: PlanDay) {
         viewModelScope.launch(Dispatchers.IO) {
-            val calendar = Calendar.getInstance(TimeZone.getDefault())
-            val year = calendar.get(Calendar.YEAR) % 100
-            val month = calendar.get(Calendar.MONTH) + 1
-            val myStr = month.toString() + year.toString()
-            val dateInMonth = calendar.get(Calendar.DAY_OF_MONTH).toString()
-            repository.createMonth(uid, myStr) // override month neu da co
-            val res = repository.logDay(uid,myStr,planDay.excId,planDay.categoryId,dateInMonth)
-            withContext(Dispatchers.Main) {
-                if (res.id != null) {
-                    print("")
-                } else {
-                    print("")
-                }
-            }
+           handleResponse {
+               val calendar = Calendar.getInstance(TimeZone.getDefault())
+               val year = calendar.get(Calendar.YEAR) % 100
+               val month = calendar.get(Calendar.MONTH) + 1
+               val myStr = month.toString() + year.toString()
+               val dateInMonth = calendar.get(Calendar.DAY_OF_MONTH).toString()
+               repository.createMonth(uid, myStr) // override month neu da co
+               val res = repository.logDay(uid,myStr,planDay.excId,planDay.categoryId,dateInMonth)
+               withContext(Dispatchers.Main) {
+                   if (res.id != null) {
+                       print("")
+                   } else {
+                       print("")
+                   }
+               }
+           }
         }
     }
 
 
     fun fetchCurrentWeight() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchStatisticList(uid).firstOrNull()?.let {
-                currentWeight.postValue(it.weight)
-            }
+          handleResponse {
+              repository.fetchStatisticList(uid).firstOrNull()?.let {
+                  currentWeight.postValue(it.weight)
+              }
+          }
 
         }
     }

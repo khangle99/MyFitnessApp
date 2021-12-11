@@ -9,12 +9,13 @@ import com.khangle.myfitnessapp.model.AppBodyStat
 import com.khangle.myfitnessapp.model.BodyStat
 import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.user.ExcLog
+import com.khangle.myfitnessapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class NutritionViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
+class NutritionViewModel @Inject constructor(private val repository: MyFitnessAppRepository): BaseViewModel() {
 
     private val uid = FirebaseAuth.getInstance().uid!!
 
@@ -26,19 +27,21 @@ class NutritionViewModel @Inject constructor(private val repository: MyFitnessAp
 
     fun loadExcLogOfMonth(mYStr: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.loadLogOfMonth(uid, mYStr)
+           handleResponse {
+               val res = repository.loadLogOfMonth(uid, mYStr)
 
-            val excercises = res.map { excLog ->
-                val a = async {
-                    val excercise =  repository.getExcercise(excLog.categoryId,excLog.excId)
-                    val ensure = repository.getStatEnsureList(excLog.excId,excLog.categoryId)
-                    excercise.achieveEnsure = Gson().toJson(ensure)
-                    excercise
-                }
-                a
-            }.awaitAll()
-            _excercises.postValue(excercises)
-            _excLogOfMonth.postValue(res)
+               val excercises = res.map { excLog ->
+                   val a = async {
+                       val excercise =  repository.getExcercise(excLog.categoryId,excLog.excId)
+                       val ensure = repository.getStatEnsureList(excLog.excId,excLog.categoryId)
+                       excercise.achieveEnsure = Gson().toJson(ensure)
+                       excercise
+                   }
+                   a
+               }.awaitAll()
+               _excercises.postValue(excercises)
+               _excLogOfMonth.postValue(res)
+           }
         }
     }
 
@@ -46,7 +49,9 @@ class NutritionViewModel @Inject constructor(private val repository: MyFitnessAp
     val appBodyStatList: LiveData<List<AppBodyStat>> = _appBodyStatList
     fun getAppBodyStatList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _appBodyStatList.postValue(repository.getAppBodyStat())
+            handleResponse {
+                _appBodyStatList.postValue(repository.getAppBodyStat())
+            }
         }
     }
 
@@ -56,6 +61,7 @@ class NutritionViewModel @Inject constructor(private val repository: MyFitnessAp
 
     fun getStatHistory() {
         viewModelScope.launch(Dispatchers.IO) {
+        handleResponse {
             val res = repository.getBodyStat(uid)
             withContext(Dispatchers.Main) {
                 val filter = res.sortedWith(Comparator { o1, o2 ->
@@ -71,6 +77,7 @@ class NutritionViewModel @Inject constructor(private val repository: MyFitnessAp
                 })
                 _bodyStatList.value = filter
             }
+        }
 
         }
     }

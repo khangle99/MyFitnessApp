@@ -22,25 +22,29 @@ class PlanDetailViewModel @Inject constructor(private val repository: MyFitnessA
     val dayList: LiveData<List<PlanDay>> = _dayList
     fun loadList(sugId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = repository.loadPackageDayList(sugId).map {
-                async {
-                    it.exc = repository.getExcercise(it.categoryId, it.excId)
-                    val ensure =  repository.getStatEnsureList(it.excId,it.categoryId)
-                    it.exc!!.achieveEnsure = Gson().toJson(ensure)
-                    it.day = it.id // do cung value
-                    it
-                }
-            }.awaitAll()
-            _dayList.postValue(list)
+           handleResponse {
+               val list = repository.loadPackageDayList(sugId).map {
+                   async {
+                       it.exc = repository.getExcercise(it.categoryId, it.excId)
+                       val ensure =  repository.getStatEnsureList(it.excId,it.categoryId)
+                       it.exc!!.achieveEnsure = Gson().toJson(ensure)
+                       it.day = it.id // do cung value
+                       it
+                   }
+               }.awaitAll()
+               _dayList.postValue(list)
+           }
         }
     }
 
     fun applyPackage(sugId: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.applyPackage(sugId, uid)
-            withContext(Dispatchers.Main) {
-                handle(res)
-            }
+           handleResponse(handle) {
+               val res = repository.applyPackage(sugId, uid)
+               withContext(Dispatchers.Main) {
+                   handle(res)
+               }
+           }
         }
     }
 

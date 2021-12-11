@@ -135,10 +135,23 @@ class OtherStatActivity : AppCompatActivity() {
                 val position = viewHolder.adapterPosition
                 val item = adapter.currentList[position]
                 progressBar.visibility = View.VISIBLE
-                viewmodel.removeOtherStat(item) {
+                viewmodel.removeOtherStat(item) { message ->
+                    if (message.id != null) {
+                        Toast.makeText(
+                            this@OtherStatActivity,
+                            "Delete thành công với id: ${message.id}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        viewmodel.getStatHistory()
+                    } else {
+                        Toast.makeText(
+                            this@OtherStatActivity,
+                            "Lỗi khi delete error: ${message.error}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(this@OtherStatActivity, "Deleted Session", Toast.LENGTH_SHORT).show()
-                    viewmodel.getStatHistory()
+
                 }
             }
         }

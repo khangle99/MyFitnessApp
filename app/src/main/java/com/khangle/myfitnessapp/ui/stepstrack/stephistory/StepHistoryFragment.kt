@@ -99,14 +99,24 @@ class StepHistoryFragment constructor(private val stepTrackViewModel: StepTrackV
         }
         clearHistory.setOnClickListener {
             progressBar.visibility = View.VISIBLE
-            stepTrackViewModel.clearHistory {
-                progressBar.visibility = View.INVISIBLE
-                if(it.id != null) {
+            stepTrackViewModel.clearHistory { message ->
+                if (message.id != null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Delete thành công với id: ${message.id}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     stepHistoryListAdapter.submitList(listOf())
                     stepTrackViewModel.getStepHistory()
                 } else {
-                    Toast.makeText(context, "Delete error: ${it.error}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Lỗi khi delete error: ${message.error}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+                progressBar.visibility = View.INVISIBLE
+
             }
         }
     }

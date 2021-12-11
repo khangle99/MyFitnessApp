@@ -70,9 +70,21 @@ class StatHistoryFragment(private val viewModel: StatisticViewModel) : Fragment(
                 val position = viewHolder.adapterPosition
                 val item = statHistoryListAdapter.currentList[position]
                 progressBar.visibility = View.VISIBLE
-                viewModel.removeStat(item) {
+                viewModel.removeStat(item) { message ->
+                    if (message.id != null) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Delete thành công với id: ${message.id}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Lỗi khi delete error: ${message.error}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(context, "Deleted Session", Toast.LENGTH_SHORT).show()
                 }
             }
         }

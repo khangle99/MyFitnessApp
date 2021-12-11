@@ -11,6 +11,7 @@ import com.khangle.myfitnessapp.model.AppBodyStat
 import com.khangle.myfitnessapp.model.BodyStat
 import com.khangle.myfitnessapp.model.user.PlanDay
 import com.khangle.myfitnessapp.model.user.UserStat
+import com.khangle.myfitnessapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +20,7 @@ import retrofit2.http.Body
 import javax.inject.Inject
 
 @HiltViewModel
-class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAppRepository): ViewModel() {
+class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAppRepository): BaseViewModel() {
 
     private val uid = FirebaseAuth.getInstance().uid!!
 
@@ -27,7 +28,9 @@ class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAp
     val appBodyStatList: LiveData<List<AppBodyStat>> = _appBodyStatList
     fun getAppBodyStatList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _appBodyStatList.postValue(repository.getAppBodyStat())
+            handleResponse {
+                _appBodyStatList.postValue(repository.getAppBodyStat())
+            }
         }
     }
 
@@ -36,38 +39,36 @@ class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAp
 
     fun getStatHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.getBodyStat(uid)
-            withContext(Dispatchers.Main) {
-                _bodyStatList.value = res
-            }
+           handleResponse {
+               val res = repository.getBodyStat(uid)
+               withContext(Dispatchers.Main) {
+                   _bodyStatList.value = res
+               }
+           }
 
         }
     }
 
     fun addOtherStat(stat: BodyStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.inserOthertStat(uid, stat)
-            withContext(Dispatchers.Main) {
-                handle(res)
+            handleResponse(handle) {
+                val res = repository.inserOthertStat(uid, stat)
+                withContext(Dispatchers.Main) {
+                    handle(res)
+                }
             }
         }
     }
 
-//    fun updateOtherStat(stat: BodyStat, handle: (ResponseMessage) -> Unit) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val res = repository.inserOthertStat(uid, stat)
-//            withContext(Dispatchers.Main) {
-//                handle(res)
-//            }
-//        }
-//    }
 
     fun removeOtherStat(stat: BodyStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res =  repository.deleteOtherStat(uid, stat.id)
-            withContext(Dispatchers.Main) {
-                handle(res)
-            }
+           handleResponse(handle) {
+               val res =  repository.deleteOtherStat(uid, stat.id)
+               withContext(Dispatchers.Main) {
+                   handle(res)
+               }
+           }
 
         }
     }
