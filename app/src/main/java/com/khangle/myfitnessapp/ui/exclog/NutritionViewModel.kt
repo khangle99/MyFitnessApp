@@ -9,6 +9,7 @@ import com.khangle.myfitnessapp.model.AppBodyStat
 import com.khangle.myfitnessapp.model.BodyStat
 import com.khangle.myfitnessapp.model.Excercise
 import com.khangle.myfitnessapp.model.user.ExcLog
+import com.khangle.myfitnessapp.model.user.UserStat
 import com.khangle.myfitnessapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -79,6 +80,27 @@ class NutritionViewModel @Inject constructor(private val repository: MyFitnessAp
             }
         }
 
+        }
+    }
+    private var _userStats = MutableLiveData<List<UserStat>>()
+    val userStat: LiveData<List<UserStat>> = _userStats
+    fun fetchWHStat() {
+        viewModelScope.launch(Dispatchers.IO) {
+            handleResponse {
+                repository.fetchStatisticList(uid).sortedWith(Comparator { o1, o2 ->
+                    val d1 = o1.dateString.toFormatDate()
+                    val d2 = o2.dateString.toFormatDate()
+                    if (d1!!.before(d2)) {
+                        return@Comparator 1
+                    } else if (d1.after(d2)) {
+                        return@Comparator -1
+                    } else {
+                        return@Comparator 0
+                    }
+                })?.let {
+                    _userStats.postValue(it)
+                }
+            }
         }
     }
 

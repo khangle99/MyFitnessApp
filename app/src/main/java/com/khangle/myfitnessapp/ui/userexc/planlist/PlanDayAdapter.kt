@@ -42,7 +42,7 @@ class PlanDayAdapter(val onItemclick: (item: PlanDay) -> Unit):
         }
         fun bind(planDay: PlanDay) {
             item = planDay
-            nameTv.text = planDay.exc?.name
+            nameTv.text = planDay.exc?.name ?: "Deleted Excercise"
             difficultyTv.text = dayList[planDay.day.toInt()]
           //  addtimesTv.setText(excercise.addedCount.toString())
         }

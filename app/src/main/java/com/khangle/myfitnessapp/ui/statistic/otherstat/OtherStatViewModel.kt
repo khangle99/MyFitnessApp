@@ -29,7 +29,7 @@ class OtherStatViewModel @Inject constructor(private val repository: MyFitnessAp
     fun getAppBodyStatList() {
         viewModelScope.launch(Dispatchers.IO) {
             handleResponse {
-                _appBodyStatList.postValue(repository.getAppBodyStat())
+                _appBodyStatList.postValue(repository.getAppBodyStat().filter { it.id != "0" })
             }
         }
     }

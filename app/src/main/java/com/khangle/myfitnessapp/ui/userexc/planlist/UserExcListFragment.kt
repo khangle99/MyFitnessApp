@@ -82,9 +82,16 @@ class UserExcListFragment : Fragment() {
             if (selectDay == null || selectDay.size == 0) {
                 Toast.makeText(context, "Chua co bai tap cho ngay hom nay", Toast.LENGTH_SHORT).show()
             } else {
-                val intent = Intent(requireContext(), WorkoutActivity::class.java)
-                intent.putExtras(bundleOf("dayList" to selectDay))
-                startActivity(intent)
+
+                if (selectDay.first().exc?.id != null) {
+                    val intent = Intent(requireContext(), WorkoutActivity::class.java)
+                    intent.putExtras(bundleOf("dayList" to selectDay))
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(context, "Bai tap ngay hom nay da bi xoa", Toast.LENGTH_SHORT).show()
+                }
+
+
             }
         }
 

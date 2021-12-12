@@ -69,6 +69,7 @@ class NutritionCategoryFragment : Fragment() {
         selectDayInfoTV = view.findViewById(R.id.selectDayInfo)
         summarizeTV = view.findViewById(R.id.excerciseSumTV)
         setupCalendar()
+        viewModel.fetchWHStat()
         viewModel.excercises.observe(viewLifecycleOwner) { list ->
             var str = ""
             list.groupBy { it.id }
@@ -96,9 +97,9 @@ class NutritionCategoryFragment : Fragment() {
 
             /* giai thuat :
                 group exclog cho nhung bt nao duoc tap hon 4 tuan
-                tu exclog -> excer -> statEnsure map
-                lay ra lastest record (lay tu list body) ve stat trong statEnsure yeu cau (for statensure)
-                so voi first record of the month
+                tu exclog -> excer(if exist) -> statEnsure map -> duyet tung stat
+                lay ra lastest record (lay tu list body or tu weight neu chon weight) ve stat trong statEnsure yeu cau (for statensure)
+                so voi first record of the month (querry trong thang thoi)
              */
 
             lifecycleScope.launch(Dispatchers.Default) {
@@ -116,17 +117,29 @@ class NutritionCategoryFragment : Fragment() {
                         for ((statName, value) in fromJson.entrySet()) { // each ensure of excercise
                             val appBodyStat = viewModel.appBodyStatList.value?.find { it.name == statName  } // reference body stat id
                             if (appBodyStat != null) {
-                                // lastest record is first (ordered at vm)
-                                val lastestRecord = viewModel.bodyStatList.value?.find { it.statId == appBodyStat.id && it.dateString.isSameMonth("10/${selectMonthStr}/2021") }
 
-                                if (lastestRecord != null) {
-                                    val firstRecordValue = viewModel.bodyStatList.value?.findLast {
-                                        it.statId == appBodyStat.id && it.dateString.isSameMonth(lastestRecord.dateString)
-                                    }?.value ?: ""
-                                    reportMessage += compareCurrentStatWithEnsure(firstRecordValue, lastestRecord.value, value.asString, statName, appBodyStat.unit)
+                                if (appBodyStat.equals("Weight")) {
+                                    val lastestOfMonth = viewModel.userStat.value?.find { it.dateString.isSameMonth("10/${selectMonthStr}/2021") }
+                                    val firstOfMonth = viewModel.userStat.value?.findLast { it.dateString.isSameMonth("10/${selectMonthStr}/2021") }
+                                    if (firstOfMonth != null && lastestOfMonth != null) {
+                                        reportMessage += compareCurrentStatWithEnsure(firstOfMonth.weight.toString(),lastestOfMonth.weight.toString(),value.asString,"Weight", "Kg")
+                                    }
                                 } else {
-                                    reportMessage += "+ ${statName}: Chưa có record nào được ghi về chỉ số này \n"
+                                    // lastest record is first (ordered at vm)
+                                    val lastestRecord = viewModel.bodyStatList.value?.find { it.statId == appBodyStat.id && it.dateString.isSameMonth("10/${selectMonthStr}/2021") }
+
+                                    if (lastestRecord != null) {
+                                        val firstRecordValue = viewModel.bodyStatList.value?.findLast {
+                                            it.statId == appBodyStat.id && it.dateString.isSameMonth(lastestRecord.dateString)
+                                        }?.value ?: ""
+                                        reportMessage += compareCurrentStatWithEnsure(firstRecordValue, lastestRecord.value, value.asString, statName, appBodyStat.unit)
+                                    } else {
+                                        reportMessage += "+ ${statName}: Chưa có record nào được ghi về chỉ số này \n"
+                                    }
                                 }
+
+
+
 
                             } else {
                                 reportMessage += "+ ${statName}: Tên stat đã bị thay đổi, admin sẽ cập nhật sau \n"
