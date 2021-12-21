@@ -70,7 +70,7 @@ public class UpcomingExercisesAdapter extends RecyclerView.Adapter<UpcomingExerc
     @Override
     public void onBindViewHolder(ExerciseViewHolder holder, int position) {
         holder.name.setText(exercises.get(beg + position).getExc().getName());
-        holder.reps.setText(String.format(Locale.ENGLISH, "X %d", exercises.get(beg + position).getExc().getNoTurn()));
+      //  holder.reps.setText(String.format(Locale.ENGLISH, "X %d", exercises.get(beg + position).getExc().getNoTurn()));
     }
 
     @Override

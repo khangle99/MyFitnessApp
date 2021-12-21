@@ -14,13 +14,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
+import com.google.gson.Gson
 import com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.extension.commitAnimate
 import com.khangle.myfitnessapp.ui.userexc.plandetail.UserExcDetailFragment
-import com.khangle.myfitnessapp.ui.userexc.planlist.packagePick.ExcPackageActivity
+import com.khangle.myfitnessapp.ui.userexc.workout.LevelPickFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
-
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -84,12 +84,21 @@ class UserExcListFragment : Fragment() {
             } else {
 
                 if (selectDay.first().exc?.id != null) {
-                    val intent = Intent(requireContext(), WorkoutActivity::class.java)
-                    intent.putExtras(bundleOf("dayList" to selectDay))
-                    startActivity(intent)
+                    val fragment = LevelPickFragment {
+                         val intent = Intent(requireContext(), WorkoutActivity::class.java)
+                         intent.putExtras(bundleOf("dayList" to selectDay, "selectLevel" to it))
+                         startActivity(intent)
+                    }
+                    fragment.arguments = bundleOf(
+                        "excName" to selectDay.first().exc!!.name,
+                        "levelMapString" to Gson().toJson(selectDay.first().exc!!.levelJSON)
+                    )
+                    fragment.show(childFragmentManager,"selectLevel")
+
                 } else {
                     Toast.makeText(context, "Bai tap ngay hom nay da bi xoa", Toast.LENGTH_SHORT).show()
                 }
+
 
 
             }

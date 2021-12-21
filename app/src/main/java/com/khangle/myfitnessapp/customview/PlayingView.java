@@ -47,6 +47,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.khangle.myfitnessapp.R;
+import com.khangle.myfitnessapp.model.Excercise;
 import com.khangle.myfitnessapp.model.user.PlanDay;
 
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
 
     private final static String TAG = "PLAYVIEW";
     private final float RATIO = 0.2f;
+    public String selectLevel;
     private TextToSpeech textToSpeech;
     //Current state variables:
     private ArrayList<PlanDay> exercises;
@@ -234,8 +236,12 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
 
     private void drawProgressCircle(Canvas canvas) {
         double timeRatio = 0;
-        if (timePassed > 0)
-            timeRatio = timePassed / exercises.get(index).getExc().getNoSec() * 2 * Math.PI;
+        Excercise exc = exercises.get(index).getExc();
+        if (timePassed > 0)  {
+            int sec = exc.getLevelJSON().get(selectLevel)[1];
+            timeRatio = timePassed / sec * 2 * Math.PI;
+        }
+
 
         if (paused) {
             long timeElap = System.nanoTime() - tappedTime;
@@ -258,7 +264,9 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
     private void drawRingText(Canvas canvas) {
         String text;
         if(true) {
-            text = Integer.toString(exercises.get(index).getExc().getNoTurn() - turnsPassed);
+            Excercise exc = exercises.get(index).getExc();
+            int turn = exc.getLevelJSON().get(selectLevel)[0];
+            text = Integer.toString(turn - turnsPassed);
         } else {
             text = Integer.toString(turnsPassed);
         }
@@ -304,7 +312,10 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
 
     private void drawEstimatedTime(Canvas canvas) {
         PlanDay ex = exercises.get(index);
-        float timePassedInEx = turnsPassed * (ex.getExc().getNoSec() + ex.getExc().getNoGap()) + timePassed;
+        Excercise exc = exercises.get(index).getExc();
+        int sec = exc.getLevelJSON().get(selectLevel)[1];
+        int gap = exc.getLevelJSON().get(selectLevel)[2];
+        float timePassedInEx = turnsPassed * (sec + gap) + timePassed;
         int leftTime = (int) (timeLeftAfterCurrentExercise + timeForExerciseAt[index] - timePassedInEx);
         String mins = getTwoDigitStringFor(leftTime / 60);
         String secs = getTwoDigitStringFor(leftTime % 60);
@@ -353,9 +364,11 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
             deltaX = (float) Math.pow(change / outerRadius, 3) * RATIO;
             Log.d(TAG, "deltaX: " + deltaX);
             timePassed += deltaX;
-
+            Excercise exc = exercises.get(index).getExc();
+            int sec = exc.getLevelJSON().get(selectLevel)[1];
+            int turn = exc.getLevelJSON().get(selectLevel)[0];
             if (timePassed < 0 && deltaX < 0) {
-                timePassed = exercises.get(index).getExc().getNoSec();
+                timePassed = sec;
                 if (turnsPassed <= 0) {
                     setIndex(getIndex() - 1); //index--
                     if (index < 0) {
@@ -363,8 +376,8 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
                         turnsPassed = 0;
                         timePassed = 0;
                     } else {
-                        turnsPassed = exercises.get(index).getExc().getNoTurn() - 1;
-                        timePassed = exercises.get(index).getExc().getNoSec();
+                        turnsPassed = turn - 1;
+                        timePassed = sec;
                     }
                 } else {
                     turnsPassed--;
@@ -382,14 +395,18 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
         if (!paused)
             timePassed += (System.nanoTime() - time) / Math.pow(10, 9);
         time = System.nanoTime();
-        float tpt = exercises.get(index).getExc().getNoSec();
+        Excercise exc = exercises.get(index).getExc();
+        int sec = exc.getLevelJSON().get(selectLevel)[1];
+        int turn = exc.getLevelJSON().get(selectLevel)[0];
+        int gap = exc.getLevelJSON().get(selectLevel)[2];
+        float tpt = sec;
         if (timePassed > tpt) {
             turnsPassed++;
             turnFinishListener.onNextTurn(turnsPassed);
-            if (turnsPassed != exercises.get(index).getExc().getNoTurn() && currentTappedX == -1) {
+            if (turnsPassed != turn && currentTappedX == -1) {
                 final String text;
                 if(true)
-                    text = exercises.get(index).getExc().getNoTurn() - turnsPassed + "to go";
+                    text = turn - turnsPassed + "to go";
                 else text = turnsPassed + " completed";
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -402,17 +419,19 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
                     }
                 }, 300);
             }
-            if (turnsPassed >= exercises.get(index).getExc().getNoTurn()) {
+            if (turnsPassed >= turn) {
                 timePassed = -gapBetweenExercises;
                 setIndex(getIndex() + 1); //index++
                 turnsPassed = 0;
 
-            } else timePassed = 0 - exercises.get(index).getExc().getNoGap();
+            } else timePassed = 0 - gap;
         }
     }
 
     private void updateTimers() {
-        int currSec = (int) (Math.max(0, timePassed) / exercises.get(index).getExc().getNoSec() * 10);
+        Excercise exc = exercises.get(index).getExc();
+        int sec = exc.getLevelJSON().get(selectLevel)[1];
+        int currSec = (int) (Math.max(0, timePassed) / sec * 10);
         if(timePassed < 0) currSec = 10;
         if (currSec != prevSec) {
             //Skip very first count
@@ -648,8 +667,12 @@ public class PlayingView extends View implements TextToSpeech.OnInitListener, Ex
         timeForExerciseAt = new int[exercises.size()];
         for (int i = 0; i < exercises.size(); i++) {
             PlanDay exercise = exercises.get(i);
-            timeForExerciseAt[i] = (int) (exercise.getExc().getNoTurn() * exercise.getExc().getNoSec()
-                    + (exercise.getExc().getNoTurn() - 1) * exercise.getExc().getNoGap());
+            Excercise exc = exercise.getExc();
+            int turn = exc.getLevelJSON().get(selectLevel)[0];
+            int sec = exc.getLevelJSON().get(selectLevel)[1];
+            int gap = exc.getLevelJSON().get(selectLevel)[2];
+            timeForExerciseAt[i] = (int) (turn * sec
+                    + (turn - 1) * gap);
         }
     }
     /*        Utility methods end        */

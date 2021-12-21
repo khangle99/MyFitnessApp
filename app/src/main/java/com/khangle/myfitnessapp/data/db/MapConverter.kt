@@ -17,3 +17,17 @@ class MapConverter {
         return gson.toJson(map)
     }
 }
+
+class LevelMapConverter {
+    @TypeConverter
+    fun fromString(value: String): Map<String, Array<Int>> {
+        val mapType = object : TypeToken<Map<String, Array<Int>>>() {}.type
+        return Gson().fromJson(value, mapType)
+    }
+
+    @TypeConverter
+    fun fromStringMap(map: Map<String, Array<Int>>): String {
+        val gson = Gson()
+        return gson.toJson(map)
+    }
+}

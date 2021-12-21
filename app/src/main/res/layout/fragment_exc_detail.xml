@@ -125,43 +125,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:id="@+id/levelLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:hint="Số lượt"
-                android:layout_margin="12dp"
-                android:padding="10dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:inputType="number"
-                android:background="@drawable/rounded_bkg"
-                android:id="@+id/excNoTurn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:hint="Số giây"
-                android:layout_margin="12dp"
-                android:padding="10dp"
-                android:inputType="number"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_bkg"
-                android:id="@+id/excNoSec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:hint="Số giây "
-                android:layout_margin="12dp"
-                android:padding="10dp"
-                android:layout_weight="1"
-                android:inputType="number"
-                android:background="@drawable/rounded_bkg"
-                android:id="@+id/excNoGap"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
         <TextView
             android:layout_margin="18dp"
             android:textSize="24sp"

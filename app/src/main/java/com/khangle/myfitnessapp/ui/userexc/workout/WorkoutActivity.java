@@ -58,6 +58,7 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
     private static final String TAG = "EXACTIVITY";
     public static Session session;
     PlayingView playingView;
+    String selectLevelKey = "";
     TextView messageTV;
     RecyclerView recyclerView;
     UpcomingExercisesAdapter adapter;
@@ -72,9 +73,10 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
         exercises = getIntent().getParcelableArrayListExtra("dayList");
-
+        selectLevelKey = getIntent().getStringExtra("selectLevel");
         setContentView(R.layout.activity_workout);
         setupView();
+        playingView.selectLevel = selectLevelKey;
         playingView.addIntegerChangeListener(this);
         playingView.addFinishListener(this);
         playingView.addTurnFinishListener(this);
@@ -113,10 +115,17 @@ public class WorkoutActivity extends AppCompatActivity implements IntegerChangeL
 
         try {
             int weight = viewModel.getCurrentWeight().getValue();
-            int totalCalories = (int) (exc.getCaloFactor() * (exc.getNoSec()/60.0) * weight * turnPassed);
-            String message = "Current calories: "+ totalCalories + "\n";
-            String nutriStr = calculateNutri(exc.getNutriFactor(), totalCalories);
-            messageTV.setText(message + nutriStr);
+            if (exc.getLevelJSON().get(selectLevelKey) != null) {
+                int excerciseSec = exc.getLevelJSON().get(selectLevelKey)[1];
+                int totalCalories = (int) (exc.getCaloFactor() * (excerciseSec/60.0) * weight * turnPassed);
+                String message = "Current calories: "+ totalCalories + "\n";
+                String nutriStr = calculateNutri(exc.getNutriFactor(), totalCalories);
+                messageTV.setText(message + nutriStr);
+            } else {
+                messageTV.setText("Level not exist");
+            }
+
+
         } catch (Exception e) {
             messageTV.setText("Need at least one weight record to calculate");
         }

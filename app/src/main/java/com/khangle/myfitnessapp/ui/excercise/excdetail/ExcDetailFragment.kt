@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
+import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.khangle.myfitnessapp.R
@@ -27,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ExcDetailFragment : Fragment() {
     lateinit var stepLayout: LinearLayout
     lateinit var achievementLayout: LinearLayout
+    lateinit var levelLayout: LinearLayout
     private lateinit var titleTextView: TextView
     private lateinit var difficultyTextView: TextView
     private lateinit var equipmentTextView: TextView
@@ -34,13 +36,12 @@ class ExcDetailFragment : Fragment() {
     lateinit var selectedDifficulty: Difficulty
     private lateinit var excercise: Excercise
     private lateinit var addExcerciseBtn: Button
-    lateinit var noTurnEditText: TextView
-    lateinit var noGapEditText: TextView
-    lateinit var noSecEditText: TextView
+
     lateinit var caloFactorEditText: TextView
     private val viewmodel: ExcDetailViewModel by viewModels()
 
     private val stepTicketList = mutableListOf<View>()
+    private val levelTicketList = mutableListOf<View>()
     private val stepEditTextList = mutableListOf<TextView>()
     private val stepPicImageViewList = mutableListOf<ImageView>() // uri dc luu thong qua tag
     private var achievementTicketList = mutableListOf<View>()
@@ -51,10 +52,9 @@ class ExcDetailFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_exc_detail, container, false)
         stepLayout = view.findViewById(R.id.stepLayout)
         achievementLayout = view.findViewById(R.id.achievementLayout)
+        levelLayout = view.findViewById(R.id.levelLayout)
         titleTextView = view.findViewById(R.id.titleTV)
-       noTurnEditText = view.findViewById(R.id.excNoTurn)
-       noGapEditText = view.findViewById(R.id.excNoGap)
-        noSecEditText = view.findViewById(R.id.excNoSec)
+
 
         caloFactorEditText = view.findViewById(R.id.caloFactor)
         difficultyTextView = view.findViewById(R.id.difficultyTv)
@@ -94,9 +94,6 @@ class ExcDetailFragment : Fragment() {
 
         equipmentTextView.setText(excercise.equipment)
 
-        noTurnEditText.setText(excercise.noTurn.toString() + " Lần")
-        noGapEditText.setText(excercise.noGap.toString() + " Giầy nghỉ")
-        noSecEditText.setText(excercise.noSec.toString()+ " Giây")
         caloFactorEditText.setText(excercise.caloFactor.toString()+ " Kcal/Kg/Minute")
         stepLayout.removeAllViews()
         achievementLayout.removeAllViews()
@@ -114,6 +111,15 @@ class ExcDetailFragment : Fragment() {
                 it.tag = urlString
             }
         }
+        // load level ticket
+        excercise.levelJSON.forEach { levelTitle, timeArray ->
+            val view = onAddLevel()
+            view.findViewById<TextView>(R.id.levelTitle).setText(levelTitle)
+            view.findViewById<TextView>(R.id.excNoSec).setText(timeArray[1].toString() + " Giây")
+            view.findViewById<TextView>(R.id.excNoTurn).setText(timeArray[0].toString() + " Lần")
+            view.findViewById<TextView>(R.id.excNoGap).setText(timeArray[2].toString() + " Giầy nghỉ")
+        }
+
         //load achievement tu json string map -> sang view voi moi entries
         val fromJson = Gson().fromJson(excercise.achieveEnsure, JsonObject::class.java)
         for ((key, value) in fromJson.entrySet()) {
@@ -155,6 +161,14 @@ class ExcDetailFragment : Fragment() {
 
         stepLayout.addView(stepTicket,stepLayout.childCount)
         return stepTicket
+    }
+
+    private fun onAddLevel(): View {
+        val levelTicket = layoutInflater.inflate(R.layout.view_level_ticket, null)
+
+        levelTicketList.add(levelTicket)
+        levelLayout.addView(levelTicket,levelLayout.childCount)
+        return levelTicket
     }
 
 }
