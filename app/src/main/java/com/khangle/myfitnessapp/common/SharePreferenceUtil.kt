@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 
 class SharePreferenceUtil constructor(private val pref: SharedPreferences) {
     val STEP_GOAL = "STEP_GOAL"
+    val START_STEP = "START_STEP"
+    val TIME_GOAL = "TIME_GOAL"
     val PREV_STEP = "PREV_STEP"
 
     fun setStepGoal(value: Int) {
@@ -15,6 +17,27 @@ class SharePreferenceUtil constructor(private val pref: SharedPreferences) {
 
     fun getStepGoal(): Int {
         return pref.getInt(STEP_GOAL, 0)
+    }
+
+
+    fun setTimeGoal(value: Int) {
+        pref.edit()
+            .putInt(TIME_GOAL, value)
+            .apply()
+    }
+
+    fun getTimeGoal(): Int {
+        return pref.getInt(TIME_GOAL, 0)
+    }
+
+    fun setStartStep(value: Int) {
+        pref.edit()
+            .putInt(START_STEP, value)
+            .apply()
+    }
+
+    fun getStartStep(): Int {
+        return pref.getInt(START_STEP, 0)
     }
 
     fun setPreviousDayStep(value: Int) {

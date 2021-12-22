@@ -33,12 +33,14 @@
         <entry key="app/src/main/res/layout/fragment_nutri_ref.xml" value="0.2720806164789567" />
         <entry key="app/src/main/res/layout/fragment_nutrition.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_rating_dialog.xml" value="0.29635416666666664" />
+        <entry key="app/src/main/res/layout/fragment_run_track.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_stat_history.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/fragment_stat_report.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_statistic.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_step_goal_dialog.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_step_history.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_step_report.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/fragment_step_time_goal_dialog.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_step_track.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_user_exc_detail.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_user_exc_list.xml" value="0.34010416666666665" />

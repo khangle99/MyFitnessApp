@@ -93,6 +93,9 @@ dependencies {
     // zoom photoview
     implementation 'com.jsibbold:zoomage:1.3.1'
 
+    // speedometer
+    implementation 'com.github.anastr:speedviewlib:1.6.0'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

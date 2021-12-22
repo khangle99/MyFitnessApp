@@ -43,18 +43,37 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/startWorkoutBtn"
-            android:visibility="invisible"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:text="Bắt đầu tập hôm nay"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:layout_width="250dp"
-            android:layout_height="80dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/startWorkoutBtn"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="Bắt đầu tập hôm nay"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:layout_width="250dp"
+                android:layout_height="80dp"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/startRunBtn"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="Chạy"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:layout_width="250dp"
+                android:layout_height="80dp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ProgressBar

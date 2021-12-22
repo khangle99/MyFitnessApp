@@ -18,7 +18,9 @@ import com.google.gson.Gson
 import com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity
 import com.khangle.myfitnessapp.R
 import com.khangle.myfitnessapp.extension.commitAnimate
+import com.khangle.myfitnessapp.ui.excercise.exclist.ExcListFragment
 import com.khangle.myfitnessapp.ui.userexc.plandetail.UserExcDetailFragment
+import com.khangle.myfitnessapp.ui.userexc.runtrack.RunTrackFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.LevelPickFragment
 import com.khangle.myfitnessapp.ui.userexc.workout.WorkoutActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,7 @@ class UserExcListFragment : Fragment() {
     private lateinit var excListRecyclerView: RecyclerView
     private lateinit var userListAdapter: PlanDayAdapter
     private lateinit var startWorkoutBtn: Chip
+    private lateinit var startRunBtn: Chip
     private lateinit var choosePackage: Chip
     lateinit var progressBar: ProgressBar
 
@@ -43,6 +46,7 @@ class UserExcListFragment : Fragment() {
         nameTV = view.findViewById(R.id.sessionNameTv)
         excListRecyclerView = view.findViewById(R.id.userexcList)
         startWorkoutBtn = view.findViewById(R.id.startWorkoutBtn)
+        startRunBtn = view.findViewById(R.id.startRunBtn)
         progressBar = view.findViewById(R.id.excListProgress)
         choosePackage = view.findViewById(R.id.choosePackage)
         return view
@@ -56,8 +60,10 @@ class UserExcListFragment : Fragment() {
             if(it.isNotEmpty()) {
                 userListAdapter.submitList(it)
                 startWorkoutBtn.visibility = View.VISIBLE
+                startRunBtn.visibility = View.VISIBLE
             } else {
                 startWorkoutBtn.visibility = View.INVISIBLE
+                startRunBtn.visibility = View.INVISIBLE
                 Toast.makeText(context,"No Excercise added", Toast.LENGTH_SHORT).show()
             }
         }
@@ -100,6 +106,16 @@ class UserExcListFragment : Fragment() {
                 }
 
 
+
+            }
+        }
+
+        startRunBtn.setOnClickListener {
+            val frag = RunTrackFragment()
+            frag.arguments = bundleOf()
+            parentFragmentManager.commitAnimate {
+                addToBackStack(null)
+                replace(R.id.userexcContainer, frag)
 
             }
         }
